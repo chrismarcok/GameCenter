@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Game Centre</string>
+    <string name="info">Passwords must be longer than 5 characters. \n\nUsername and Password fields must not be empty.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to_game_centre">Welcome To Game Centre!</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign-Up</string>
+    <string name="game_centre">GAME CENTRE</string>
+    <string name="sliding_tiles">Sliding Tiles</string>
+    <string name="current_score">Current Score</string>
+    <string name="high_score">High Score</string>
+    <string name="none">None</string>
+    <string name="new_game">New Game</string>
+    <string name="load_game">Load Game</string>
+    <string name="scoreboard">Scoreboard</string>
+    <string name="number_of_undos">Number of Undos</string>
+    <string name="allow_unlimited_undos">Allow Unlimited Undos</string>
+    <string name="three">3</string>
+    <string name="game_type">Game Type</string>
+    <string name="x">X</string>
+    <string name="exclamation_mark">!</string>
+    <string name="submit">Submit</string>
+    <string name="triple_dash">---</string>
+    <string name="unknown">Unknown</string>
+    <string name="double_zero">00</string>
+    <string name="top_score">Top Score</string>
+    <string name="no_scores_exist">No scores exist!</string>
+    <string name="game_name_uppercase">GAME NAME</string>
+    <string name="score_0">SCORE: 0</string>
+    <string name="zero">0</string>
+    <string name="sliding_tiles_info">Sliding Tiles is a game where you must
+        order the tiles numerically using the least number of moves to win!
+        \n\n Click New Game to select the dimensions of the game and the amount
+        of undos you wish to play with. \n\n Click Load Game to load a previously
+        saved game. \n\n Click scoreboard to view how well you stack up against
+        other players!</string>
+</resources>
