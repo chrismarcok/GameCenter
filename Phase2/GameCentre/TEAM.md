@@ -60,3 +60,13 @@ App Design and flowchart:
 * Helped each other understand the new code written as well as concepts such as fragments and ways
 to build the UI/use XML.
 
+## November 12, 2018
+
+* Want to make 2048 game, Snake game. Other options are sudoku, solitaire, piano tiles, bejewelled, checkers.
+* 2048 Can have undo and a meaningful autosave.
+* Snake will not have undo. Could have saving functionality.
+* Sudoku will have autosave and undo.
+* Can make "Threes" game instead of 2048.
+* Snake and 2048 use swiping gesture to control. Sudoku has the user tap and select (possibly each tile is a edittext).
+* Presentation will be discussed later.
+* Sliding Tiles solvable boards will be done via random moves from a solved state, can be refactored to check if the state is valid later.
