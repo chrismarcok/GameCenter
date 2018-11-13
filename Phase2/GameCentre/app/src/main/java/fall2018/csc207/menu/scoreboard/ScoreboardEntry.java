@@ -10,10 +10,12 @@ import android.support.annotation.NonNull;
 public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> {
     private String name;
     private int score;
+    private String game;
 
-    public ScoreboardEntry(String name, int score) {
+    public ScoreboardEntry(String name, String game, int score) {
         this.name = name;
         this.score = score;
+        this.game = game;
     }
 
     /**
@@ -34,6 +36,22 @@ public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> 
         return score;
     }
 
+    /**
+     * Set this entry's game to g.
+     * @param g The name of the game.
+     */
+    public void setGame(String g) {
+        this.game = g;
+    }
+
+    /**
+     * Gets the game of this entry.
+     *
+     * @return The game of this entry.
+     */
+    public String getGame() {
+        return game;
+    }
 
     /**
      * Info about the parcelable.
@@ -55,6 +73,7 @@ public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> 
     public void writeToParcel(Parcel parcel, int flags) {
         parcel.writeString(name);
         parcel.writeInt(score);
+        parcel.writeString(game);
     }
 
     /**
@@ -80,7 +99,7 @@ public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> 
          * @return The newly created ScoreboardEntry.
          */
         public ScoreboardEntry createFromParcel(Parcel in) {
-            return new ScoreboardEntry(in.readString(), in.readInt());
+            return new ScoreboardEntry(in.readString(), in.readString(), in.readInt());
         }
 
         /**

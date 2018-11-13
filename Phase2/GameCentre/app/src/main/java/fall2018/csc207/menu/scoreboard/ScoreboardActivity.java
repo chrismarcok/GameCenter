@@ -39,7 +39,6 @@ public class ScoreboardActivity extends AppCompatActivity {
             scores.put(game, getEntries(game, db));
         }
         setupScoreboardFragments();
-
     }
 
     /*

@@ -1,5 +1,6 @@
 package fall2018.csc207.menu;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,10 @@ import fall2018.csc207.menu.scoreboard.ScoreboardEntry;
 import fall2018.csc207.slidingtiles.SlidingTilesFragment;
 import fall2018.csc207.slidingtiles.R;
 import fall2018.csc207.slidingtiles.TileSettings;
+import fall2018.csc207.sudoku.SudokuFragment;
+import fall2018.csc207.sudoku.SudokuSettings;
+import fall2018.csc207.twentyfortyeight.TwentyFortyEightFragment;
+import fall2018.csc207.twentyfortyeight.TwentyFortyEightSettings;
 
 /**
  * The Game Centre Activity class
@@ -51,9 +56,7 @@ public class GameCentreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_centre);
 
-        int userScore = 0;
-        username = getIntent().getStringExtra(GameMainActivity.USERNAME);
-
+        username = getIntent().getStringExtra(USERNAME);
         //Create the LayoutManager
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         RecyclerView recyclerView = findViewById(R.id.gameCentreRecyclerView);
@@ -61,17 +64,7 @@ public class GameCentreActivity extends AppCompatActivity {
         recyclerView.setAdapter(gameCardAdapter);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        //Get a reference to the Database, load the highscore.
-        ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
-        ArrayList<ScoreboardEntry> score = db.fetchTileScores(username);
-
-        username = getIntent().getStringExtra(USERNAME);
-        //Change the highscore if there is one.
-        if (score.size() == 1){
-            userScore = score.get(0).getScore();
-        }
-
-        createGameCards(userScore);
+        createGameCards();
     }
 
     /*
@@ -79,18 +72,65 @@ public class GameCentreActivity extends AppCompatActivity {
      *
      * @param userScore the highscore of the GameCardItem.
      */
-    private void createGameCards(int userScore) {
-        //Add Games to library
-        gameLibrary.put("Sliding Tiles", SlidingTilesFragment.class);
-        settingsLibrary.put("Sliding Tiles", TileSettings.class);
+    private void createGameCards() {
+        addGamesToLibrary();
+        HashMap<String, Drawable> pictureMap = getCardDrawables();
+        HashMap<String, Integer> userHighScores = new HashMap<>();
+
+        //Set the default highscores to 0.
+        for (HashMap.Entry<String, Class> entry : gameLibrary.entrySet()){
+            userHighScores.put(entry.getKey(), 0);
+        }
+
+        //Get a reference to the Database, load the highscores.
+        ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
+        ArrayList<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
+
+        //Fill the highscores of the different games
+        for (ScoreboardEntry entry : userHighScoreList){
+            // If the name is Sliding Tiles 3x3, 4z4 etc change it to just SlidingTiles.
+            if (entry.getGame().contains("Sliding Tiles"))
+                entry.setGame("Sliding Tiles");
+            userHighScores.put(entry.getGame(), entry.getScore());
+        }
 
         // For each game in the game library make a new GameCardItem
         for (HashMap.Entry<String, Class> entry : gameLibrary.entrySet()) {
-            GameCardItem newGame = new GameCardItem(entry.getKey(), userScore, getDrawable(R.drawable.sliding_tiles));
+            String gameName = entry.getKey();
+            GameCardItem newGame = new GameCardItem(gameName, userHighScores.get(gameName), pictureMap.get(gameName));
             gameCardItemList.add(newGame);
         }
 
         gameCardAdapter.notifyDataSetChanged();
+
+
+    }
+
+    /**
+     * Get a hashmap of the game's names and their corresponding pictures.
+     * @return The hashmap of the game's names and their corresponding pictures.
+     */
+    private HashMap<String, Drawable> getCardDrawables() {
+        HashMap<String, Drawable> pictureMap = new HashMap<>();
+        Drawable slidingTiles = getDrawable(R.drawable.sliding_tiles);
+        Drawable twentyFortyEight = getDrawable(R.drawable.twentyfortyeight);
+        Drawable sudoku = getDrawable(R.drawable.sudoku);
+        pictureMap.put("Sliding Tiles", slidingTiles);
+        pictureMap.put("2048", twentyFortyEight);
+        pictureMap.put("Sudoku", sudoku);
+        return pictureMap;
+    }
+
+    /**
+     * Adds the games to the game library and setting library.
+     */
+    private void addGamesToLibrary() {
+        gameLibrary.put("Sliding Tiles", SlidingTilesFragment.class);
+        settingsLibrary.put("Sliding Tiles", TileSettings.class);
+        gameLibrary.put("Sudoku", SudokuFragment.class);
+        settingsLibrary.put("Sudoku", SudokuSettings.class);
+        gameLibrary.put("2048", TwentyFortyEightFragment.class);
+        settingsLibrary.put("2048", TwentyFortyEightSettings.class);
     }
 
     /**

@@ -169,9 +169,12 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
 
         int userScore = 0;
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
-        ArrayList<ScoreboardEntry> score = db.fetchTileScores(username);
-        if (score.size() == 1){
-            userScore = score.get(0).getScore();
+        ArrayList<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
+        for (ScoreboardEntry entry : userHighScoreList){
+            if (entry.getGame().equals(state.getGameName())){
+                userScore = entry.getScore();
+                break;
+            }
         }
         maxScore.setText(String.valueOf(userScore));
     }

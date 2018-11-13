@@ -94,20 +94,28 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
     }
 
     /*
-     * Get all highscores to the database for SlidingTiles Game, for a certain user.
+     * Get all highscores to the database for all games, for a certain user.
      *
-     * @param username The user we want the highscore for.
+     * @param username The user we want the highscores for.
      *
      * @return an ArrayList of ScoreboardEntry with one entry, the highscore entry.
      */
-    public ArrayList<ScoreboardEntry> fetchTileScores(String username){
+    public ArrayList<ScoreboardEntry> fetchUserHighScores(String username){
         SQLiteDatabase db = getWritableDatabase();
 
         //Needs to match the names of the games in TileSettings.java
-        String query = "SELECT username, game, max(score) FROM " + TABLE_NAME +
-                " WHERE username = \"" + username + "\" AND game IN (\"Sliding Tiles 3x3\",\"Sliding Tiles 4x4\",\"Sliding Tiles 5x5\");";
+        String query =
+                //Get the scores of just sliding tiles game.
+                "SELECT username, game, max(score) FROM " + TABLE_NAME +
+                " WHERE username = \"" + username + "\" AND game IN (\"Sliding Tiles 3x3\",\"Sliding Tiles 4x4\",\"Sliding Tiles 5x5\")" +
+                " UNION" +
+                //Get the scores of all other games. Merge the two tables.
+                " SELECT username, game, max(score) FROM " + TABLE_NAME +
+                " WHERE username = \"" + username + "\" AND game IN (\"Sudoku\", \"2048\")" +
+                " GROUP BY game;";
         return getEntriesFromQuery(db, query, "max(score)");
     }
+
 
     @NonNull
     /*
@@ -115,7 +123,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
      *
      * @param db Reference to the db in question.
      * @param query The query we are making to the database.
-     * @param scoreType The name of the score column.
+     * @param scoreType The name of the score column in the table.
      *
      * @return an ArrayList of ScoreboardEntry representing the entries returned from the query. One
      * entry per row in the table.
@@ -132,7 +140,8 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
 
                 String username =  c.getString(c.getColumnIndex("username"));
                 int score = c.getInt(c.getColumnIndex(scoreType));
-                ScoreboardEntry entry = new ScoreboardEntry(username, score);
+                String game = c.getString(c.getColumnIndex("game"));
+                ScoreboardEntry entry = new ScoreboardEntry(username, game, score);
                 scoreList.add(entry);
             }
             c.moveToNext();
