@@ -103,7 +103,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
     public ArrayList<ScoreboardEntry> fetchUserHighScores(String username){
         SQLiteDatabase db = getWritableDatabase();
 
-        //Needs to match the names of the games in TileSettings.java
+        //Needs to match the names of the games in BoardFactory.java
         String query =
                 //Get the scores of just sliding tiles game.
                 "SELECT username, game, max(score) FROM " + TABLE_NAME +
