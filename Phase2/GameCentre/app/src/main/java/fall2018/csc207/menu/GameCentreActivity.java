@@ -14,8 +14,8 @@ import fall2018.csc207.database.ScoreboardDBHandler;
 import fall2018.csc207.menu.gameCard.GameCardAdapter;
 import fall2018.csc207.menu.gameCard.GameCardItem;
 import fall2018.csc207.menu.scoreboard.ScoreboardEntry;
-import fall2018.csc207.slidingtiles.BoardFactory;
 import fall2018.csc207.slidingtiles.R;
+import fall2018.csc207.slidingtiles.SlidingTilesFactory;
 import fall2018.csc207.sudoku.SudokuSettings;
 import fall2018.csc207.twentyfortyeight.TwentyFortyEightSettings;
 
@@ -32,8 +32,8 @@ public class GameCentreActivity extends AppCompatActivity {
     /**
      * Retrieves the factory class for a particular game.
      *
-     * @param gameName The name of the game to retrieve the GameStateFactory for.
-     * @return The GameStateFactory corresponding to the particular game.
+     * @param gameName The name of the game to retrieve the GameFactory for.
+     * @return The GameFactory corresponding to the particular game.
      */
     public static Class getFactoryClass(String gameName) {
         return gameLibrary.get(gameName);
@@ -45,7 +45,7 @@ public class GameCentreActivity extends AppCompatActivity {
       a HashMap inline).
     */
     static {
-        gameLibrary.put("Sliding Tiles", BoardFactory.class);
+        gameLibrary.put("Sliding Tiles", SlidingTilesFactory.class);
         gameLibrary.put("Sudoku", SudokuSettings.class);
         gameLibrary.put("2048", TwentyFortyEightSettings.class);
     }

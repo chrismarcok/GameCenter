@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
 import fall2018.csc207.game.GameState;
 import fall2018.csc207.menu.scoreboard.ScoreboardActivity;
@@ -32,9 +33,9 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private String username;
     /**
-     * The GameStateFactory for this game.
+     * The GameFactory for this game.
      */
-    private GameStateFactory gameFactory;
+    private GameFactory gameFactory;
     /**
      * The name of the game that we're playing. We should be able to use this to retrieve the game factory.
      */
@@ -53,7 +54,7 @@ public class GameMenuActivity extends AppCompatActivity {
         username = intent.getStringExtra(GameMainActivity.USERNAME);
         gameName = intent.getStringExtra("game");
         try {
-            gameFactory = (GameStateFactory) GameCentreActivity.getFactoryClass(gameName).newInstance();
+            gameFactory = (GameFactory) GameCentreActivity.getFactoryClass(gameName).newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

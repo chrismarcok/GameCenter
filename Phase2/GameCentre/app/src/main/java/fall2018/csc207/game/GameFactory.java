@@ -1,16 +1,14 @@
-package fall2018.csc207.menu;
+package fall2018.csc207.game;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import fall2018.csc207.game.GameState;
-
 /**
  * A class used for generating GameStates and other information needed for games from given settings.
  */
-public abstract class GameStateFactory {
+public abstract class GameFactory {
     /**
-     * A list of settings for this GameStateFactory.
+     * A list of settings for this GameFactory.
      */
     protected final List<Setting> settings = new ArrayList<>();
 
@@ -22,7 +20,7 @@ public abstract class GameStateFactory {
     }
 
     /**
-     * Adds a setting to this GameStateFactory.
+     * Adds a setting to this GameFactory.
      * Should only be used by child classes to add settings.
      *
      * @param setting The setting to add.

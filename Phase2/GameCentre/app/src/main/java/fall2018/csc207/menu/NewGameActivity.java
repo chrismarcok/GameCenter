@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
 import fall2018.csc207.game.GameState;
 import fall2018.csc207.slidingtiles.R;
@@ -30,7 +31,7 @@ public class NewGameActivity extends AppCompatActivity {
     /**
      * The factory we will use for this game.
      */
-    private GameStateFactory gameStateFactory;
+    private GameFactory gameFactory;
     /**
      * The user that opened this activity.
      */
@@ -58,7 +59,7 @@ public class NewGameActivity extends AppCompatActivity {
         username = intent.getStringExtra(USERNAME);
         try {
             Class factoryClass = GameCentreActivity.getFactoryClass(gameName);
-            gameStateFactory = (GameStateFactory) factoryClass.newInstance();
+            gameFactory = (GameFactory) factoryClass.newInstance();
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
@@ -104,7 +105,7 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private void setupSettings() {
         LinearLayout screenView = findViewById(R.id.settings);
-        for (final GameStateFactory.Setting setting : gameStateFactory.getSettings()) {
+        for (final GameFactory.Setting setting : gameFactory.getSettings()) {
             Spinner dropdown = new Spinner(this);
             ArrayAdapter<String> dropdownAdapter = new ArrayAdapter<>(
                     this,
@@ -135,13 +136,13 @@ public class NewGameActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts the game with a state from gameStateFactory.
+     * Starts the game with a state from gameFactory.
      */
     private void startGame() {
         Log.v("Start Game", gameName + " by user " + username);
-        GameState state = gameStateFactory.getGameState(undoSeekbar.getProgress());
+        GameState state = gameFactory.getGameState(undoSeekbar.getProgress());
         Intent tmp = new Intent(NewGameActivity.this, GameMainActivity.class);
-        tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameStateFactory.getGameFragmentClass());
+        tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
         tmp.putExtra(GameMainActivity.GAME_STATE, state);
         tmp.putExtra(GameMainActivity.USERNAME, username);
 

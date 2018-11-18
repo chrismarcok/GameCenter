@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import fall2018.csc207.menu.GameStateFactory;
+import fall2018.csc207.game.GameFactory;
 
 /*
  * Represents the different settings for tiles
  */
-public class BoardFactory extends GameStateFactory {
+public class SlidingTilesFactory extends GameFactory {
     /*
      * The settings for the tile game.
      */
-    public BoardFactory() {
+    public SlidingTilesFactory() {
         addToSettings(new Setting(
                 "Board Size",
                 Arrays.asList("3x3", "4x4", "5x5"),
