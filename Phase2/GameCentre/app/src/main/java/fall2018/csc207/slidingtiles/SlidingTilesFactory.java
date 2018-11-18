@@ -56,6 +56,7 @@ public class SlidingTilesFactory extends GameFactory {
             default:
                 throw new IllegalStateException("This factory's settings is in an illegal state!");
         }
+        board.setMaxUndos(numUndos);
         return board;
     }
 
