@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="fall2018.csc207.menu.SettingsActivity">
+    tools:context="fall2018.csc207.menu.NewGameActivity">
+
+    <Button
+        android:id="@+id/startGame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Start Game"
+        android:textColor="@color/backgroundcolor" />
 
     <TextView
         android:id="@+id/textView"

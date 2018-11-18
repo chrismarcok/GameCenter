@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -62,22 +61,22 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
         TextView title = findViewById(R.id.gameTitle);
         title.setText(state.getGameName());
 
-        if (getIntent().getExtras() != null)
-            username = getIntent().getExtras().getString(GameMainActivity.USERNAME);
+        if (intent.getExtras() != null)
+            username = intent.getStringExtra(GameMainActivity.USERNAME);
 
-        if (getIntent().getExtras().getString("file") != null){
-            fileName = getIntent().getExtras().getString("file");
+        if (intent.getStringExtra("file") != null) {
+            fileName = intent.getStringExtra("file");
         }
         else{ fileName = "temp.bin";}
-        SetupFragment();
-        SetupButtons();
-        SetupScores();
+        setupFragment();
+        setupButtons();
+        setupScores();
     }
 
     /**
      * Creates the fragment with the given FRAGMENT_CLASS and GAME_STATE.
      */
-    private void SetupFragment() {
+    private void setupFragment() {
         Intent intent = getIntent();
         Class fragmentClass = (Class) intent.getSerializableExtra(FRAGMENT_CLASS);
         GameFragment gameFragment;
@@ -100,7 +99,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
     /**
      * Setups the 3 buttons found in this Activity: Back, Save and Undo.
      */
-    private void SetupButtons() {
+    private void setupButtons() {
         Button back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +159,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
     /**
      * Setups the displayed scores.
      */
-    private void SetupScores() {
+    private void setupScores() {
         currentScore = findViewById(R.id.currScore);
         TextView maxScore = findViewById(R.id.maxScore);
 

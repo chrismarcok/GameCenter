@@ -1,6 +1,5 @@
 package fall2018.csc207.slidingtiles;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +9,7 @@ import fall2018.csc207.menu.GameStateFactory;
 /*
  * Represents the different settings for tiles
  */
-public class BoardFactory extends GameStateFactory<Board> {
+public class BoardFactory extends GameStateFactory {
     /*
      * The settings for the tile game.
      */
@@ -42,7 +41,7 @@ public class BoardFactory extends GameStateFactory<Board> {
     }
 
     @Override
-    public Board getGameState(int numUndos, Path path) {
+    public Board getGameState(int numUndos) {
         Board board;
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings anyways
             case "3x3":
@@ -61,7 +60,12 @@ public class BoardFactory extends GameStateFactory<Board> {
     }
 
     @Override
-    public int getGameFragmentID() {
-        return R.layout.fragment_slidingtiles;
+    public Class getGameFragmentClass() {
+        return SlidingTilesFragment.class;
+    }
+
+    @Override
+    public List<String> getGameNames() {
+        return Arrays.asList("Sliding Tiles 3x3", "Sliding Tiles 4x4", "Sliding Tiles 5x5");
     }
 }

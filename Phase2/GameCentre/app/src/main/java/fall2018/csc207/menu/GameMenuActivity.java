@@ -2,8 +2,8 @@ package fall2018.csc207.menu;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
@@ -17,13 +17,10 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
-import fall2018.csc207.database.ScoreboardDBHandler;
 import fall2018.csc207.game.GameMainActivity;
 import fall2018.csc207.game.GameState;
 import fall2018.csc207.menu.scoreboard.ScoreboardActivity;
 import fall2018.csc207.slidingtiles.R;
-
-//TODO: Implement some type of saving/loading functionality
 
 /**
  * The Initial activity for instantiating Games
@@ -31,30 +28,42 @@ import fall2018.csc207.slidingtiles.R;
 public class GameMenuActivity extends AppCompatActivity {
 
     /**
-     * The user that's playing
+     * The user that's currently playing.
      */
     private String username;
-
     /**
-     * Name of game that's being played
+     * The GameStateFactory for this game.
      */
-    private String game;
+    private GameStateFactory gameFactory;
+    /**
+     * The name of the game that we're playing. We should be able to use this to retrieve the game factory.
+     */
+    private String gameName;
+    //TODO: Probably remove this?
     private String fileName;
-    Dialog tilesInfoDialog;
+    private Dialog tilesInfoDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
 
+        Intent intent = getIntent();
+
         //Get name of user and the game.
-        username = getIntent().getStringExtra(GameMainActivity.USERNAME);
-        game = getIntent().getStringExtra("game");
+        username = intent.getStringExtra(GameMainActivity.USERNAME);
+        gameName = intent.getStringExtra("game");
+        try {
+            gameFactory = (GameStateFactory) GameCentreActivity.getFactoryClass(gameName).newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
 
         //The filename will be unique for the player and game.
-        fileName = username + game + ".bin";
+        // TODO: Get filename from dialog box
+        fileName = username + "temp" + ".bin";
         fileName = fileName.replaceAll("\\s", "");
         TextView newName = findViewById(R.id.game_name);
-        newName.setText(game);
+        newName.setText(gameName);
         newGame();
         loadGame();
         initScoreboard();
@@ -68,19 +77,26 @@ public class GameMenuActivity extends AppCompatActivity {
     private void initScoreboard() {
         CardView scoreBoard = findViewById(R.id.score_board);
 
-                scoreBoard.setOnClickListener(new Button.OnClickListener() {
+
+        scoreBoard.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Log.d("Button_clicked", "score Board");
+
                 Intent scoreboardIntent = new Intent(GameMenuActivity.this, ScoreboardActivity.class);
-                Settings setting = GameCentreActivity.getSettings(game);
-                ArrayList<String> settingsList = new ArrayList<>(setting.getSettings().keySet());
-                scoreboardIntent.putStringArrayListExtra("GAME_NAMES", settingsList);
+                ArrayList<String> gameNames = new ArrayList<>(gameFactory.getGameNames());
+                scoreboardIntent.putStringArrayListExtra("GAME_NAMES", gameNames);
                 startActivity(scoreboardIntent);
             }
         });
     }
 
-    public void showSlidingTileInfo(View v){
+    /**
+     * Shows information on SlidingTiles.
+     *
+     * @param v The given view from the onClick method.
+     */
+    public void showSlidingTileInfo(View v) {
+        //TODO: Set this dynamically?
         tilesInfoDialog.setContentView(R.layout.dialogue_slidingtile_instructions);
         TextView infoTxtClose;
         infoTxtClose = tilesInfoDialog.findViewById(R.id.infoTxtCloseInstructions);
@@ -94,7 +110,7 @@ public class GameMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Instantiates the load game button
+     * Instantiates the load game button.
      */
     private void loadGame() {
         CardView loadGame = findViewById(R.id.load_game);
@@ -107,22 +123,25 @@ public class GameMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Instantiates the new game button
+     * Instantiates the new game button.
      */
     private void newGame() {
         CardView newGame = findViewById(R.id.new_game);
         newGame.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Log.d("Button_clicked", "new Game");
-                Intent intent = new Intent(GameMenuActivity.this, SettingsActivity.class);
-                intent.putExtra(GameMainActivity.USERNAME, username);
-                intent.putExtra("game", game);
-                intent.putExtra("file", fileName);
+                Intent intent = new Intent(GameMenuActivity.this, NewGameActivity.class);
+                intent.putExtra(NewGameActivity.USERNAME, username);
+                intent.putExtra(NewGameActivity.GAME_NAME, gameName);
                 startActivity(intent);
             }
         });
     }
 
+    /**
+     * Loads a game from a file.
+     * @param fileName The name of the file to load it from.
+     */
     private void loadFromFile(String fileName) {
 
         try {
@@ -133,7 +152,7 @@ public class GameMenuActivity extends AppCompatActivity {
                 inputStream.close();
 
                 Intent tmp = new Intent(GameMenuActivity.this, GameMainActivity.class);
-                tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, GameCentreActivity.gameLibrary.get(game));
+                tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
                 tmp.putExtra(GameMainActivity.GAME_STATE, gameState);
                 tmp.putExtra(GameMainActivity.USERNAME, username);
                 tmp.putExtra("file", fileName);

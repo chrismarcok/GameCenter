@@ -38,7 +38,8 @@
             android:name="fall2018.csc207.menu.scoreboard.ScoreboardActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name="fall2018.csc207.menu.SettingsActivity"
+        <activity
+            android:name="fall2018.csc207.menu.NewGameActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity android:name="fall2018.csc207.game.GameMainActivity"
