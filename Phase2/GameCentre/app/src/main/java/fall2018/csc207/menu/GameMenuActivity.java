@@ -85,7 +85,7 @@ public class GameMenuActivity extends AppCompatActivity {
 
                 Intent scoreboardIntent = new Intent(GameMenuActivity.this, ScoreboardActivity.class);
                 ArrayList<String> gameNames = new ArrayList<>(gameFactory.getGameNames());
-                scoreboardIntent.putStringArrayListExtra("GAME_NAMES", gameNames);
+                scoreboardIntent.putStringArrayListExtra(ScoreboardActivity.GAME_NAMES, gameNames);
                 startActivity(scoreboardIntent);
             }
         });

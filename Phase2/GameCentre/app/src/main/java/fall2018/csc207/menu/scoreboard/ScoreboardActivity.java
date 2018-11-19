@@ -17,14 +17,18 @@ import java.util.Map;
 import fall2018.csc207.database.ScoreboardDBHandler;
 import fall2018.csc207.slidingtiles.R;
 
-/*
+/**
  * The class corresponding to the activity that creates the scoreboard.
  */
 public class ScoreboardActivity extends AppCompatActivity {
+    /**
+     * An ArrayList<String> containing the names of the games to display in the scoreboard.
+     */
+    public static final String GAME_NAMES = "GAME_NAMES";
     // The key is the game name, value.first is the username, value.second is the score.
     private Map<String, ArrayList<ScoreboardEntry>> scores = new HashMap<>();
 
-    /*
+    /**
      * Creates the scoreboard given the GAME_NAMES ArrayList<String> intent.
      * Each element in GAME_NAMES should correspond to a game name in the Scores database.
      */
@@ -33,7 +37,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        ArrayList<String> gameNames = getIntent().getStringArrayListExtra("GAME_NAMES");
+        ArrayList<String> gameNames = getIntent().getStringArrayListExtra(GAME_NAMES);
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
         for (String game : gameNames) {
             scores.put(game, getEntries(game, db));
@@ -41,7 +45,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         setupScoreboardFragments();
     }
 
-    /*
+    /**
      * Setups the scoreboard fragments based on data obtained from scores.
      */
     private void setupScoreboardFragments() {
@@ -67,7 +71,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    /*
+    /**
      * Gets entries to a specific game. They are sorted in descending order.
      *
      * @param gameName The name of the game that we want the entries of.
