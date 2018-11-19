@@ -124,7 +124,7 @@ public class SlidingTilesFactoryTest {
     @Test
     public void testGet5x5(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
-        boardSize.setCurrentValue(0);
+        boardSize.setCurrentValue(2);
         Board state = stFactory.getGameState(1);
         assert state.numTiles() == 5*5;
         assert state.getMaxUndos() == 1;

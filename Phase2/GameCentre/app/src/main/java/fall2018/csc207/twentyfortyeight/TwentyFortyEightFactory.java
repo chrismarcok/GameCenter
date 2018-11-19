@@ -1,4 +1,4 @@
 package fall2018.csc207.twentyfortyeight;
 
-public class TwentyFortyEightSettings {
+public class TwentyFortyEightFactory {
 }

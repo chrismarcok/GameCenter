@@ -111,7 +111,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
                 " UNION" +
                 //Get the scores of all other games. Merge the two tables.
                 " SELECT username, game, max(score) FROM " + TABLE_NAME +
-                " WHERE username = \"" + username + "\" AND game IN (\"Sudoku\", \"2048\")" +
+                " WHERE username = \"" + username + "\" AND game IN (\"Minesweeper\", \"2048\")" +
                 " GROUP BY game;";
         return getEntriesFromQuery(db, query, "max(score)");
     }

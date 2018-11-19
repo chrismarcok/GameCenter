@@ -16,8 +16,8 @@ import fall2018.csc207.menu.gameCard.GameCardItem;
 import fall2018.csc207.menu.scoreboard.ScoreboardEntry;
 import fall2018.csc207.slidingtiles.R;
 import fall2018.csc207.slidingtiles.SlidingTilesFactory;
-import fall2018.csc207.sudoku.SudokuSettings;
-import fall2018.csc207.twentyfortyeight.TwentyFortyEightSettings;
+import fall2018.csc207.minesweeper.MinesweeperFactory;
+import fall2018.csc207.twentyfortyeight.TwentyFortyEightFactory;
 
 /**
  * The Game Centre Activity class
@@ -46,8 +46,8 @@ public class GameCentreActivity extends AppCompatActivity {
     */
     static {
         gameLibrary.put("Sliding Tiles", SlidingTilesFactory.class);
-        gameLibrary.put("Sudoku", SudokuSettings.class);
-        gameLibrary.put("2048", TwentyFortyEightSettings.class);
+        gameLibrary.put("Minesweeper", MinesweeperFactory.class);
+        gameLibrary.put("2048", TwentyFortyEightFactory.class);
     }
 
     /**
@@ -124,10 +124,10 @@ public class GameCentreActivity extends AppCompatActivity {
         HashMap<String, Drawable> pictureMap = new HashMap<>();
         Drawable slidingTiles = getDrawable(R.drawable.sliding_tiles);
         Drawable twentyFortyEight = getDrawable(R.drawable.twentyfortyeight);
-        Drawable sudoku = getDrawable(R.drawable.sudoku);
+        Drawable minesweeper = getDrawable(R.drawable.minesweeper);
         pictureMap.put("Sliding Tiles", slidingTiles);
         pictureMap.put("2048", twentyFortyEight);
-        pictureMap.put("Sudoku", sudoku);
+        pictureMap.put("Minesweeper", minesweeper);
         return pictureMap;
     }
 }
