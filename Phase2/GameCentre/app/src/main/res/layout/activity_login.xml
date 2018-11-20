@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/snow"
     tools:context="fall2018.csc207.menu.LoginActivity">
 
     <TextView
@@ -14,7 +15,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:padding="32dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="@string/welcome_to_game_centre"
+        android:textColor="@color/brightlightblue"
         android:textAlignment="center"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +70,7 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:textSize="24sp"
-            app:cardBackgroundColor="@color/lightgreen"
+            app:cardBackgroundColor="@color/brightlightblue"
             card_view:cardCornerRadius="15dp">
 
             <TextView
@@ -97,7 +100,7 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:textSize="24sp"
-            app:cardBackgroundColor="@color/green"
+            app:cardBackgroundColor="@color/brightlightblue"
             app:layout_constraintBottom_toBottomOf="parent"
             card_view:cardCornerRadius="15dp">
 
