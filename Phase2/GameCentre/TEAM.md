@@ -70,3 +70,13 @@ to build the UI/use XML.
 * Snake and 2048 use swiping gesture to control. Sudoku has the user tap and select (possibly each tile is a edittext).
 * Presentation will be discussed later.
 * Sliding Tiles solvable boards will be done via random moves from a solved state, can be refactored to check if the state is valid later.
+
+## November 19, 2018
+
+* Decided that Minesweeper should be implemented instead of Sudoku.
+* Minesweeper will generate board prior to user clicking the first tile.
+* Discussed and Implemented some UI changes.
+* Discussed division of work and JUnit tests for Sliding Tiles game.
+* Brainstormed implementation of minesweeper game.
+* Discussed use of undo and autosave in Minesweeper. Decided against the use of undo, unless something changes in the future.
+* Need better pictures. Currently they are ugly.
