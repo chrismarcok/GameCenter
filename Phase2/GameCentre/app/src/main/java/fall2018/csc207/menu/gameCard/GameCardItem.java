@@ -2,6 +2,9 @@ package fall2018.csc207.menu.gameCard;
 
 import android.graphics.drawable.Drawable;
 
+/**
+ * Represents a GameCardItem for use in GameMenuActivity, each represents a playable game.
+ */
 public class GameCardItem {
 
     /**

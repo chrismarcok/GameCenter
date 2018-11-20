@@ -21,10 +21,12 @@ import fall2018.csc207.slidingtiles.R;
  * The class corresponding to the activity that creates the scoreboard.
  */
 public class ScoreboardActivity extends AppCompatActivity {
+
     /**
-     * An ArrayList<String> containing the names of the games to display in the scoreboard.
+     * Key for use in Intent extras.
      */
     public static final String GAME_NAMES = "GAME_NAMES";
+
     // The key is the game name, value.first is the username, value.second is the score.
     private Map<String, ArrayList<ScoreboardEntry>> scores = new HashMap<>();
 
@@ -95,21 +97,40 @@ public class ScoreboardActivity extends AppCompatActivity {
             super(manager);
         }
 
+        /**
+         * Get the item at the nth position of the fragmentList.
+         * @param position The nth position.
+         * @return The item at the nth position of the fragmentList.
+         */
         @Override
         public Fragment getItem(int position) {
             return fragmentList.get(position);
         }
 
+        /**
+         * Get the size of the fragmentList.
+         * @return The size of the fragmentList.
+         */
         @Override
         public int getCount() {
             return fragmentList.size();
         }
 
+        /**
+         * Add a fragment to the fragmentList.
+         * @param fragment The fragment we want to add.
+         * @param title The title of the fragment.
+         */
         void addFragment(Fragment fragment, String title) {
             fragmentList.add(fragment);
             fragmentTitleList.add(title);
         }
 
+        /**
+         * Get the title of the nth fragment.
+         * @param position The n in question.
+         * @return the title of the nth fragment.
+         */
         @Override
         public CharSequence getPageTitle(int position) {
             return fragmentTitleList.get(position);

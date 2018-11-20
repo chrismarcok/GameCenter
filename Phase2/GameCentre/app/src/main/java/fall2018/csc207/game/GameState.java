@@ -7,6 +7,9 @@ import java.util.Observable;
  * Created by Steven on 2018-10-30.
  */
 
+/**
+ * Represents a single insatnce of a game.
+ */
 public abstract class GameState extends Observable implements Serializable {
 
     /**

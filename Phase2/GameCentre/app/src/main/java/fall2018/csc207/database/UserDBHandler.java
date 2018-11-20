@@ -8,12 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.HashMap;
 
-/*
+/**
  * A class to facilitate interaction between the app and the database.
  */
 public class UserDBHandler extends SQLiteOpenHelper{
 
-    /*
+    /**
      * Strings used to streamline SQL queries and setup the table/db.
      */
     public static final int DATABASE_VERSION = 1;
@@ -32,7 +32,7 @@ public class UserDBHandler extends SQLiteOpenHelper{
         super(context, name, factory, version);
     }
 
-    /*
+    /**
      * Create the users table if it does not exist.
      *
      * @param db the Database for which we are making our table.
@@ -48,7 +48,7 @@ public class UserDBHandler extends SQLiteOpenHelper{
         db.execSQL(query);
     }
 
-    /*
+    /**
      * Drop (delete) the table.
      */
     @Override
@@ -57,7 +57,7 @@ public class UserDBHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    /*
+    /**
      * Add a user entry to the users table.
      * PRECONDITION: user is not already a username in the table.
      *
@@ -73,7 +73,7 @@ public class UserDBHandler extends SQLiteOpenHelper{
         db.close();
     }
 
-    /*
+    /**
      * Get all entries to the database
      *
      * @return an ArrayList of [user, pass] pairs. Each array in the ArrayList represents one entry (one user).

@@ -7,7 +7,7 @@ package fall2018.csc207.game;
 
 public abstract class GameManager<T extends GameState> {
 
-    /*
+    /**
      * The model for the game.
      */
     public T gameState;
@@ -20,8 +20,9 @@ public abstract class GameManager<T extends GameState> {
         this.gameState = gameState;
     }
 
-    /*
-     *Getter function for gameState retrieval.
+    /**
+     * Getter function for GameState retrieval.
+     * @return The GameState.
      */
     public T getGameState(){
         return this.gameState;

@@ -11,7 +11,7 @@ import fall2018.csc207.game.GameManager;
  */
 public class BoardManager extends GameManager<Board> implements Serializable {
 
-    /*
+    /**
      * The dimension of the board
      */
     private int dimensions;

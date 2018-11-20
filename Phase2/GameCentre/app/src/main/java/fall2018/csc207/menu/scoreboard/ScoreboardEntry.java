@@ -12,6 +12,12 @@ public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> 
     private int score;
     private String game;
 
+    /**
+     * Create a new Scoreboard Entry
+     * @param name The username of the entry.
+     * @param game The game name of the entry.
+     * @param score The score of the entry.
+     */
     public ScoreboardEntry(String name, String game, int score) {
         this.name = name;
         this.score = score;

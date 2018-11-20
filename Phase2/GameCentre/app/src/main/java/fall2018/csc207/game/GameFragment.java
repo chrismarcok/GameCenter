@@ -56,6 +56,11 @@ public abstract class GameFragment<S extends GameState, M extends GameManager>
             state.addObserver(this);
     }
 
+    /**
+     * This method is called when the observed object is changed.
+     * @param o The observable object.
+     * @param arg an argument passed to the notifyObservers method.
+     */
     @Override
     public abstract void update(Observable o, Object arg);
 }
