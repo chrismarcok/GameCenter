@@ -6,11 +6,11 @@ import java.util.List;
 
 import fall2018.csc207.game.GameFactory;
 
-/*
+/**
  * Represents the different settings for tiles
  */
 public class SlidingTilesFactory extends GameFactory {
-    /*
+    /**
      * The settings for the tile game.
      */
     public SlidingTilesFactory() {
@@ -20,7 +20,7 @@ public class SlidingTilesFactory extends GameFactory {
                 "3x3"));
     }
 
-    /*
+    /**
      * Make a Sliding Tiles board.
      *
      * @param dimensions The dimension of the square board.
@@ -40,6 +40,11 @@ public class SlidingTilesFactory extends GameFactory {
         return tiles;
     }
 
+    /**
+     * Get a new GameState of setting's dimensions.
+     * @param numUndos The number of undos to allow.
+     * @return The new GameState.
+     */
     @Override
     public Board getGameState(int numUndos) {
         Board board;
@@ -60,11 +65,19 @@ public class SlidingTilesFactory extends GameFactory {
         return board;
     }
 
+    /**
+     * Get the game's fragment class.
+     * @return The game's fragment class.
+     */
     @Override
     public Class getGameFragmentClass() {
         return SlidingTilesFragment.class;
     }
 
+    /**
+     * Get the names of the different sliding tiles variations.
+     * @return The names of the variations.
+     */
     @Override
     public List<String> getGameNames() {
         return Arrays.asList("Sliding Tiles 3x3", "Sliding Tiles 4x4", "Sliding Tiles 5x5");

@@ -27,6 +27,7 @@ import fall2018.csc207.slidingtiles.R;
  * consistent between all games.
  */
 public class GameMainActivity extends AppCompatActivity implements Observer {
+
     /**
      * Keys used in Intents.
      */
@@ -34,16 +35,26 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
     public static final String GAME_STATE = "STATE";
     public static final String USERNAME = "USERNAME";
 
-    /*
+    /**
      * The GameState.
      */
     private GameState state;
+
+    /**
+     * Display of the current score.
+     */
     private TextView currentScore;
-    /*
+
+    /**
      * The user's username, as stored in the database.
      */
     private String username;
+
+    /**
+     * The name of the file used for saving/loading.
+     */
     private String fileName;
+
     /**
      * Called by Android when the Activity is being made.
      *
@@ -128,7 +139,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
         });
     }
 
-    /*
+    /**
      * Automatically save every 5 rounds.
      *
      * @param file The name of the file to be saved.
@@ -139,8 +150,8 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
         }
     }
 
-    /*
-     * Write the gamestate to a file.
+    /**
+     * Write the GameState to a file.
      *
      * @param fileName The name of the file.
      */

@@ -87,6 +87,10 @@ public class ScoreboardEntryRecyclerViewAdapter extends RecyclerView.Adapter<Sco
             nameView = view.findViewById(R.id.name);
         }
 
+        /**
+         * A string representation of this object.
+         * @return A string representation of this object.
+         */
         @Override
         public String toString() {
             return super.toString() + " '" + scoreView.getText() + "'";

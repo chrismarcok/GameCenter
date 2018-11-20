@@ -51,17 +51,26 @@ public abstract class GameFactory {
      */
     public abstract List<String> getGameNames();
 
+    /**
+     * A settings class which contains the possible modifications we can add to a game
+     */
     public class Setting {
         private final String name;
         private final List<String> possibleValues;
         private String currentValue;
 
+        /**
+         * A game's settings
+         */
         public Setting(String name, List<String> possibleValues, String defaultValue) {
             this.name = name;
             this.possibleValues = possibleValues;
             this.currentValue = defaultValue;
         }
 
+        /**
+         * Get the name corresponding to this settings.
+         */
         public String getName() {
             return name;
         }

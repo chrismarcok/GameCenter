@@ -50,6 +50,10 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private SeekBar undoSeekbar;
 
+    /**
+     * Called when we create a NewGameActivity.
+     * @param savedInstanceState The activity's previously saved state, contained in a bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,17 +96,31 @@ public class NewGameActivity extends AppCompatActivity {
         });
 
         undoSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            /**
+             * Called when we make a change to the seekBar's value.
+             * @param seekBar The seekbar whose progress has changed.
+             * @param progress The value of the SeekBar.
+             * @param fromUser True if the change was initiated from the user.
+             */
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 TextView text = findViewById(R.id.progress);
                 text.setText(String.valueOf(progress));
             }
 
+            /**
+             * Called when we touch the seekbar.
+             * @param seekBar The seekbar whose progress has been touched.
+             */
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
             }
 
+            /**
+             * Called when we stop touching the seekbar.
+             * @param seekBar The seekbar who is no longer being touched.
+             */
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
 
@@ -144,14 +162,24 @@ public class NewGameActivity extends AppCompatActivity {
             screenView.addView(dropdown, lp);
 
             dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                /**
+                 * Called when a spinner item is selected.
+                 * @param parentView The view where the selection happened
+                 * @param selectedItemView The view within the adapter that was selected
+                 * @param position The position of the selected view in the adapter
+                 * @param id The row id of the selected item
+                 */
                 @Override
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                     setting.setCurrentValue(position);
                 }
 
+                /**
+                 * Called when the selection disappears from view.
+                 * @param adapterView The parent that has no selected item.
+                 */
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-                    // TODO: Is this possible for a spinner?
                 }
             });
         }

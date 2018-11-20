@@ -63,6 +63,10 @@ public class GameCentreActivity extends AppCompatActivity {
      */
     private List<GameCardItem> gameCardItemList = new ArrayList<>();
 
+    /**
+     * Called when we create a GameCentreActivity.
+     * @param savedInstanceState The activity's previously saved state, contained in a bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

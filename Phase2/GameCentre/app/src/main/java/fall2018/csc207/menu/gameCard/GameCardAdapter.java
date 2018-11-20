@@ -17,6 +17,7 @@ import fall2018.csc207.menu.GameMenuActivity;
 import fall2018.csc207.slidingtiles.R;
 
 public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHolder> {
+
     /**
      * The user's username
      */
@@ -38,6 +39,12 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
         this.username = username;
     }
 
+    /**
+     * Inflate the LayoutInflater with game_card_item.
+     * @param parent The ViewGroup into which the new View will be added.
+     * @param viewType the type of the new View.
+     * @return
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,12 +52,21 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
         return new ViewHolder(v);
     }
 
+    /**
+     * Displays the GameCardItem at the specified position.
+     * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final GameCardItem current = gameCardItemList.get(position);
         holder.bind(current);
     }
 
+    /**
+     * Get the number of game cards.
+     * @return The number of game cards.
+     */
     @Override
     public int getItemCount() {
         return gameCardItemList.size();

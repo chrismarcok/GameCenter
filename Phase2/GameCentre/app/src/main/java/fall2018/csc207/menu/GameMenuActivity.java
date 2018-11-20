@@ -41,13 +41,22 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private String gameName;
     //TODO: Probably remove this?
+    /**
+     * The name of the user's save file.
+     */
     private String fileName;
-    private Dialog tilesInfoDialog;
+    /**
+     * The dialog box used to give instructions the game.
+     */
+    private Dialog infoDialog;
 
+    /**
+     * Called when we create a GameMenuActivity.
+     * @param savedInstanceState The activity's previously saved state, contained in a bundle.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_menu);
-
         Intent intent = getIntent();
 
         //Get name of user and the game.
@@ -68,7 +77,7 @@ public class GameMenuActivity extends AppCompatActivity {
         newGame();
         loadGame();
         initScoreboard();
-        tilesInfoDialog = new Dialog(this);
+        infoDialog = new Dialog(this);
     }
 
 
@@ -77,12 +86,8 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private void initScoreboard() {
         CardView scoreBoard = findViewById(R.id.score_board);
-
-
         scoreBoard.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Log.d("Button_clicked", "score Board");
-
                 Intent scoreboardIntent = new Intent(GameMenuActivity.this, ScoreboardActivity.class);
                 ArrayList<String> gameNames = new ArrayList<>(gameFactory.getGameNames());
                 scoreboardIntent.putStringArrayListExtra(ScoreboardActivity.GAME_NAMES, gameNames);
@@ -98,16 +103,16 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     public void showSlidingTileInfo(View v) {
         //TODO: Set this dynamically?
-        tilesInfoDialog.setContentView(R.layout.dialogue_slidingtile_instructions);
+        infoDialog.setContentView(R.layout.dialogue_slidingtile_instructions);
         TextView infoTxtClose;
-        infoTxtClose = tilesInfoDialog.findViewById(R.id.infoTxtCloseInstructions);
+        infoTxtClose = infoDialog.findViewById(R.id.infoTxtCloseInstructions);
         infoTxtClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tilesInfoDialog.dismiss();
+                infoDialog.dismiss();
             }
         });
-        tilesInfoDialog.show();
+        infoDialog.show();
     }
 
     /**
@@ -117,7 +122,6 @@ public class GameMenuActivity extends AppCompatActivity {
         CardView loadGame = findViewById(R.id.load_game);
         loadGame.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Log.d("Button_clicked", "load Game");
                 loadFromFile(fileName);
             }
         });
