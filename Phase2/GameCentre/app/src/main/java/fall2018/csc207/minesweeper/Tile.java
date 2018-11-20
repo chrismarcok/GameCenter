@@ -1,5 +1,7 @@
 package fall2018.csc207.minesweeper;
 
+import android.annotation.SuppressLint;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +16,7 @@ public class Tile implements Serializable {
      * Contains integer to respective image
      */
     private static Map<Integer, Integer> imageMap(){
-        Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+        @SuppressLint("UseSparseArrays") Map<Integer,Integer> map = new HashMap<Integer, Integer>();
         map.put(BOMB, R.drawable.bomb);
         map.put(BLANK_TILE, R.drawable.blanktile);
         map.put(1, R.drawable.tile_1);
@@ -43,9 +45,18 @@ public class Tile implements Serializable {
      * The background id to find the tile image
      */
     private int background;
+    /**
+     * The state of the tile (revealed or not revealed)
+     */
+    private boolean revealed;
 
+    /**
+     * A tile with an id
+     * @param id
+     */
     public Tile(int id){
         this.id = id;
+        this.revealed = false;
         this.background = imageMap().get(id);
 
     }
@@ -58,4 +69,15 @@ public class Tile implements Serializable {
         return id;
     }
 
+    /**
+     * Return the background
+     * @return
+     */
+    public int getBackground() {
+        return background;
+    }
+    @Override
+    public String toString() {
+        return String.valueOf(this.getId());
+    }
 }

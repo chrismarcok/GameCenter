@@ -13,8 +13,8 @@ public class Tile implements Comparable<Tile>, Serializable {
     /**
      * Contains integer to respective image
      */
-    private static Map<Integer, Integer> imageMap(){
-        Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+    private static Map<Integer, Integer> imageMap() {
+        Map<Integer, Integer> map = new HashMap<Integer, Integer>();
         map.put(1, R.drawable.tile_1);
         map.put(2, R.drawable.tile_2);
         map.put(3, R.drawable.tile_3);
