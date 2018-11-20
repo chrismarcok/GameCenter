@@ -26,6 +26,7 @@ public class Board extends GameState {
      * @param numRep
      */
     public Board(int[][] numRep) {
+        mineField = new Tile[numRep.length][numRep[0].length];
         for (int i = 0; i < numRep.length; i++) {
             for (int j = 0; j < numRep.length; j++) {
                 mineField[i][j] = new Tile(numRep[i][j]);
@@ -91,6 +92,17 @@ public class Board extends GameState {
         }
 
         return mines;
+    }
+    public int getNumMines(){
+        int count = 0;
+        for(int i = 0; i < this.mineField.length; i++){
+            for(int j = 0; j < this.mineField.length; j++){
+                if (this.mineField[i][j].getId() == Tile.BOMB){
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
 
