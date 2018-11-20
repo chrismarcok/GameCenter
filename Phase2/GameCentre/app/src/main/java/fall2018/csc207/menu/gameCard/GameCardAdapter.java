@@ -2,6 +2,7 @@ package fall2018.csc207.menu.gameCard;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +47,7 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        GameCardItem current = gameCardItemList.get(position);
+        final GameCardItem current = gameCardItemList.get(position);
         holder.bind(current);
     }
 
@@ -63,26 +64,18 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
         protected TextView gameScore;
         protected TextView gameTitle;
         protected ImageView gameImage;
+        private CardView cardView;
 
         /**
          * Object we are clicking to change to that game.
          */
-        private ViewHolder(final View itemView) {
+        private ViewHolder(View itemView) {
             super(itemView);
 
+            cardView = itemView.findViewById(R.id.gameCardItem);
             gameTitle = itemView.findViewById(R.id.gameName);
             gameScore = itemView.findViewById(R.id.gameScore);
             gameImage = itemView.findViewById(R.id.gameImage);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(itemView.getContext(), GameMenuActivity.class);
-                    intent.putExtra(GameMainActivity.USERNAME, username);
-                    intent.putExtra("game", "Sliding Tiles");
-                    v.getContext().startActivity(intent);
-                }
-            });
         }
 
         /**
@@ -90,10 +83,19 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
          *
          * @param current The GameCardItem we are setting the values of.
          */
-        private void bind(GameCardItem current) {
+        private void bind(final GameCardItem current) {
             gameTitle.setText(current.getGameTitle());
             gameScore.setText("HIGHSCORE: " + String.valueOf(current.getScore()));
             gameImage.setImageDrawable(current.getGameImage());
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), GameMenuActivity.class);
+                    intent.putExtra(GameMainActivity.USERNAME, username);
+                    intent.putExtra("game", current.getGameTitle());
+                    v.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
