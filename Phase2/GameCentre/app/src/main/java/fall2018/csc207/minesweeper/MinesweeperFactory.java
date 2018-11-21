@@ -31,7 +31,7 @@ public class MinesweeperFactory extends GameFactory {
                 board = new Board(4, .1);
                 break;
             case "Medium":
-                board = new Board(8, .1);
+                board = new Board(8, .2);
                 break;
             case "Hard":
                 board = new Board(10, .2);
