@@ -110,5 +110,24 @@ public class Board extends GameState {
         return count;
     }
 
+    /**
+     * Reveals the single tile located at col,row
+     * @param col
+     * @param row
+     */
+    public void revealTile(int col, int row){
+
+    }
+    /**
+     * Reveals surronding blank tiles as well as one layer of number tiles
+     * Precondition: mineField[col][row].BLANK_TILE == 0
+     * @param col
+     * @param row
+     */
+    public void revealSurrondingBlanks(int col, int row){
+
+    }
+
+
 
 }

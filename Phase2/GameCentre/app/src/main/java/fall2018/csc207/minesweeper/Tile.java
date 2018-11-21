@@ -31,7 +31,7 @@ public class Tile implements Serializable {
     }
     /**
      * The integer that represents a blank tile
-     */
+     */git 
     final static int BLANK_TILE = 0;
     /**
      * The integer that represents a bomb
