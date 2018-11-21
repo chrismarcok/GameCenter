@@ -11,12 +11,25 @@ public class Board extends GameState {
     private Tile[][] mineField;
 
     /**
+     *  return the size of the board
+     * @return returns the size of the board
+     */
+    public int getDimensions() {
+        return dimensions;
+    }
+
+    /**
+     * The size of the board
+     */
+    private int dimensions;
+    /**
      * Generate a board given the dimensions and difficulty
      *
      * @param dimensions
      * @param difficulty
      */
     public Board(int dimensions, double difficulty) {
+        this.dimensions = dimensions;
         mineField = generateBoard(dimensions, difficulty);
     }
 
@@ -57,7 +70,7 @@ public class Board extends GameState {
 
     /**
      * Generates a minesweeper board
-     * Generating algorithm: https://introcs.cs.princeton.edu/java/14array/Minesweeper.java.html
+     * Minesweeper Board generating algorithm: https://introcs.cs.princeton.edu/java/14array/Minesweeper.java.html
      * Credits go to Princeton University
      *
      * @param dimensions
@@ -108,6 +121,9 @@ public class Board extends GameState {
             }
         }
         return count;
+    }
+    public Tile getTile(int row, int col) {
+        return mineField[row][col];
     }
 
 
