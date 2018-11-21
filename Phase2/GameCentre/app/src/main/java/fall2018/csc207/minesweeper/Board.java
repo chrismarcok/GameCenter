@@ -131,7 +131,7 @@ public class Board extends GameState {
      * @param col
      * @param row
      */
-    public void revealTile(int col, int row){
+    public void revealTile(int row, int col){
         mineField[row][col].setrevealed(true);
     }
     /**
@@ -140,8 +140,33 @@ public class Board extends GameState {
      * @param col
      * @param row
      */
-    public void revealSurrondingBlanks(int col, int row){
-            
+    public void revealSurrondingBlanks(int row, int col){
+         //Reveal the 4 surronding tiles that aren't Bombs, if a blank is revealed reveal the tiles around that blank as well
+        if row+1 < dimensions-1 and mineField[row+1][col].getId() != Tile.BOMB and mineField[row+1][col].getrevealed == false{
+            revealTile(row+1,col);
+            if mineField[row+1][col].getId() == Tile.BLANK_TILE{
+                revealSurrondingBlanks(row+1,col);
+            }
+        }
+        if row-1 < dimensions-1 and mineField[row+1][col].getId() != Tile.BOMB and mineField[row-1][col].getrevealed == false{
+            revealTile(row-1,col);
+            if mineField[row+1][col].getId() == Tile.BLANK_TILE{
+                revealSurrondingBlanks(row-1,col);
+            }
+        }
+        if col+1 < dimensions-1 and mineField[row+1][col].getId() != Tile.BOMB and mineField[row][col + 1].getrevealed == false{
+            revealTile(row,col+1);
+            if mineField[row][col+1].getId() == Tile.BLANK_TILE{
+                revealSurrondingBlanks(row,col + 1);
+            }
+        }
+        if col - 1 < dimensions-1 and mineField[row+1][col].getId() != Tile.BOMB and mineField[row][col - 1].getrevealed == false{
+            revealTile(row,col-1);
+            if mineField[row][col-1].getId() == Tile.BLANK_TILE{
+                revealSurrondingBlanks(row,col-1);
+            }
+        }
+
     }
 
 
