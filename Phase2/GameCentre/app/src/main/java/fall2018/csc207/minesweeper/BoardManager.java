@@ -18,6 +18,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      */
     public BoardManager(Board board) {
         super(board);
+        this.dimensions = gameState.getDimensions();
     }
 
     /**
@@ -25,7 +26,19 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * @param position The position of the input.
      */
     public void updateGame(int position) {
-        touchMove(position);
+        int row = position / dimensions;
+        int col = position % dimensions;
+        Tile curr_tile = gameState.getTile(row,col);
+        gameState.revealTile(row,col);
+
+         //Check for cases where the selected tile is a BOMB or BLANK_TILE
+        if (curr_tile.getId() == Tile.BOMB){
+            //END GAME
+        }
+        else if (curr_tile.getId() == Tile.BLANK_TILE){
+            gameState.revealSurrondingBlanks(row,col);
+        }
+
     }
 
     /**

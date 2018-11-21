@@ -80,4 +80,12 @@ public class Tile implements Serializable {
     public String toString() {
         return String.valueOf(this.getId());
     }
+
+    public boolean getrevealed(){
+        return revealed;
+    }
+
+    public void setrevealed(boolean reveal){
+        revealed = reveal;
+    }
 }
