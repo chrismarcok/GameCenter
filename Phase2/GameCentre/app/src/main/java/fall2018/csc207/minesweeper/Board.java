@@ -132,7 +132,7 @@ public class Board extends GameState {
      * @param row
      */
     public void revealTile(int col, int row){
-
+        mineField[row][col].setrevealed(true);
     }
     /**
      * Reveals surronding blank tiles as well as one layer of number tiles
@@ -141,7 +141,7 @@ public class Board extends GameState {
      * @param row
      */
     public void revealSurrondingBlanks(int col, int row){
-
+            
     }
 
 

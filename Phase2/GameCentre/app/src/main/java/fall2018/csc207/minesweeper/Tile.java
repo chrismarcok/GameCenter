@@ -31,7 +31,7 @@ public class Tile implements Serializable {
     }
     /**
      * The integer that represents a blank tile
-     */git 
+     */
     final static int BLANK_TILE = 0;
     /**
      * The integer that represents a bomb
@@ -79,5 +79,11 @@ public class Tile implements Serializable {
     @Override
     public String toString() {
         return String.valueOf(this.getId());
+    }
+
+    public boolean getrevealed{return revealed}
+
+    public void setrevealed(boolean reveal){
+        revealed = reveal;
     }
 }
