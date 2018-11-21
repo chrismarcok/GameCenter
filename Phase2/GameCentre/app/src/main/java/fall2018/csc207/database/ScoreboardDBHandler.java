@@ -11,19 +11,19 @@ import java.util.ArrayList;
 
 import fall2018.csc207.menu.scoreboard.ScoreboardEntry;
 
-/*
+/**
  * A class to facilitate interaction between the app and the database.
  */
 public class ScoreboardDBHandler extends SQLiteOpenHelper {
 
-    /*
+    /**
      * Strings used to streamline SQL queries and setup the table/db.
      */
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "scoreboard.db";
     private static final String TABLE_NAME = "scoreboard";
 
-    /*
+    /**
      * Create a new ScoreboardDBHandler
      *
      * @param context The context of the class calling this constructor
@@ -34,7 +34,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
-    /*
+    /**
      * Create the users table if it does not exist.
      *
      * @param db the Database for which we are making our table.
@@ -51,7 +51,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    /*
+    /**
      * Drop (delete) the table.
      */
     @Override
@@ -60,7 +60,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    /*
+    /**
      * Add a user entry to the users table.
      * PRECONDITION: user is not already a username in the table.
      *
@@ -78,7 +78,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    /*
+    /**
      * Get all entries to the database for a specific game.
      *
      * @param gameName The name of the game whose entries are to be fetched.
@@ -93,7 +93,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
         return getEntriesFromQuery(db, query, "score");
     }
 
-    /*
+    /**
      * Get all highscores to the database for all games, for a certain user.
      *
      * @param username The user we want the highscores for.
@@ -118,7 +118,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
 
 
     @NonNull
-    /*
+    /**
      * Helper function which walks through the query on the scoreboard table.
      *
      * @param db Reference to the db in question.

@@ -21,7 +21,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        //Create a logoLauncher.
+        //Create a logoLauncher, and run it.
         LogoLauncher logoLauncher = new LogoLauncher();
         logoLauncher.start();
     }

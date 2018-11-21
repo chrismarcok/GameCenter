@@ -22,7 +22,6 @@ public class GestureDetectGridView extends GridView {
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;
-    //THIS BOARDMANAGER NEEDS TO BE CHANGED TO GAMEMANAGER
     private BoardManager boardManager;
 
     public GestureDetectGridView(Context context) {

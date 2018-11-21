@@ -7,7 +7,7 @@ import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameState;
 
 public class MinesweeperFactory extends GameFactory {
-    /*
+    /**
      * The settings for the Minesweeper game.
      */
     public MinesweeperFactory() {
@@ -18,6 +18,11 @@ public class MinesweeperFactory extends GameFactory {
         ));
     }
 
+    /**
+     * Return a gamestate
+     * @param numUndos The number of undos to allow.
+     * @return a new GameState of type Board
+     */
     @Override
     public GameState getGameState(int numUndos) {
         Board board;

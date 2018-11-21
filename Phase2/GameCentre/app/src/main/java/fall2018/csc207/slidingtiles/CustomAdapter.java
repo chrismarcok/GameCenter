@@ -18,13 +18,13 @@ import java.util.ArrayList;
 
 public class CustomAdapter extends BaseAdapter {
 
-    /*
+    /**
      * A list of the tile buttons for the slidingTiles game.
      */
     private ArrayList<Button> mButtons = null;
     private int mColumnWidth, mColumnHeight;
 
-    /*
+    /**
      * A CustomAdapter
      *
      * @param buttons      A list of the tile buttons for the slidingTiles game.

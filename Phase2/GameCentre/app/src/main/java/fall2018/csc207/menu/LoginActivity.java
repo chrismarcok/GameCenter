@@ -21,7 +21,7 @@ import fall2018.csc207.slidingtiles.R;
  */
 public class LoginActivity extends AppCompatActivity {
     /**
-     * Dialog Boxes for Sign-up
+     * Dialog Boxes for Sign-up, and instructions for signup.
      */
     Dialog signupDialog;
     Dialog infoDialog;
@@ -32,6 +32,10 @@ public class LoginActivity extends AppCompatActivity {
     final UserDBHandler userDB = new UserDBHandler(this, UserDBHandler.DATABASE_NAME,
             null, UserDBHandler.DATABASE_VERSION);
 
+    /**
+     * Called when we create a LoginActivity.
+     * @param savedInstanceState The activity's previously saved state, contained in a bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

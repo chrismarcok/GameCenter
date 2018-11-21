@@ -62,7 +62,7 @@ public class Board extends GameState {
      *
      * @param dimensions
      * @param difficulty
-     * @return
+     * @return A generated tile board
      */
     public Tile[][] generateBoard(int dimensions, double difficulty) {
         Tile[][] mines = new Tile[dimensions][dimensions];
@@ -93,6 +93,11 @@ public class Board extends GameState {
 
         return mines;
     }
+
+    /**
+     * Return the number of mines
+     * @return Returns the number of mines on the board
+     */
     public int getNumMines(){
         int count = 0;
         for(int i = 0; i < this.mineField.length; i++){

@@ -21,12 +21,14 @@ import fall2018.csc207.game.GameFragment;
  */
 public class SlidingTilesFragment extends GameFragment<Board, BoardManager> {
 
-    /*
+    /**
      * The buttons (tiles) that can be clicked on to be moved.
      */
     private ArrayList<Button> tileButtons;
 
-    // Grid View and calculated column height and width based on device size
+    /**
+     * Grid View and calculated column height and width based on device size.
+     */
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
     private int dimensions = 0;
