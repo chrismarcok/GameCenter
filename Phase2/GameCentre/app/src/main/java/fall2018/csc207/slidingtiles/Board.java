@@ -298,5 +298,13 @@ public class Board extends GameState implements Iterable<Tile> {
             return array2D[row][col];
         }
     }
+    /**
+     * Return the tile at (row, col)
+     *
+     * @param row the tile row
+     * @param col the tile column
+     * @return the tile at (row, col)
+     */
+
 
 }
