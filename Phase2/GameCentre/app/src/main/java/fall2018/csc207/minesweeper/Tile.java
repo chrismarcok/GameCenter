@@ -48,15 +48,34 @@ public class Tile implements Serializable {
     /**
      * The state of the tile (revealed or not revealed)
      */
-    private boolean revealed;
+    private boolean revealed = false;
 
+    /**
+     *  Returns whether if tile is flagged
+     * @return true if flagged false otherwise
+     */
+    public boolean isFlagged() {
+        return flagged;
+    }
+
+    /**
+     * Set whether if Tile is flagged
+     * @param flagged
+     */
+    public void setFlagged(boolean flagged) {
+        this.flagged = flagged;
+    }
+
+    /**
+     * The state of whether the tile is flagged
+     */
+    private boolean flagged = false;
     /**
      * A tile with an id
      * @param id
      */
     public Tile(int id){
         this.id = id;
-        this.revealed = false;
         this.background = imageMap().get(id);
 
     }

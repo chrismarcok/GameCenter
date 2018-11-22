@@ -37,6 +37,7 @@ public class Board extends GameState {
         this.dimensions = dimensions;
         this.numrevealedTiles = 0;
         mineField = generateBoard(dimensions, difficulty);
+        print_board();
     }
 
     /**
@@ -148,39 +149,60 @@ public class Board extends GameState {
         notifyObservers();
     }
     /**
-     * Reveals surronding blank tiles as well as one layer of number tiles
+     * Reveals surrounding blank tiles as well as one layer of number tiles
      * Precondition: mineField[col][row].BLANK_TILE == 0
      * @param col
      * @param row
      */
-    public void revealSurrondingBlanks(int row, int col){
-         //Reveal the 4 surronding tiles that aren't Bombs, if a blank is revealed reveal the tiles around that blank as well
+    public void revealSurroundingBlanks(int row, int col){
+         //Reveal the 4 surrounding tiles that aren't Bombs, if a blank is revealed reveal the tiles around that blank as well
         // revealTile(row,col);
+
         if (row+1 < dimensions && mineField[row+1][col].getId() != Tile.BOMB && mineField[row+1][col].getrevealed() == false){
+            mineField[row+1][col].setFlagged(false);
             revealTile(row+1,col);
             if (mineField[row+1][col].getId() == Tile.BLANK_TILE){
-                revealSurrondingBlanks(row+1,col);
+                revealSurroundingBlanks(row+1,col);
             }
         }
         if (row-1 >= 0 && mineField[row-1][col].getId() != Tile.BOMB && mineField[row-1][col].getrevealed() == false){
+            mineField[row-1][col].setFlagged(false);
             revealTile(row-1,col);
             if (mineField[row-1][col].getId() == Tile.BLANK_TILE){
-                revealSurrondingBlanks(row-1,col);
+                revealSurroundingBlanks(row-1,col);
             }
     }
         if (col+1 < dimensions && mineField[row][col+1].getId() != Tile.BOMB && mineField[row][col + 1].getrevealed() == false){
+            mineField[row][col+1].setFlagged(false);
             revealTile(row,col+1);
             if (mineField[row][col+1].getId() == Tile.BLANK_TILE){
-                revealSurrondingBlanks(row,col + 1);
+                revealSurroundingBlanks(row,col + 1);
             }
         }
         if (col - 1 >= 0 && mineField[row][col-1].getId() != Tile.BOMB && mineField[row][col - 1].getrevealed() == false){
+            mineField[row][col-1].setFlagged(false);
             revealTile(row,col-1);
             if (mineField[row][col-1].getId() == Tile.BLANK_TILE){
-                revealSurrondingBlanks(row,col-1);
+                revealSurroundingBlanks(row,col-1);
             }
         }
 
+    }
+
+    public void flagTile(Tile tile){
+        if (!tile.getrevealed()){
+           tile.setFlagged(!tile.isFlagged());
+        }
+        setChanged();
+        notifyObservers();
+    }
+    public void print_board(){
+        for (int i = 0 ; i < mineField.length; i++){
+            for (int b = 0; b < mineField.length; b++){
+                System.out.print(mineField[i][b] + "  ");
+            }
+            System.out.println();
+        }
     }
 
 

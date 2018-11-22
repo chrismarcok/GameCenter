@@ -28,16 +28,16 @@ public class MinesweeperFactory extends GameFactory {
         Board board;
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings anyways
             case "Easy":
-                board = new Board(4, .1);
+                board = new Board(5, .2);
                 break;
             case "Medium":
                 board = new Board(8, .2);
                 break;
             case "Hard":
-                board = new Board(10, .2);
+                board = new Board(13, .2);
                 break;
             case "MEGA-HARD!!!!":
-                board = new Board(15, .5);
+                board = new Board(20, .4);
                 break;
             default:
                 throw new IllegalStateException("This factory's settings is in an illegal state!");
