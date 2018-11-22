@@ -36,7 +36,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
         if (curr_tile.getId() == Tile.BOMB){
             //END GAME
         }
-        else if (curr_tile.getId() == Tile.BLANK_TILE){
+        else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()){
             gameState.revealSurroundingBlanks(row,col);
         }
 
