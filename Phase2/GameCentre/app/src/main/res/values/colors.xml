@@ -30,6 +30,21 @@
     <color name="black">#000</color>>
     <color name="logColor">#ffee58</color>>
 
+    <color name="two">#eee4da</color>
+    <color name="four">#ede0c8</color>
+    <color name="eight">#f2b179</color>
+    <color name="sixteen">#f59563</color>
+    <color name="thirtyTwo">#f67c5f</color>
+    <color name="sixtyFour">#f65e3b</color>
+    <color name="oneTwentyEight">#edcf72</color>
+    <color name="twoFiftySix">#edcc61</color>
+    <color name="fiveTwelve">#edc850</color>
+    <color name="tenTwentyFour">#edc53f</color>
+    <color name="twentyFourtyEight">#edc22e</color>
+    <color name="textDark">#776e65</color>
+    <color name="textLight">#f9f6f2</color>
+    <color name="gridColor">#BBADA0</color>
+
 
     <color name="black_overlay">#66000000</color>
 </resources>

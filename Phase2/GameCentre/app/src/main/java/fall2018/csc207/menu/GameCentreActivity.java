@@ -116,7 +116,6 @@ public class GameCentreActivity extends AppCompatActivity {
 
         gameCardAdapter.notifyDataSetChanged();
 
-
     }
 
     /**

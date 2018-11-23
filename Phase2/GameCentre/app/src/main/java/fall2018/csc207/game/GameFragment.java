@@ -14,17 +14,17 @@ import java.util.Observer;
 public abstract class GameFragment<S extends GameState, M extends GameManager>
         extends Fragment implements Observer {
 
-    /*
+    /**
      * Key for GameState.
      */
     public static final String GAME_STATE = "STATE";
 
-    /*
+    /**
      * The game state.
      */
     protected S state;
 
-    /*
+    /**
      * The game manager.
      */
     protected M gameManager;

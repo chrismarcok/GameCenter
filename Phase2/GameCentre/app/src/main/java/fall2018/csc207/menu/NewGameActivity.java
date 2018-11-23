@@ -26,6 +26,7 @@ import fall2018.csc207.slidingtiles.R;
  * The menu for new games.
  */
 public class NewGameActivity extends AppCompatActivity {
+
     public static final String GAME_NAME = "NAME";
     public static final String USERNAME = "USERNAME";
 
@@ -52,6 +53,7 @@ public class NewGameActivity extends AppCompatActivity {
 
     /**
      * Called when we create a NewGameActivity.
+     *
      * @param savedInstanceState The activity's previously saved state, contained in a bundle.
      */
     @Override
