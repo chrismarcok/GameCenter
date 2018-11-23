@@ -109,9 +109,13 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 Button tmp = new Button(context);
-                if (board.getTile(row, col).getrevealed() == false) {
+                if (board.getTile(row,col).isFlagged()){
+                    tmp.setBackgroundResource(R.drawable.flag);
+                }
+                else if (!board.getTile(row, col).getrevealed()) {
                     tmp.setBackgroundResource(R.drawable.btile);
-                } else {
+                }
+                else {
                     tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 }
                 this.tileButtons.add(tmp);
@@ -128,9 +132,13 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
         for (Button b : tileButtons) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            if (board.getTile(row, col).getrevealed() == false) {
+            if (board.getTile(row,col).isFlagged()){
+                b.setBackgroundResource(R.drawable.flag);
+            }
+            else if (!board.getTile(row, col).getrevealed()) {
                 b.setBackgroundResource(R.drawable.btile);
-            } else {
+            }
+            else {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
             }
             nextPos++;
@@ -145,7 +153,6 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
      */
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("CALLEED?");
         display();
     }
 }
