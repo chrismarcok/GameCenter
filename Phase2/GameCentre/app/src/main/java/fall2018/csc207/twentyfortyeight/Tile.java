@@ -68,4 +68,7 @@ class Tile extends GameState {
         return null;
     }
 
+    public void setBackground(int value) {
+        this.background = colorMap().get(value);
+    }
 }

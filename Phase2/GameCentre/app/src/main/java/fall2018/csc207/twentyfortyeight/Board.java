@@ -56,18 +56,28 @@ public class Board extends GameState implements Iterable<Tile> {
             int index = (int) (Math.random() * list.size()) % list.size();
             Tile emptyTile = list.get(index);
             emptyTile.value = Math.random() < 0.9 ? 2 : 4;
+            emptyTile.setBackground(emptyTile.value);
         }
     }
 
     private List<Tile> availableSpace() {
         final List<Tile> list = new ArrayList<Tile>(16);
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
-                if (board[row][col].isEmpty()) {
-                    list.add(board[row][col]);
+
+        for (Tile[] row: board){
+            for (Tile tile: row){
+                if (tile.isEmpty()){
+                    list.add(tile);
                 }
             }
+
         }
+//        for (int row = 0; row < numRows; row++) {
+//            for (int col = 0; col < numCols; col++) {
+//                if (board[row][col].isEmpty()) {
+//                    list.add(board[row][col]);
+//                }
+//            }
+//        }
         return list;
     }
 
