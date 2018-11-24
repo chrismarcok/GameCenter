@@ -34,7 +34,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
         }
          //Check for cases where the selected tile is a BOMB or BLANK_TILE
         if (curr_tile.getId() == Tile.BOMB){
-            //END GAME
+            gameState.endGame();
         }
         else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()){
             gameState.revealSurroundingBlanks(row,col);

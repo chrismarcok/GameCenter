@@ -1,8 +1,6 @@
 package fall2018.csc207.minesweeper;
 
 
-import android.util.Log;
-
 import fall2018.csc207.game.GameState;
 
 public class Board extends GameState {
@@ -15,6 +13,8 @@ public class Board extends GameState {
      * The size of the board
      */
     private int dimensions;
+    private int numrevealedTiles;
+    private int numMines = 0;
     /**
      * Generate a board given the dimensions and difficulty
      *
@@ -22,7 +22,6 @@ public class Board extends GameState {
      * @param difficulty
      */
 
-    private int numrevealedTiles;
     public Board(int dimensions, double difficulty) {
         setScore(100000);
         this.dimensions = dimensions;
@@ -66,13 +65,27 @@ public class Board extends GameState {
     public boolean canUndo() {
         return false;
     }
-
+    public void endGame(){
+        for (int i = 0; i < mineField.length; i++){
+            for(int b = 0; b < mineField.length; b++){
+                revealTile(i,b);
+            }
+        }
+    }
     @Override
     public boolean isOver() {
-        if (numrevealedTiles + getNumMines() == dimensions * dimensions) {
-            return true;
+        if (numrevealedTiles+getNumMines() <= mineField.length*mineField.length-1) {
+            return false;
         }
-        return false;
+        for(int i = 0; i < mineField.length; i++){
+            for(int b = 0; b < mineField.length; b++){
+                if (mineField[i][b].getId() == Tile.BOMB && !mineField[i][b].isFlagged()){
+                    return false;
+                }
+            }
+        }
+        return true;
+
     }
 
     @Override
@@ -95,6 +108,7 @@ public class Board extends GameState {
         for (int x = 1; x <= dimensions; x++) {
             for (int y = 1; y <= dimensions; y++) {
                 if (difficulty >= Math.random()) {
+                    numMines += 1;
                     repMines[x][y] = Tile.BOMB;
                 }
             }
@@ -125,15 +139,7 @@ public class Board extends GameState {
      * @return Returns the number of mines on the board
      */
     public int getNumMines() {
-        int count = 0;
-        for (int i = 0; i < this.mineField.length; i++) {
-            for (int j = 0; j < this.mineField.length; j++) {
-                if (this.mineField[i][j].getId() == Tile.BOMB) {
-                    count++;
-                }
-            }
-        }
-        return count;
+        return numMines;
     }
 
     public Tile getTile(int row, int col) {
