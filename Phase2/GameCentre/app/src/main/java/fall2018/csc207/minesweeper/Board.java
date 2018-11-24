@@ -24,6 +24,7 @@ public class Board extends GameState {
 
     private int numrevealedTiles;
     public Board(int dimensions, double difficulty) {
+        setScore(100000);
         this.dimensions = dimensions;
         this.numrevealedTiles = 0;
         mineField = generateBoard(dimensions, difficulty);
@@ -42,6 +43,7 @@ public class Board extends GameState {
                 mineField[i][j] = new Tile(numRep[i][j]);
             }
         }
+        this.dimensions = mineField.length;
         this.numrevealedTiles = 0;
 
     }
@@ -75,7 +77,7 @@ public class Board extends GameState {
 
     @Override
     public String getGameName() {
-        return null;
+        return "MineSweeper";
     }
 
     /**
@@ -213,6 +215,10 @@ public class Board extends GameState {
             System.out.println();
         }
     }
+    public void decrementScore(){
+        setScore(getScore()-1);
+    }
+
 
 
 }
