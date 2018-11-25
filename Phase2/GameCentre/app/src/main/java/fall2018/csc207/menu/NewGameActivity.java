@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
@@ -51,6 +52,8 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private SeekBar undoSeekbar;
 
+    private TextView fileName;
+
     /**
      * Called when we create a NewGameActivity.
      *
@@ -61,6 +64,8 @@ public class NewGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         Intent intent = getIntent();
+
+        fileName = findViewById(R.id.fileName);
 
         gameName = intent.getStringExtra(GAME_NAME);
         username = intent.getStringExtra(USERNAME);
@@ -192,14 +197,20 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private void startGame() {
         Log.v("Start Game", gameName + " by user " + username);
+        String userFileName = fileName.getText().toString();
+        //TODO: Determine if the filename has valid chars? eg. / isn't allowed in a filename!
+        if (userFileName.isEmpty()) { // If the if statement rune, it means the user didn't enter a filename
+            Toast.makeText(this, "File name cannot be empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         GameState state = gameFactory.getGameState(undoSeekbar.getProgress());
         Intent tmp = new Intent(NewGameActivity.this, GameMainActivity.class);
         tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
         tmp.putExtra(GameMainActivity.GAME_STATE, state);
         tmp.putExtra(GameMainActivity.USERNAME, username);
+        tmp.putExtra(GameMainActivity.FILE_NAME, userFileName);
 
-        //TODO: Add filename selector
-        tmp.putExtra("file", "temp.tmp");
         startActivity(tmp);
     }
 }

@@ -1,6 +1,8 @@
 package fall2018.csc207.menu;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,15 +13,17 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
-import fall2018.csc207.game.GameState;
 import fall2018.csc207.menu.scoreboard.ScoreboardActivity;
 import fall2018.csc207.slidingtiles.R;
 
@@ -41,10 +45,6 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private String gameName;
     //TODO: Probably remove this?
-    /**
-     * The name of the user's save file.
-     */
-    private String fileName;
     /**
      * The dialog box used to give instructions the game.
      */
@@ -68,10 +68,6 @@ public class GameMenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //The filename will be unique for the player and game.
-        // TODO: Get filename from dialog box
-        fileName = username + "temp" + ".bin";
-        fileName = fileName.replaceAll("\\s", "");
         TextView newName = findViewById(R.id.game_name);
         newName.setText(gameName);
         newGame();
@@ -122,7 +118,23 @@ public class GameMenuActivity extends AppCompatActivity {
         CardView loadGame = findViewById(R.id.load_game);
         loadGame.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                loadFromFile(fileName);
+                final List<String> files = new ArrayList<>();
+                final File userRootFolder = new File(getFilesDir(), username);
+                for (String gameName : gameFactory.getGameNames()) {
+                    File gameSaveFiles = new File(userRootFolder, gameName);
+                    gameSaveFiles.mkdirs();
+                    for (File saveFile : gameSaveFiles.listFiles()) {
+                        files.add(gameName + "/" + saveFile.getName());
+                    }
+                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameMenuActivity.this);
+                builder.setTitle("Choose save file")
+                        .setItems(files.toArray(new String[0]), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                loadFromFile(new File(userRootFolder, files.get(which)));
+                            }
+                        })
+                        .show();
             }
         });
     }
@@ -145,32 +157,29 @@ public class GameMenuActivity extends AppCompatActivity {
 
     /**
      * Loads a game from a file.
-     * @param fileName The name of the file to load it from.
+     * @param file The file to load a save from.
      */
-    private void loadFromFile(String fileName) {
+    private void loadFromFile(File file) {
+        Log.v("Loading file", file.toString());
+        Serializable gameState;
 
+        // We load the specified file into gameState.
         try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                GameState gameState = (GameState) input.readObject();
-                inputStream.close();
-
-                Intent tmp = new Intent(GameMenuActivity.this, GameMainActivity.class);
-                tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
-                tmp.putExtra(GameMainActivity.GAME_STATE, gameState);
-                tmp.putExtra(GameMainActivity.USERNAME, username);
-                tmp.putExtra("file", fileName);
-                startActivity(tmp);
-            }
-        } catch (FileNotFoundException e) {
-            Toast.makeText(this, "No Previously Saved Games",
+            InputStream inputStream = new FileInputStream(file);
+            ObjectInputStream input = new ObjectInputStream(inputStream);
+            gameState = (Serializable) input.readObject();
+            inputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            Toast.makeText(this, "Error loading save file.",
                     Toast.LENGTH_LONG).show();
             Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
+            return;
         }
+        Intent main = new Intent(GameMenuActivity.this, GameMainActivity.class);
+        main.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
+        main.putExtra(GameMainActivity.GAME_STATE, gameState);
+        main.putExtra(GameMainActivity.USERNAME, username);
+        main.putExtra(GameMainActivity.FILE_NAME, file.getName());
+        startActivity(main);
     }
 }

@@ -1,9 +1,9 @@
 package fall2018.csc207.game;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,10 +11,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,11 +30,21 @@ import fall2018.csc207.slidingtiles.R;
 public class GameMainActivity extends AppCompatActivity implements Observer {
 
     /**
-     * Keys used in Intents.
+     * A Class<GameFragment> that the game will use as its main view.
      */
     public static final String FRAGMENT_CLASS = "FRAGMENT";
+    /**
+     * The GameState associated with the game.
+     */
     public static final String GAME_STATE = "STATE";
+    /**
+     * The username of the current user playing the game.
+     */
     public static final String USERNAME = "USERNAME";
+    /**
+     * The name of the file that we're using to save the game.
+     */
+    public static final String FILE_NAME = "FILE";
 
     /**
      * The GameState.
@@ -44,6 +55,11 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      * Display of the current score.
      */
     private TextView currentScore;
+
+    /**
+     * The undo button.
+     */
+    private Button undo;
 
     /**
      * The user's username, as stored in the database.
@@ -64,21 +80,18 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_main);
+
         Intent intent = getIntent();
+        TextView title = findViewById(R.id.gameTitle);
 
         state = (GameState) intent.getSerializableExtra(GAME_STATE);
         state.addObserver(this);
 
-        TextView title = findViewById(R.id.gameTitle);
         title.setText(state.getGameName());
 
-        if (intent.getExtras() != null)
-            username = intent.getStringExtra(GameMainActivity.USERNAME);
+        username = intent.getStringExtra(GameMainActivity.USERNAME);
+        fileName = intent.getStringExtra(FILE_NAME);
 
-        if (intent.getStringExtra("file") != null) {
-            fileName = intent.getStringExtra("file");
-        }
-        else{ fileName = "temp.bin";}
         setupFragment();
         setupButtons();
         setupScores();
@@ -119,7 +132,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
             }
         });
 
-        Button undo = findViewById(R.id.undo);
+        undo = findViewById(R.id.undo);
         undo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,26 +157,35 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      *
      * @param file The name of the file to be saved.
      */
-    public void autoSave(String file){
-        if (state.getScore() % 5 == 0){
+    public void autoSave(String file) {
+        if (state.getScore() % 5 == 0) {
             saveGame(file);
         }
     }
+
+    //TODO: Encapsulate saving and loading into a class
 
     /**
      * Write the GameState to a file.
      *
      * @param fileName The name of the file.
      */
-    public void saveGame(String fileName){
+    public void saveGame(String fileName) {
+        File saveDir = new File(
+                getFilesDir(), String.format("%s/%s", username, state.getGameName()));
         try {
-            FileOutputStream fos = openFileOutput(fileName, Context.MODE_PRIVATE);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            // Makes the directories, if they don't exist. If they do then this does nothing.
+            saveDir.mkdirs();
+            File savePath = new File(saveDir, fileName);
+            FileOutputStream fos = new FileOutputStream(savePath);
+            ObjectOutput oos = new ObjectOutputStream(fos);
+
             oos.writeObject(state);
             oos.close();
             Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
+            Toast.makeText(this, "An error occurred while saving.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -179,9 +201,9 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
 
         int userScore = 0;
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
-        ArrayList<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
-        for (ScoreboardEntry entry : userHighScoreList){
-            if (entry.getGame().equals(state.getGameName())){
+        Iterable<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
+        for (ScoreboardEntry entry : userHighScoreList) {
+            if (entry.getGame().equals(state.getGameName())) {
                 userScore = entry.getScore();
                 break;
             }
@@ -197,10 +219,28 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        autoSave(fileName);
-        currentScore.setText(String.valueOf(((GameState) o).getScore()));
-        if (state.isOver())
-            endGame();
+        if (o instanceof GameState) {
+            GameState state = (GameState) o;
+            autoSave(fileName);
+
+            currentScore.setText(String.valueOf(state.getScore()));
+            setUndoState(state.canUndo());
+            if (state.isOver())
+                endGame();
+        }
+    }
+
+    /**
+     * Enables or disables the undo button.
+     *
+     * @param state If true, the button is enabled. If false, the button is disabled.
+     */
+    private void setUndoState(boolean state) {
+        undo.setEnabled(state);
+        if (state)
+            undo.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
+        else
+            undo.setTextColor(ContextCompat.getColor(this, R.color.lightgray));
     }
 
     /**
