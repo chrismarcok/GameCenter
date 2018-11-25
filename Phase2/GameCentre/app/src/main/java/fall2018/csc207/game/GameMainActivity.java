@@ -11,11 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -72,6 +68,11 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
     private String fileName;
 
     /**
+     * Handles saving.
+     */
+    private GameStateIO io;
+
+    /**
      * Called by Android when the Activity is being made.
      *
      * @param savedInstanceState A previously saved instance of the Activity, if available.
@@ -91,6 +92,8 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
 
         username = intent.getStringExtra(GameMainActivity.USERNAME);
         fileName = intent.getStringExtra(FILE_NAME);
+
+        io = new GameStateIO(username, state.getGameName(), getFilesDir());
 
         setupFragment();
         setupButtons();
@@ -158,12 +161,11 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      * @param file The name of the file to be saved.
      */
     public void autoSave(String file) {
+        //TODO: Autosave interval
         if (state.getScore() % 5 == 0) {
             saveGame(file);
         }
     }
-
-    //TODO: Encapsulate saving and loading into a class
 
     /**
      * Write the GameState to a file.
@@ -171,17 +173,8 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      * @param fileName The name of the file.
      */
     public void saveGame(String fileName) {
-        File saveDir = new File(
-                getFilesDir(), String.format("%s/%s", username, state.getGameName()));
         try {
-            // Makes the directories, if they don't exist. If they do then this does nothing.
-            saveDir.mkdirs();
-            File savePath = new File(saveDir, fileName);
-            FileOutputStream fos = new FileOutputStream(savePath);
-            ObjectOutput oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(state);
-            oos.close();
+            io.saveState(state, fileName);
             Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -240,7 +233,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
         if (state)
             undo.setTextColor(ContextCompat.getColor(this, R.color.colorPrimaryDark));
         else
-            undo.setTextColor(ContextCompat.getColor(this, R.color.lightgray));
+            undo.setTextColor(ContextCompat.getColor(this, R.color.gray));
     }
 
     /**
@@ -248,14 +241,24 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      */
     private void endGame() {
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
+        String message = "Your final score is: "
+                + state.getScore();
         String game = state.getGameName();
         db.addEntry(username, state.getScore(), game);
 
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setTitle("You win!")
-                .setMessage("Your final score is: " + state.getScore())
+                .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        try {
+                            io.deleteSave(fileName);
+                        } catch (IOException e) {
+                            Toast.makeText(GameMainActivity.this,
+                                    "Error deleting save file!",
+                                    Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }
                         finish();
                     }
                 });

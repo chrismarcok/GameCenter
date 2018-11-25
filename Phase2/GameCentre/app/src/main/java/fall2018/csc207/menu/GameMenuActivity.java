@@ -14,16 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
+import fall2018.csc207.game.GameState;
+import fall2018.csc207.game.GameStateIO;
 import fall2018.csc207.menu.scoreboard.ScoreboardActivity;
 import fall2018.csc207.slidingtiles.R;
 
@@ -52,6 +51,7 @@ public class GameMenuActivity extends AppCompatActivity {
 
     /**
      * Called when we create a GameMenuActivity.
+     *
      * @param savedInstanceState The activity's previously saved state, contained in a bundle.
      */
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class GameMenuActivity extends AppCompatActivity {
         TextView newName = findViewById(R.id.game_name);
         newName.setText(gameName);
         newGame();
-        loadGame();
+        showSavedGames();
         initScoreboard();
         infoDialog = new Dialog(this);
     }
@@ -112,31 +112,44 @@ public class GameMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Instantiates the load game button.
+     * Shows a dialog with a list of all saved games.
      */
-    private void loadGame() {
+    private void showSavedGames() {
         CardView loadGame = findViewById(R.id.load_game);
         loadGame.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                final List<String> files = new ArrayList<>();
-                final File userRootFolder = new File(getFilesDir(), username);
-                for (String gameName : gameFactory.getGameNames()) {
-                    File gameSaveFiles = new File(userRootFolder, gameName);
-                    gameSaveFiles.mkdirs();
-                    for (File saveFile : gameSaveFiles.listFiles()) {
-                        files.add(gameName + "/" + saveFile.getName());
-                    }
-                }
+                // When we need to load, we grab files from this array
+                final Map<String, File> files = getSavedGames();
+                // We display this array (as AlertDialogs can't display maps)
+                final String gameNames[] = files.keySet().toArray(new String[0]);
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameMenuActivity.this);
-                builder.setTitle("Choose save file")
-                        .setItems(files.toArray(new String[0]), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                loadFromFile(new File(userRootFolder, files.get(which)));
-                            }
-                        })
-                        .show();
+                builder.setTitle("Choose save file");
+                builder.setItems(gameNames, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        File saveFile = files.get(gameNames[which]);
+                        loadPopup(new GameStateIO(saveFile), saveFile, gameNames[which]);
+                    }
+                });
+                builder.show();
             }
         });
+    }
+
+    /**
+     * Grabs the saved games for all the games in gameFactory.getGameNames
+     *
+     * @return A map of the name of the save file (for display purposes), and the File object corresponding to the game.
+     */
+    private Map<String, File> getSavedGames() {
+        final Map<String, File> files = new HashMap<>();
+        for (String gameName : gameFactory.getGameNames()) {
+            GameStateIO io = new GameStateIO(username, gameName, getFilesDir());
+            for (File file : io.getAllSaves()) {
+                files.put(file.getParentFile().getName() + "/" + file.getName(), file);
+            }
+        }
+        return files;
     }
 
     /**
@@ -156,30 +169,77 @@ public class GameMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Loads a game from a file.
-     * @param file The file to load a save from.
+     * Shows the load game popup for a specific save file.
+     *
+     * @param io       The GameStateIO corresponding to the game to load.
+     * @param file     The File object to load a GameState from.
+     * @param fileName The name of the file for the title of the dialog.
      */
-    private void loadFromFile(File file) {
-        Log.v("Loading file", file.toString());
-        Serializable gameState;
+    private void loadPopup(final GameStateIO io, final File file, CharSequence fileName) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(fileName)
+                .setPositiveButton("Start", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        loadFromFile(file.getName(), io);
+                    }
+                })
+                .setNeutralButton("Back", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (!deleteFile(file, io)) {
+                            Toast.makeText(GameMenuActivity.this,
+                                    "Could not delete file!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                })
+                .show();
+    }
 
+    /**
+     * Loads a game from a file.
+     *
+     * @param file The file to load a save from.
+     * @param io   The appropriate helper class to load the save file.
+     */
+    private void loadFromFile(String file, GameStateIO io) {
+        Log.v("Loading file", file);
+        GameState gameState;
         // We load the specified file into gameState.
         try {
-            InputStream inputStream = new FileInputStream(file);
-            ObjectInputStream input = new ObjectInputStream(inputStream);
-            gameState = (Serializable) input.readObject();
-            inputStream.close();
+            gameState = io.getGameSave(file);
         } catch (IOException | ClassNotFoundException e) {
             Toast.makeText(this, "Error loading save file.",
                     Toast.LENGTH_LONG).show();
-            Log.e("login activity", "File not found: " + e.toString());
+            Log.e("login activity", "Loading error: " + e.toString());
             return;
         }
         Intent main = new Intent(GameMenuActivity.this, GameMainActivity.class);
         main.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
         main.putExtra(GameMainActivity.GAME_STATE, gameState);
         main.putExtra(GameMainActivity.USERNAME, username);
-        main.putExtra(GameMainActivity.FILE_NAME, file.getName());
+        main.putExtra(GameMainActivity.FILE_NAME, file);
         startActivity(main);
+    }
+
+    /**
+     * Deletes the file.
+     *
+     * @param file The file to delete.
+     * @param io   The appropriate helper class to delete the save file.
+     * @return true if the file was successfully deleted. false otherwise.
+     */
+    private boolean deleteFile(File file, GameStateIO io) {
+        try {
+            io.deleteSave(file);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
