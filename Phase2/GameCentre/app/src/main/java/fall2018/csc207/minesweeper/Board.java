@@ -15,11 +15,12 @@ public class Board extends GameState {
     private int dimensions;
     private int numrevealedTiles;
     private int numMines = 0;
+
     /**
      * Generate a board given the dimensions and difficulty
      *
-     * @param dimensions
-     * @param difficulty
+     * @param dimensions the width and height of the board
+     * @param difficulty the frequency of bombs
      */
 
     public Board(int dimensions, double difficulty) {
@@ -33,7 +34,7 @@ public class Board extends GameState {
     /**
      * Generate a board given the integer 2d array representation
      *
-     * @param numRep
+     * @param numRep a 2d array representation of the board
      */
     public Board(int[][] numRep) {
         mineField = new Tile[numRep.length][numRep[0].length];
@@ -65,21 +66,27 @@ public class Board extends GameState {
     public boolean canUndo() {
         return false;
     }
-    public void endGame(){
-        for (int i = 0; i < mineField.length; i++){
-            for(int b = 0; b < mineField.length; b++){
-                revealTile(i,b);
+
+    /**
+     * Called when a bomb is clicked. Triggers board reveal
+     */
+    public void endGame() {
+        for (int i = 0; i < mineField.length; i++) {
+            for (int b = 0; b < mineField.length; b++) {
+                revealTile(i, b);
             }
         }
     }
+
     @Override
     public boolean isOver() {
-        if (numrevealedTiles+getNumMines() <= mineField.length*mineField.length-1) {
+        if (numrevealedTiles + getNumMines() <= mineField.length * mineField.length - 1) {
             return false;
         }
-        for(int i = 0; i < mineField.length; i++){
-            for(int b = 0; b < mineField.length; b++){
-                if (mineField[i][b].getId() == Tile.BOMB && !mineField[i][b].isFlagged()){
+
+        for (Tile [] first: mineField){
+            for (Tile tile: first){
+                if(tile.getId() == Tile.BOMB && !tile.isFlagged()){
                     return false;
                 }
             }
@@ -88,6 +95,10 @@ public class Board extends GameState {
 
     }
 
+    /**
+     *  Returns the name of the game
+     * @return minesweeper name
+     */
     @Override
     public String getGameName() {
         return "MineSweeper";
@@ -98,11 +109,11 @@ public class Board extends GameState {
      * Minesweeper Board generating algorithm: https://introcs.cs.princeton.edu/java/14array/Minesweeper.java.html
      * Credits go to Princeton University
      *
-     * @param dimensions
-     * @param difficulty
+     * @param dimensions the width and height of the board
+     * @param difficulty the frequency of bombs
      * @return A generated tile board
      */
-    public Tile[][] generateBoard(int dimensions, double difficulty) {
+    private Tile[][] generateBoard(int dimensions, double difficulty) {
         Tile[][] mines = new Tile[dimensions][dimensions];
         int[][] repMines = new int[dimensions + 2][dimensions + 2];
         for (int x = 1; x <= dimensions; x++) {
@@ -138,7 +149,7 @@ public class Board extends GameState {
      *
      * @return Returns the number of mines on the board
      */
-    public int getNumMines() {
+    private int getNumMines() {
         return numMines;
     }
 
@@ -149,8 +160,8 @@ public class Board extends GameState {
     /**
      * Reveals the single tile located at col,row
      *
-     * @param col
-     * @param row
+     * @param col position of the column
+     * @param row position of the row
      */
     public void revealTile(int row, int col) {
         mineField[row][col].setrevealed(true);
@@ -164,32 +175,32 @@ public class Board extends GameState {
      * Reveals surrounding blank tiles as well as one layer of number tiles
      * Precondition: mineField[col][row].BLANK_TILE == 0
      *
-     * @param col
-     * @param row
+     * @param col position of the column
+     * @param row position of the row
      */
     public void revealSurroundingBlanks(int row, int col) {
         //Reveal the 4 surrounding tiles that aren't Bombs, if a blank is revealed reveal the tiles around that blank as well
         // revealTile(row,col);
 
-        if (row + 1 < dimensions && mineField[row + 1][col].getId() != Tile.BOMB && mineField[row + 1][col].getrevealed() == false) {
+        if (row + 1 < dimensions && mineField[row + 1][col].getId() != Tile.BOMB && !mineField[row + 1][col].getrevealed()) {
             revealTile(row + 1, col);
             if (mineField[row + 1][col].getId() == Tile.BLANK_TILE) {
                 revealSurroundingBlanks(row + 1, col);
             }
         }
-        if (row - 1 >= 0 && mineField[row - 1][col].getId() != Tile.BOMB && mineField[row - 1][col].getrevealed() == false) {
+        if (row - 1 >= 0 && mineField[row - 1][col].getId() != Tile.BOMB && !mineField[row - 1][col].getrevealed()) {
             revealTile(row - 1, col);
             if (mineField[row - 1][col].getId() == Tile.BLANK_TILE) {
                 revealSurroundingBlanks(row - 1, col);
             }
         }
-        if (col + 1 < dimensions && mineField[row][col + 1].getId() != Tile.BOMB && mineField[row][col + 1].getrevealed() == false) {
+        if (col + 1 < dimensions && mineField[row][col + 1].getId() != Tile.BOMB && !mineField[row][col + 1].getrevealed()) {
             revealTile(row, col + 1);
             if (mineField[row][col + 1].getId() == Tile.BLANK_TILE) {
                 revealSurroundingBlanks(row, col + 1);
             }
         }
-        if (col - 1 >= 0 && mineField[row][col - 1].getId() != Tile.BOMB && mineField[row][col - 1].getrevealed() == false) {
+        if (col - 1 >= 0 && mineField[row][col - 1].getId() != Tile.BOMB && !mineField[row][col - 1].getrevealed()) {
             revealTile(row, col - 1);
             if (mineField[row][col - 1].getId() == Tile.BLANK_TILE) {
                 revealSurroundingBlanks(row, col - 1);
@@ -200,6 +211,7 @@ public class Board extends GameState {
 
     /**
      * Flags a tile
+     *
      * @param tile represents a tile
      */
     public void flagTile(Tile tile) {
@@ -213,18 +225,22 @@ public class Board extends GameState {
     /**
      * Testing method for printing out the board
      */
-    public void print_board() {
-        for (int i = 0; i < mineField.length; i++) {
-            for (int b = 0; b < mineField.length; b++) {
-                System.out.print(mineField[i][b] + "  ");
+    private void print_board() {
+        for (Tile [] first: mineField){
+            for (Tile second: first){
+                System.out.print(second + "  ");
             }
             System.out.println();
         }
     }
-    public void decrementScore(){
-        setScore(getScore()-1);
+
+    /**
+     * Decreases the score by one
+     *
+     */
+    public void decrementScore() {
+
+        setScore(getScore() - 1);
     }
-
-
 
 }
