@@ -158,25 +158,25 @@ public class Board extends GameState implements Iterable<Tile> {
         tiles[row1][col1] = new Tile(second.getId(), second.getBackground());
         tiles[row2][col2] = new Tile(first.getId(), first.getBackground());
 
+        // We may not want this move to be recorded.
+        if (addToPrevMoves) {
+            // prevMoves may be null if we load a game.
+            //TODO: Fix
+            if (prevMoves == null)
+                prevMoves = new Stack<>();
+
+            // We want to add the non-blank tile to the stack.
+            if (first.getId() == numTiles()) prevMoves.add(new Pair<>(row1, col1));
+            else prevMoves.add(new Pair<>(row2, col2));
+
+            // We made another move, so we can continue undoing.
+            if (allowedUndos < getMaxUndos() && 0 <= allowedUndos) {
+                allowedUndos++;
+            }
+        }
+
         setChanged();
         notifyObservers();
-
-        // We may not want this move to be recorded.
-        if (!addToPrevMoves)
-            return;
-
-        // prevMoves may be null if we load a game.
-        if (prevMoves == null)
-            prevMoves = new Stack<>();
-
-        // We want to add the non-blank tile to the stack.
-        if (first.getId() == numTiles()) prevMoves.add(new Pair<>(row1, col1));
-        else prevMoves.add(new Pair<>(row2, col2));
-
-        // We made another move, so we can continue undoing.
-        if (allowedUndos < getMaxUndos() && 0 <= allowedUndos) {
-            allowedUndos++;
-        }
     }
 
     @Override
@@ -198,15 +198,15 @@ public class Board extends GameState implements Iterable<Tile> {
      */
     @Override
     public void undo() {
+        // If allowedUndos is less than 0, then we might be allowing infinite undos.
+        if (allowedUndos > 0)
+            allowedUndos--;
+
         Pair<Integer, Integer> prevMove = prevMoves.pop();
         int row = prevMove.first;
         int col = prevMove.second;
         Pair<Integer, Integer> blankLocation = findEmptyTileAdjacent(row, col, numTiles(), false);
         swapTiles(row, col, blankLocation.first, blankLocation.second, false);
-
-        // If allowedUndos is less than 0, then we might be allowing infinite undos.
-        if (allowedUndos > 0)
-            allowedUndos--;
     }
 
     @Override
