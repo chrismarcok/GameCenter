@@ -13,8 +13,8 @@ public class MinesweeperFactory extends GameFactory {
     public MinesweeperFactory() {
         addToSettings(new Setting(
                 "Difficulty",
-                Arrays.asList("Easy", "Medium", "Hard", "MEGA-HARD!!!!"),
-                "Easy"
+                Arrays.asList("5x5", "8x8", "13x13", "20x20"),
+                "5x5"
         ));
     }
 
@@ -27,16 +27,16 @@ public class MinesweeperFactory extends GameFactory {
     public GameState getGameState(int numUndos) {
         Board board;
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings anyways
-            case "Easy":
+            case "5x5":
                 board = new Board(5, .2);
                 break;
-            case "Medium":
+            case "8x8":
                 board = new Board(8, .2);
                 break;
-            case "Hard":
+            case "13x13":
                 board = new Board(13, .2);
                 break;
-            case "MEGA-HARD!!!!":
+            case "20x20":
                 board = new Board(20, .4);
                 break;
             default:
@@ -53,6 +53,6 @@ public class MinesweeperFactory extends GameFactory {
 
     @Override
     public List<String> getGameNames() {
-        return Arrays.asList("Minesweeper Easy", "Minesweeper Medium","Minesweeper Hard","Minesweeper Impossible");
+        return Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8","Minesweeper 13x13","Minesweeper 20x20");
     }
 }

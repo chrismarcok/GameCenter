@@ -23,21 +23,21 @@ public class BoardManager extends GameManager<Board> implements Serializable {
 
     /**
      * Processes user input and updates tile game accordingly.
+     *
      * @param position The position of the input.
      */
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Tile curr_tile = gameState.getTile(row,col);
+        Tile curr_tile = gameState.getTile(row, col);
         if (!curr_tile.isFlagged()) {
             gameState.revealTile(row, col);
         }
-         //Check for cases where the selected tile is a BOMB or BLANK_TILE
-        if (curr_tile.getId() == Tile.BOMB){
-            gameState.endGame();
-        }
-        else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()){
-            gameState.revealSurroundingBlanks(row,col);
+        //Check for cases where the selected tile is a BOMB or BLANK_TILE
+        if (curr_tile.getId() == Tile.BOMB) {
+            gameState.endGame(row, col);
+        } else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()) {
+            gameState.revealSurroundingBlanks(row, col);
         }
 
     }
@@ -57,10 +57,10 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param position the position
      */
-    public void flagTile(int position){
+    public void flagTile(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Tile curr_tile = gameState.getTile(row,col);
+        Tile curr_tile = gameState.getTile(row, col);
         gameState.flagTile(curr_tile);
     }
 
