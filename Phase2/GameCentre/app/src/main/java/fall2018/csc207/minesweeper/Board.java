@@ -70,16 +70,17 @@ public class Board extends GameState {
     /**
      * Called when a bomb is clicked. Triggers board reveal
      */
-    public void endGame() {
-        for (int i = 0; i < mineField.length; i++) {
-            for (int b = 0; b < mineField.length; b++) {
-                revealTile(i, b);
-            }
-        }
+    public void endGame(int row, int col) {
+        score = 0;
+        revealTile(row, col);
+        isOver();
     }
 
     @Override
     public boolean isOver() {
+        if (score == 0){
+            return true;
+        }
         if (numrevealedTiles + getNumMines() <= mineField.length * mineField.length - 1) {
             return false;
         }
@@ -101,7 +102,9 @@ public class Board extends GameState {
      */
     @Override
     public String getGameName() {
-        return "MineSweeper";
+        String name = "Minesweeper ";
+        String setting = String.valueOf(this.dimensions) + "x" + String.valueOf(this.dimensions);
+        return name + setting;
     }
 
     /**
