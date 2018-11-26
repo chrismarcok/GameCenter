@@ -19,7 +19,7 @@ import fall2018.csc207.game.GameFragment;
  * The fragment used for displaying Sliding Tiles.
  * This helps setup the game given GAME_STATE as a parcel.
  */
-public class SlidingTilesFragment extends GameFragment<Board, BoardManager> {
+public class SlidingTilesFragment extends GameFragment<Board, SlidingTileController> {
 
     /**
      * The buttons (tiles) that can be clicked on to be moved.
@@ -31,7 +31,7 @@ public class SlidingTilesFragment extends GameFragment<Board, BoardManager> {
      */
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-    private int dimensions = 0;
+    private int dimensions;
 
     /**
      * Set up the background image for each button based on the master list
@@ -92,11 +92,10 @@ public class SlidingTilesFragment extends GameFragment<Board, BoardManager> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of BoardManager to be initialized
-        gameManager = new BoardManager(this.state);
-        dimensions = (int) Math.sqrt(gameManager.gameState.numTiles());
-        state = gameManager.getGameState();
-        state.addObserver(this);
+        //Pulls the type of SlidingTileController to be initialized
+        gameManager = new SlidingTileController(this.state);
+        dimensions = (int) Math.sqrt(this.state.numTiles());
+        this.state.addObserver(this);
     }
 
 

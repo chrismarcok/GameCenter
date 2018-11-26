@@ -2,15 +2,12 @@ package fall2018.csc207.twentyfortyeight;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.gesture.Gesture;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 import android.widget.Toast;
-
-import fall2018.csc207.twentyfortyeight.BoardManager;
 
 public class GestureDetectGridView extends GridView {
 
@@ -19,10 +16,10 @@ public class GestureDetectGridView extends GridView {
     private static final int SWIPE_VELOCITY_THRESHOLD = 100;
     private GestureDetector gDetector;
 
-    private boolean mFlingConfirmed = false;
+    private boolean mFlingConfirmed;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
+    private BoardController boardManager;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -142,7 +139,7 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    public void setBoardManager(BoardController boardManager) {
         this.boardManager = boardManager;
     }
 }

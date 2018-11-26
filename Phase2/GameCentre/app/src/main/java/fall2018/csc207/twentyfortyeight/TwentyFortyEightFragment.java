@@ -12,8 +12,6 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Observable;
 
 import fall2018.csc207.game.GameFragment;
@@ -23,7 +21,7 @@ import fall2018.csc207.slidingtiles.R;
 /**
  * Fragment class made to display the game in the GameMainActivity
  */
-public class TwentyFortyEightFragment extends GameFragment<Board, BoardManager> {
+public class TwentyFortyEightFragment extends GameFragment<Board, BoardController> {
 
 
     /**
@@ -95,8 +93,8 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardManager> 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of BoardManager to be initialized
-        gameManager = new BoardManager(this.state);
+        //Pulls the type of SlidingTileController to be initialized
+        gameManager = new BoardController(this.state);
         //dimensions = state.getDimensions();
         state = gameManager.getGameState();
         state.addObserver(this);

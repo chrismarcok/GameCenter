@@ -3,7 +3,6 @@ package fall2018.csc207.minesweeper;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,7 +19,7 @@ import java.util.TimerTask;
 import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.slidingtiles.R;
 
-public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
+public class MinesweeperFragment extends GameFragment<Board, MinesweeperController> {
 
     /**
      * The buttons (tiles) that can be clicked on to be moved.
@@ -32,7 +31,7 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
      */
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-    private int dimensions = 0;
+    private int dimensions;
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -92,8 +91,8 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of BoardManager to be initialized
-        gameManager = new BoardManager(this.state);
+        //Pulls the type of SlidingTileController to be initialized
+        gameManager = new MinesweeperController(this.state);
         dimensions = state.getDimensions();
         state = gameManager.getGameState();
         state.addObserver(this);

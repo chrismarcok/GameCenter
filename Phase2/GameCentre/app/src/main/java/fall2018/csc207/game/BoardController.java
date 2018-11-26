@@ -1,36 +1,17 @@
 package fall2018.csc207.game;
 
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-
 /**
- * Created by Steven on 2018-10-30.
- * Manages all the logic of a game while changing game data through interacting with gamestates interface
+ * A version of GameController used for games that require tapping on specific tiles.
  */
-
-public abstract class GameManager<T extends GameState> {
-
-    /**
-     * The model for the game.
-     */
-    public T gameState;
+public abstract class BoardController<T extends GameState> extends GameController<T> {
 
     /**
-     * The GameManager.
+     * Constructs SlidingTileController.
      *
      * @param gameState The gameState of this game.
      */
-    public GameManager(T gameState) {
-        this.gameState = gameState;
-    }
-
-    /**
-     * Getter function for GameState retrieval.
-     *
-     * @return The GameState.
-     */
-    public T getGameState() {
-        return this.gameState;
+    public BoardController(T gameState) {
+        super(gameState);
     }
 
     /**

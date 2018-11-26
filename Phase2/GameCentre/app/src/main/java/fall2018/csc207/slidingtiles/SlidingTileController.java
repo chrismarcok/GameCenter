@@ -4,12 +4,12 @@ import android.support.v4.util.Pair;
 
 import java.io.Serializable;
 
-import fall2018.csc207.game.GameManager;
+import fall2018.csc207.game.BoardController;
 
 /**
  * Manage the board state by processing taps.
  */
-public class BoardManager extends GameManager<Board> implements Serializable {
+public class SlidingTileController extends BoardController<Board> implements Serializable {
 
     /**
      * The dimension of the board
@@ -21,7 +21,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(Board board) {
+    public SlidingTileController(Board board) {
         super(board);
         dimensions = (int)Math.sqrt(this.gameState.numTiles());
     }
@@ -30,6 +30,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * Processes user input and updates tile game accordingly.
      * @param position The position of the input.
      */
+    @Override
     public void updateGame(int position) {
         touchMove(position);
     }
@@ -40,6 +41,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
+    @Override
     protected boolean isValidTap(int position) {
         int row = position / dimensions;
         int col = position % dimensions;

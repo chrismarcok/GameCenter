@@ -2,9 +2,12 @@ package fall2018.csc207.minesweeper;
 
 import java.io.Serializable;
 
-import fall2018.csc207.game.GameManager;
+import fall2018.csc207.game.BoardController;
 
-public class BoardManager extends GameManager<Board> implements Serializable {
+/**
+ * Controller for Minesweeper.
+ */
+public class MinesweeperController extends BoardController<Board> implements Serializable {
 
     /**
      * The dimension of the board
@@ -16,7 +19,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(Board board) {
+    public MinesweeperController(Board board) {
         super(board);
         this.dimensions = gameState.getDimensions();
     }
@@ -26,6 +29,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param position The position of the input.
      */
+    @Override
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
@@ -48,6 +52,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
+    @Override
     protected boolean isValidTap(int position) {
         return true;
     }
@@ -63,5 +68,4 @@ public class BoardManager extends GameManager<Board> implements Serializable {
         Tile curr_tile = gameState.getTile(row, col);
         gameState.flagTile(curr_tile);
     }
-
 }

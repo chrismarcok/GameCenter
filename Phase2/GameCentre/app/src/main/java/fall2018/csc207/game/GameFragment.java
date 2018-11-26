@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import java.util.Observable;
 import java.util.Observer;
 
-public abstract class GameFragment<S extends GameState, M extends GameManager>
+public abstract class GameFragment<S extends GameState, M extends GameController>
         extends Fragment implements Observer {
 
     /**

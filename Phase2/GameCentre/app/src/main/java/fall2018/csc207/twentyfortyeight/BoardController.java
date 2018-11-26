@@ -4,12 +4,12 @@ import android.gesture.Gesture;
 
 import java.io.Serializable;
 
-import fall2018.csc207.game.GameManager;
+import fall2018.csc207.game.GameController;
 
 /**
  * Manage the board state by processing taps.
  */
-public class BoardManager extends GameManager<Board> implements Serializable {
+public class BoardController extends GameController<Board> implements Serializable {
 
     /**
      * The dimension of the board
@@ -21,7 +21,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(Board board) {
+    public BoardController(Board board) {
         super(board);
         dimensions = (int)Math.sqrt(this.gameState.getDimensions());
     }
@@ -30,7 +30,6 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * Processes user input and updates tile game accordingly.
      * @param position The input guesture.
      */
-    @Override
     protected void updateGame(int position) {
 
     }
