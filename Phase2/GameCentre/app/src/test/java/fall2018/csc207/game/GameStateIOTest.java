@@ -1,4 +1,4 @@
-package fall2018.csc207.slidingtiles;
+package fall2018.csc207.game;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider;
 import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameState;
 import fall2018.csc207.game.GameStateIO;
+import fall2018.csc207.slidingtiles.SlidingTilesFactory;
 
 import org.junit.Before;
 import org.junit.Test;
