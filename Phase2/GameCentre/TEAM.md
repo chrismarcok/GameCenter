@@ -86,3 +86,12 @@ to build the UI/use XML.
 * Discussed how to best implement 2048 move function.
 * Decided to refactor the Game Manager to work with any game, not just games with tap.
 * Make Game Manager implement Gesture.OnGestureListener
+
+## November 26, 2018
+
+* Need to create JUnit tests for classes, excluding fragments or activities
+* Right click run > analyze > Inspect Code, fix issues
+* Minesweeper multiple board sizes add to scoreboard
+* 2048 will have one size for now, can change later.
+* GameCardItem needs to load the highscore from variant games of the primary game type (max of sliding tiles 3,4,5 is highscore for sliding tiles)
+* Losing Minesweeper needs to display you lose dialog and NOT add entry to scoreboard.
