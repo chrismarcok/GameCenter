@@ -8,7 +8,7 @@ import android.view.MotionEvent;
  * Manages all the logic of a game while changing game data through interacting with gamestates interface
  */
 
-public abstract class GameManager<T extends GameState> implements GestureDetector.OnGestureListener {
+public abstract class GameManager<T extends GameState> {
 
     /**
      * The model for the game.
@@ -59,71 +59,4 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
      * @param position The position on the grid.
      */
     abstract protected void updateGame(int position);
-
-    /**
-     * Called whenever a tap starts.
-     *
-     * @param e The motionevent that triggered this function.
-     */
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-
-    /**
-     * Called when we have a down motionevent, but the finger has not moved yet.
-     *
-     * @param e The motionevent that triggered this function.
-     */
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    /**
-     * Called whenever a tap ends.
-     *
-     * @param e The motionevent that triggered this function.
-     */
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        return false;
-    }
-
-    /**
-     * Called when a scroll happens.
-     *
-     * @param e1        The first down event.
-     * @param e2        The move motion event that triggered this call.
-     * @param distanceX The distance that we have moved our finger since e1.
-     * @param distanceY The distance that we have moved our finger since e1.
-     */
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    /**
-     * Called when a long press occurs.
-     *
-     * @param e The motionevent that triggered this function.
-     */
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    /**
-     * Called whenever a fling happens.
-     *
-     * @param e1        The first down event that started the fling.
-     * @param e2        The current event that triggered this fling.
-     * @param velocityX The x velocity of the fling.
-     * @param velocityY The y velocity of the fling.
-     */
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
-    }
-
 }
