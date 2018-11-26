@@ -87,7 +87,7 @@ public class GameStateIO {
      * @param state    The GameState to save.
      * @param fileName The file name to save the state to.
      */
-    void saveState(GameState state, String fileName) throws IOException {
+    public void saveState(GameState state, String fileName) throws IOException {
         File saveDir = getFile(fileName);
         FileOutputStream fos = new FileOutputStream(saveDir);
         ObjectOutput oos = new ObjectOutputStream(fos);
@@ -96,11 +96,19 @@ public class GameStateIO {
         oos.close();
     }
 
-    void deleteSave(String fileName) throws IOException {
+    /**
+     * Deletes a save file from the given fileName.
+     * @param fileName The file to delete.
+     */
+    public void deleteSave(String fileName) throws IOException {
         if (!getFile(fileName).delete())
             throw new IOException(String.format("%s could not be deleted!", fileName));
     }
 
+    /**
+     * Deletes the save from the given File.
+     * @param file The File to delete.
+     */
     public void deleteSave(File file) throws IOException {
         if (!file.delete())
             throw new IOException(String.format("%s could not be deleted!", file.toString()));
