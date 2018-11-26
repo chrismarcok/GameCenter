@@ -41,6 +41,9 @@ public class Board extends GameState {
         for (int i = 0; i < numRep.length; i++) {
             for (int j = 0; j < numRep.length; j++) {
                 mineField[i][j] = new Tile(numRep[i][j]);
+                if (numRep[i][j] == -1){
+                    numMines++;
+                }
             }
         }
         this.dimensions = mineField.length;
@@ -152,7 +155,7 @@ public class Board extends GameState {
      *
      * @return Returns the number of mines on the board
      */
-    private int getNumMines() {
+    public int getNumMines() {
         return numMines;
     }
 
