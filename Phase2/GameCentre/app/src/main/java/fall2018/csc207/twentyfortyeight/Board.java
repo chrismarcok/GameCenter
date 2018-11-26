@@ -71,14 +71,42 @@ public class Board extends GameState implements Iterable<Tile> {
             }
 
         }
-//        for (int row = 0; row < numRows; row++) {
-//            for (int col = 0; col < numCols; col++) {
-//                if (board[row][col].isEmpty()) {
-//                    list.add(board[row][col]);
-//                }
-//            }
-//        }
         return list;
+    }
+
+    /**
+     * Merging tile Function: https://rosettacode.org/wiki/2048#Java
+     *
+     */
+    private boolean move(int countDownFrom, int yIncr, int xIncr) {
+        return true;
+    }
+
+    boolean moveUp() {
+        return move(0, -1, 0);
+    }
+
+    boolean moveDown() {
+        return move(getDimensions() * getDimensions() - 1, 1, 0);
+    }
+
+    boolean moveLeft() {
+        return move(0, 0, -1);
+    }
+
+    boolean moveRight() {
+        return move(getDimensions() * getDimensions() - 1, 0, 1);
+    }
+
+    void clearMerged() {
+        for (Tile[] row : board)
+            for (Tile tile : row)
+                if (tile != null)
+                    tile.setMerged(false);
+    }
+
+    boolean movesAvailable() {
+        return moveUp() || moveDown() || moveLeft() || moveRight();
     }
 
     @Override
@@ -113,6 +141,10 @@ public class Board extends GameState implements Iterable<Tile> {
 
     public Tile getTile(int row, int col) {
         return board[row][col];
+    }
+
+    public void move() {
+
     }
 
     private class BoardIterator implements Iterator<Tile> {

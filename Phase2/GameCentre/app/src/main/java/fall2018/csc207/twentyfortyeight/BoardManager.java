@@ -1,11 +1,10 @@
 package fall2018.csc207.twentyfortyeight;
 
-import android.support.v4.util.Pair;
+import android.gesture.Gesture;
 
 import java.io.Serializable;
 
 import fall2018.csc207.game.GameManager;
-import fall2018.csc207.twentyfortyeight.Board;
 
 /**
  * Manage the board state by processing taps.
@@ -29,10 +28,11 @@ public class BoardManager extends GameManager<Board> implements Serializable {
 
     /**
      * Processes user input and updates tile game accordingly.
-     * @param position The position of the input.
+     * @param position The input guesture.
      */
-    public void updateGame(int position) {
-        touchMove(position);
+    @Override
+    protected void updateGame(int position) {
+
     }
 
     /**
@@ -49,12 +49,13 @@ public class BoardManager extends GameManager<Board> implements Serializable {
         return true;
     }
 
+
     /**
      * Process a touch at position in the board, swapping tiles as appropriate.
      *
-     * @param position the position
+     * @param gesture the position
      */
-    private void touchMove(int position) {
+    private void touchMove(Gesture gesture) {
 
 //        int row = position / dimensions;
 //        int col = position % dimensions;
@@ -64,5 +65,18 @@ public class BoardManager extends GameManager<Board> implements Serializable {
 //        Pair<Integer, Integer> blankCoord = gameState.findEmptyTileAdjacent(row, col, blankId, false);
 //        if (blankCoord != null)
 //            gameState.swapTiles(blankCoord.first, blankCoord.second, row, col, true);
+    }
+
+    public void moveRight() {
+        gameState.moveRight();
+    }
+    public void moveLeft() {
+        gameState.moveLeft();
+    }
+    public void moveUp() {
+        gameState.moveUp();
+    }
+    public void moveDown() {
+        gameState.moveDown();
     }
 }

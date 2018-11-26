@@ -10,34 +10,37 @@ import fall2018.csc207.game.GameState;
 import fall2018.csc207.slidingtiles.R;
 
 class Tile extends GameState {
-    private static Map<Integer, Integer> colorMap() {
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(2, R.color.two);
-        map.put(4, R.color.four);
-        map.put(8, R.color.eight);
-        map.put(16, R.color.sixteen);
-        map.put(32, R.color.thirtyTwo);
-        map.put(64, R.color.sixtyFour);
-        map.put(128, R.color.oneTwentyEight);
-        map.put(256, R.color.twoFiftySix);
-        map.put(512, R.color.fiveTwelve);
-        map.put(1024, R.color.tenTwentyFour);
-        map.put(2048, R.color.twentyFourtyEight);
-        map.put(0, R.color.gridColor);
-        return map;
-    }
+//    private static Map<Integer, Integer> colorMap;
+//
+//    static {
+//        colorMap = new HashMap<>();
+//        colorMap.put(1, R.color.two);
+//        colorMap.put(2, R.color.four);
+//        colorMap.put(3, R.color.eight);
+//        colorMap.put(6, R.color.sixteen);
+//        colorMap.put(12, R.color.thirtyTwo);
+//        colorMap.put(24, R.color.sixtyFour);
+//        colorMap.put(48, R.color.oneTwentyEight);
+//        colorMap.put(96, R.color.twoFiftySix);
+//        colorMap.put(292, R.color.fiveTwelve);
+//        colorMap.put(584, R.color.tenTwentyFour);
+//        colorMap.put(, R.color.twentyFourtyEight);
+//        colorMap.put(0, R.color.gridColor);
+
+//    }
 
     public int value;
     private int background;
+    private boolean merged;
 
     public Tile() {
         this.value = 0;
-        this.background = colorMap().get(0);
+//        this.background = colorMap().get(0);
     }
 
     public Tile(int value) {
         this.value = value;
-        this.background = colorMap().get(value);
+//        this.background = colorMap().get(value);
     }
 
     public boolean isEmpty() {
@@ -69,6 +72,14 @@ class Tile extends GameState {
     }
 
     public void setBackground(int value) {
-        this.background = colorMap().get(value);
+        this.background = R.color.two;
+    }
+
+    public boolean isMerged() {
+        return merged;
+    }
+
+    public void setMerged(boolean merged) {
+        this.merged = merged;
     }
 }

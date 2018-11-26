@@ -80,3 +80,9 @@ to build the UI/use XML.
 * Brainstormed implementation of minesweeper game.
 * Discussed use of undo and autosave in Minesweeper. Decided against the use of undo, unless something changes in the future.
 * Need better pictures. Currently they are ugly.
+
+## November 25, 2018
+
+* Discussed how to best implement 2048 move function.
+* Decided to refactor the Game Manager to work with any game, not just games with tap.
+* Make Game Manager implement Gesture.OnGestureListener

@@ -17,6 +17,7 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * The GameManager.
+     *
      * @param gameState The gameState of this game.
      */
     public GameManager(T gameState) {
@@ -25,9 +26,10 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Getter function for GameState retrieval.
+     *
      * @return The GameState.
      */
-    public T getGameState(){
+    public T getGameState() {
         return this.gameState;
     }
 
@@ -60,6 +62,7 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Called whenever a tap starts.
+     *
      * @param e The motionevent that triggered this function.
      */
     @Override
@@ -69,6 +72,7 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Called when we have a down motionevent, but the finger has not moved yet.
+     *
      * @param e The motionevent that triggered this function.
      */
     @Override
@@ -78,6 +82,7 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Called whenever a tap ends.
+     *
      * @param e The motionevent that triggered this function.
      */
     @Override
@@ -87,8 +92,9 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Called when a scroll happens.
-     * @param e1 The first down event.
-     * @param e2 The move motion event that triggered this call.
+     *
+     * @param e1        The first down event.
+     * @param e2        The move motion event that triggered this call.
      * @param distanceX The distance that we have moved our finger since e1.
      * @param distanceY The distance that we have moved our finger since e1.
      */
@@ -99,6 +105,7 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Called when a long press occurs.
+     *
      * @param e The motionevent that triggered this function.
      */
     @Override
@@ -108,8 +115,9 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
 
     /**
      * Called whenever a fling happens.
-     * @param e1 The first down event that started the fling.
-     * @param e2 The current event that triggered this fling.
+     *
+     * @param e1        The first down event that started the fling.
+     * @param e2        The current event that triggered this fling.
      * @param velocityX The x velocity of the fling.
      * @param velocityY The y velocity of the fling.
      */
@@ -117,4 +125,5 @@ public abstract class GameManager<T extends GameState> implements GestureDetecto
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
         return false;
     }
+
 }
