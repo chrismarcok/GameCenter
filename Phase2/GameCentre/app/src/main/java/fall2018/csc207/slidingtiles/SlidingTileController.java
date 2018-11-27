@@ -45,8 +45,12 @@ public class SlidingTileController extends BoardController<Board> implements Ser
     protected boolean isValidTap(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        int blankId = gameState.numTiles();
-        return gameState.findEmptyTileAdjacent(row, col, blankId, false) != null;
+        Pair<Integer, Integer> blank = gameState.findBlankTile();
+        return isTileAdjacent(row, col, blank); // The blank tile is adjacent to our tap
+    }
+
+    private boolean isTileAdjacent(int row, int col, Pair<Integer, Integer> tile) {
+        return Math.abs(tile.first - row + tile.second - col) == 1;
     }
 
     /**
@@ -55,14 +59,14 @@ public class SlidingTileController extends BoardController<Board> implements Ser
      * @param position the position
      */
     private void touchMove(int position) {
-
         int row = position / dimensions;
         int col = position % dimensions;
-        int blankId = gameState.numTiles();
 
         // tiles is the blank tile, swap by calling Board's swap method.
-        Pair<Integer, Integer> blankCoord = gameState.findEmptyTileAdjacent(row, col, blankId, false);
-        if (blankCoord != null)
+        Pair<Integer, Integer> blankCoord = gameState.findBlankTile();
+
+        // We are precisely 1 tile away from the blank tile, which means we're adjacent to it
+        if (isTileAdjacent(row, col, blankCoord))
             gameState.swapTiles(blankCoord.first, blankCoord.second, row, col, true);
     }
 }
