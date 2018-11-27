@@ -12,10 +12,10 @@ public class GestureDetectGridView extends GridView {
     public static final int SWIPE_MIN_DISTANCE = 100;
     private GestureDetector gDetector;
 
-    private boolean mFlingConfirmed = false;
+    private boolean mFlingConfirmed;
     private float mTouchX;
     private float mTouchY;
-    private BoardManager boardManager;
+    private MinesweeperController boardManager;
 
     public GestureDetectGridView(Context context) {
         super(context);
@@ -54,8 +54,15 @@ public class GestureDetectGridView extends GridView {
             public boolean onDown(MotionEvent event) {
                 return true;
             }
+            @Override
+            public void onLongPress(MotionEvent e) {
+                int position = GestureDetectGridView.this.pointToPosition
+                        (Math.round(e.getX()), Math.round(e.getY()));
+                boardManager.flagTile(position);
 
+            }
         });
+
     }
 
     @Override
@@ -90,7 +97,7 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
-    public void setBoardManager(BoardManager boardManager) {
+    public void setBoardManager(MinesweeperController boardManager) {
         this.boardManager = boardManager;
     }
 }

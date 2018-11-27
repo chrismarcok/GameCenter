@@ -13,12 +13,15 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
 import fall2018.csc207.game.GameState;
+import fall2018.csc207.game.GameStateIO;
 import fall2018.csc207.slidingtiles.R;
 
 
@@ -26,6 +29,7 @@ import fall2018.csc207.slidingtiles.R;
  * The menu for new games.
  */
 public class NewGameActivity extends AppCompatActivity {
+
     public static final String GAME_NAME = "NAME";
     public static final String USERNAME = "USERNAME";
 
@@ -50,8 +54,11 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private SeekBar undoSeekbar;
 
+    private TextView fileName;
+
     /**
      * Called when we create a NewGameActivity.
+     *
      * @param savedInstanceState The activity's previously saved state, contained in a bundle.
      */
     @Override
@@ -59,6 +66,8 @@ public class NewGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         Intent intent = getIntent();
+
+        fileName = findViewById(R.id.fileName);
 
         gameName = intent.getStringExtra(GAME_NAME);
         username = intent.getStringExtra(USERNAME);
@@ -147,7 +156,7 @@ public class NewGameActivity extends AppCompatActivity {
         LinearLayout screenView = findViewById(R.id.settings);
         for (final GameFactory.Setting setting : gameFactory.getSettings()) {
             Spinner dropdown = new Spinner(this);
-            ArrayAdapter<String> dropdownAdapter = new ArrayAdapter<>(
+            SpinnerAdapter dropdownAdapter = new ArrayAdapter<>(
                     this,
                     android.R.layout.simple_spinner_item,
                     setting.getPossibleValues());
@@ -191,13 +200,25 @@ public class NewGameActivity extends AppCompatActivity {
     private void startGame() {
         Log.v("Start Game", gameName + " by user " + username);
         GameState state = gameFactory.getGameState(undoSeekbar.getProgress());
+
+        String userFileName = fileName.getText().toString();
+        GameStateIO io = new GameStateIO(username, state.getGameName(), getFilesDir());
+        //TODO: Determine if the filename has valid chars? eg. / isn't allowed in a filename!
+        if (!isValidFileName(userFileName, io)) {
+            Toast.makeText(this, "File name cannot be empty!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Intent tmp = new Intent(NewGameActivity.this, GameMainActivity.class);
         tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
         tmp.putExtra(GameMainActivity.GAME_STATE, state);
         tmp.putExtra(GameMainActivity.USERNAME, username);
+        tmp.putExtra(GameMainActivity.FILE_NAME, userFileName);
 
-        //TODO: Add filename selector
-        tmp.putExtra("file", "temp.tmp");
         startActivity(tmp);
+    }
+
+    private boolean isValidFileName(String fileName, GameStateIO io) {
+        return io.isValidUnusedFileName(fileName);
     }
 }

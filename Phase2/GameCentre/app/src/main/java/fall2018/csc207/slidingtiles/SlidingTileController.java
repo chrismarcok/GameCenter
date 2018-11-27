@@ -4,12 +4,12 @@ import android.support.v4.util.Pair;
 
 import java.io.Serializable;
 
-import fall2018.csc207.game.GameManager;
+import fall2018.csc207.game.BoardController;
 
 /**
  * Manage the board state by processing taps.
  */
-public class BoardManager extends GameManager<Board> implements Serializable {
+public class SlidingTileController extends BoardController<Board> implements Serializable {
 
     /**
      * The dimension of the board
@@ -21,7 +21,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(Board board) {
+    public SlidingTileController(Board board) {
         super(board);
         dimensions = (int)Math.sqrt(this.gameState.numTiles());
     }
@@ -30,6 +30,7 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * Processes user input and updates tile game accordingly.
      * @param position The position of the input.
      */
+    @Override
     public void updateGame(int position) {
         touchMove(position);
     }
@@ -40,11 +41,16 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
+    @Override
     protected boolean isValidTap(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        int blankId = gameState.numTiles();
-        return gameState.findEmptyTileAdjacent(row, col, blankId, false) != null;
+        Pair<Integer, Integer> blank = gameState.findBlankTile();
+        return isTileAdjacent(row, col, blank); // The blank tile is adjacent to our tap
+    }
+
+    private boolean isTileAdjacent(int row, int col, Pair<Integer, Integer> tile) {
+        return Math.abs(tile.first - row + tile.second - col) == 1;
     }
 
     /**
@@ -53,14 +59,14 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * @param position the position
      */
     private void touchMove(int position) {
-
         int row = position / dimensions;
         int col = position % dimensions;
-        int blankId = gameState.numTiles();
 
         // tiles is the blank tile, swap by calling Board's swap method.
-        Pair<Integer, Integer> blankCoord = gameState.findEmptyTileAdjacent(row, col, blankId, false);
-        if (blankCoord != null)
+        Pair<Integer, Integer> blankCoord = gameState.findBlankTile();
+
+        // We are precisely 1 tile away from the blank tile, which means we're adjacent to it
+        if (isTileAdjacent(row, col, blankCoord))
             gameState.swapTiles(blankCoord.first, blankCoord.second, row, col, true);
     }
 }

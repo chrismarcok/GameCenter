@@ -13,11 +13,13 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.slidingtiles.R;
 
-public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
+public class MinesweeperFragment extends GameFragment<Board, MinesweeperController> {
 
     /**
      * The buttons (tiles) that can be clicked on to be moved.
@@ -29,8 +31,7 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
      */
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-    private int dimensions = 0;
-
+    private int dimensions;
     /**
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
@@ -90,13 +91,26 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of BoardManager to be initialized
-        gameManager = new BoardManager(this.state);
+        //Pulls the type of SlidingTileController to be initialized
+        gameManager = new MinesweeperController(this.state);
         dimensions = state.getDimensions();
         state = gameManager.getGameState();
         state.addObserver(this);
+        starTimer();
     }
 
+    /**
+     * Starts the timer for the score
+     */
+    public void starTimer(){
+        Timer T = new Timer();
+        T.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run(){
+                state.decrementScore();
+            }
+        }, 0, 1000);
+    }
 
     /**
      * Create the buttons for displaying the tiles.
@@ -109,9 +123,13 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 Button tmp = new Button(context);
-                if (board.getTile(row, col).getrevealed() == false) {
+                if (board.getTile(row,col).isFlagged()){
+                    tmp.setBackgroundResource(R.drawable.flag);
+                }
+                else if (!board.getTile(row, col).getrevealed()) {
                     tmp.setBackgroundResource(R.drawable.btile);
-                } else {
+                }
+                else {
                     tmp.setBackgroundResource(board.getTile(row, col).getBackground());
                 }
                 this.tileButtons.add(tmp);
@@ -128,9 +146,13 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
         for (Button b : tileButtons) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            if (board.getTile(row, col).getrevealed() == false) {
+            if (board.getTile(row,col).isFlagged()){
+                b.setBackgroundResource(R.drawable.flag);
+            }
+            else if (!board.getTile(row, col).getrevealed()) {
                 b.setBackgroundResource(R.drawable.btile);
-            } else {
+            }
+            else {
                 b.setBackgroundResource(board.getTile(row, col).getBackground());
             }
             nextPos++;
@@ -145,7 +167,6 @@ public class MinesweeperFragment extends GameFragment<Board, BoardManager> {
      */
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("CALLEED?");
         display();
     }
 }

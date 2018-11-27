@@ -80,3 +80,18 @@ to build the UI/use XML.
 * Brainstormed implementation of minesweeper game.
 * Discussed use of undo and autosave in Minesweeper. Decided against the use of undo, unless something changes in the future.
 * Need better pictures. Currently they are ugly.
+
+## November 25, 2018
+
+* Discussed how to best implement 2048 move function.
+* Decided to refactor the Game Manager to work with any game, not just games with tap.
+* Make Game Manager implement Gesture.OnGestureListener
+
+## November 26, 2018
+
+* Need to create JUnit tests for classes, excluding fragments or activities
+* Right click run > analyze > Inspect Code, fix issues
+* Minesweeper multiple board sizes add to scoreboard
+* 2048 will have one size for now, can change later.
+* GameCardItem needs to load the highscore from variant games of the primary game type (max of sliding tiles 3,4,5 is highscore for sliding tiles)
+* Losing Minesweeper needs to display you lose dialog and NOT add entry to scoreboard.

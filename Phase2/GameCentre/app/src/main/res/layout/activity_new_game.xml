@@ -15,6 +15,14 @@
         android:text="Start Game"
         android:textColor="@color/backgroundcolor" />
 
+    <EditText
+        android:id="@+id/fileName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="File Name"
+        android:inputType="textNoSuggestions|textPersonName" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"

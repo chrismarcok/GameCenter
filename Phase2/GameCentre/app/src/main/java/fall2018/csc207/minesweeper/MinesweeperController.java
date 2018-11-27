@@ -2,9 +2,12 @@ package fall2018.csc207.minesweeper;
 
 import java.io.Serializable;
 
-import fall2018.csc207.game.GameManager;
+import fall2018.csc207.game.BoardController;
 
-public class BoardManager extends GameManager<Board> implements Serializable {
+/**
+ * Controller for Minesweeper.
+ */
+public class MinesweeperController extends BoardController<Board> implements Serializable {
 
     /**
      * The dimension of the board
@@ -16,27 +19,29 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      *
      * @param board the board
      */
-    public BoardManager(Board board) {
+    public MinesweeperController(Board board) {
         super(board);
         this.dimensions = gameState.getDimensions();
     }
 
     /**
      * Processes user input and updates tile game accordingly.
+     *
      * @param position The position of the input.
      */
+    @Override
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Tile curr_tile = gameState.getTile(row,col);
-        gameState.revealTile(row,col);
-
-         //Check for cases where the selected tile is a BOMB or BLANK_TILE
-        if (curr_tile.getId() == Tile.BOMB){
-            //END GAME
+        Tile curr_tile = gameState.getTile(row, col);
+        if (!curr_tile.isFlagged()) {
+            gameState.revealTile(row, col);
         }
-        else if (curr_tile.getId() == Tile.BLANK_TILE){
-            gameState.revealSurrondingBlanks(row,col);
+        //Check for cases where the selected tile is a BOMB or BLANK_TILE
+        if (curr_tile.getId() == Tile.BOMB) {
+            gameState.endGame(row, col);
+        } else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()) {
+            gameState.revealSurroundingBlanks(row, col);
         }
 
     }
@@ -47,18 +52,19 @@ public class BoardManager extends GameManager<Board> implements Serializable {
      * @param position the tile to check
      * @return whether the tile at position is surrounded by a blank tile
      */
+    @Override
     protected boolean isValidTap(int position) {
         return true;
     }
 
     /**
-     * Process a touch at position in the board, swapping tiles as appropriate.
+     * Flags a Tile
      *
      * @param position the position
      */
-    private void touchMove(int position) {
-
+    public void flagTile(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
+        gameState.flagTile(row, col);
     }
 }
