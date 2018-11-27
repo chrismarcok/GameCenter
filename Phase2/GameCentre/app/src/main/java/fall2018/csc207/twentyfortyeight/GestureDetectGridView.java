@@ -3,6 +3,7 @@ package fall2018.csc207.twentyfortyeight;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -65,17 +66,21 @@ public class GestureDetectGridView extends GridView {
                     if (Math.abs(diffX) > Math.abs(diffY)) {
                         if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                             if (diffX > 0) {
-                                onSwipeRight();
+                                boardManager.moveRight();
+                                Toast.makeText(context, "Right",Toast.LENGTH_SHORT).show();
                             } else {
-                                onSwipeLeft();
+                                boardManager.moveLeft();
+                                Toast.makeText(context, "Left",Toast.LENGTH_SHORT).show();
                             }
                             result = true;
                         }
                     } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffY > 0) {
-                            onSwipeBottom();
+                            boardManager.moveDown();
+                            Toast.makeText(context, "Down",Toast.LENGTH_SHORT).show();
                         } else {
-                            onSwipeTop();
+                            boardManager.moveUp();
+                            Toast.makeText(context, "Up",Toast.LENGTH_SHORT).show();
                         }
                         result = true;
                     }
@@ -83,26 +88,6 @@ public class GestureDetectGridView extends GridView {
                     exception.printStackTrace();
                 }
                 return result;
-            }
-
-            void onSwipeRight() {
-//                boardManager.moveRight();
-                Toast.makeText(context, "Right", Toast.LENGTH_LONG).show();
-            }
-
-            void onSwipeLeft() {
-//                boardManager.moveLeft();
-                Toast.makeText(context, "Left", Toast.LENGTH_LONG).show();
-            }
-
-            void onSwipeTop() {
-//                boardManager.moveUp();
-                Toast.makeText(context, "Up", Toast.LENGTH_LONG).show();
-            }
-
-            void onSwipeBottom() {
-//                boardManager.moveDown();
-                Toast.makeText(context, "Down", Toast.LENGTH_LONG).show();
             }
         });
     }
