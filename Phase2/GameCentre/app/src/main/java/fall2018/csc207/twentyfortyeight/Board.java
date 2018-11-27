@@ -47,7 +47,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
-     * 2048 Tile logic: https://github.com/bulenkov/2048
+     * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
      * <p>
      * Add a new tile at an available spot

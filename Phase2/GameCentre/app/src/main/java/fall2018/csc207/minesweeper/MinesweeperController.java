@@ -7,7 +7,7 @@ import fall2018.csc207.game.BoardController;
 /**
  * Controller for Minesweeper.
  */
-public class MinesweeperController extends BoardController<Board> implements Serializable {
+public class MinesweeperController extends BoardController<MinesweeperBoard> implements Serializable {
 
     /**
      * The dimension of the board
@@ -15,12 +15,12 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     private int dimensions;
 
     /**
-     * Manage a board that has been pre-populated.
+     * Manage a minesweeperBoard that has been pre-populated.
      *
-     * @param board the board
+     * @param minesweeperBoard the minesweeperBoard
      */
-    public MinesweeperController(Board board) {
-        super(board);
+    public MinesweeperController(MinesweeperBoard minesweeperBoard) {
+        super(minesweeperBoard);
         this.dimensions = gameState.getDimensions();
     }
 
@@ -33,14 +33,15 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Tile curr_tile = gameState.getTile(row, col);
-        if (!curr_tile.isFlagged()) {
+        MinesweeperTile curr_Minesweeper_tile = gameState.getTile(row, col);
+        if (!curr_Minesweeper_tile.isFlagged()) {
             gameState.revealTile(row, col);
         }
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
-        if (curr_tile.getId() == Tile.BOMB) {
+        if (curr_Minesweeper_tile.getId() == MinesweeperTile.BOMB) {
+
             gameState.endGame(row, col);
-        } else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()) {
+        } else if (curr_Minesweeper_tile.getId() == MinesweeperTile.BLANK_TILE && !curr_Minesweeper_tile.isFlagged()) {
             gameState.revealSurroundingBlanks(row, col);
         }
 
@@ -58,7 +59,7 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     }
 
     /**
-     * Flags a Tile
+     * Flags a MinesweeperTile
      *
      * @param position the position
      */

@@ -19,7 +19,7 @@ import java.util.TimerTask;
 import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.slidingtiles.R;
 
-public class MinesweeperFragment extends GameFragment<Board, MinesweeperController> {
+public class MinesweeperFragment extends GameFragment<MinesweeperBoard, MinesweeperController> {
 
     /**
      * The buttons (tiles) that can be clicked on to be moved.
@@ -118,19 +118,19 @@ public class MinesweeperFragment extends GameFragment<Board, MinesweeperControll
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = gameManager.getGameState();
+        MinesweeperBoard minesweeperBoard = gameManager.getGameState();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 Button tmp = new Button(context);
-                if (board.getTile(row,col).isFlagged()){
+                if (minesweeperBoard.getTile(row,col).isFlagged()){
                     tmp.setBackgroundResource(R.drawable.flag);
                 }
-                else if (!board.getTile(row, col).getrevealed()) {
+                else if (!minesweeperBoard.getTile(row, col).getrevealed()) {
                     tmp.setBackgroundResource(R.drawable.btile);
                 }
                 else {
-                    tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                    tmp.setBackgroundResource(minesweeperBoard.getTile(row, col).getBackground());
                 }
                 this.tileButtons.add(tmp);
             }
@@ -141,19 +141,19 @@ public class MinesweeperFragment extends GameFragment<Board, MinesweeperControll
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = gameManager.getGameState();
+        MinesweeperBoard minesweeperBoard = gameManager.getGameState();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            if (board.getTile(row,col).isFlagged()){
+            if (minesweeperBoard.getTile(row,col).isFlagged()){
                 b.setBackgroundResource(R.drawable.flag);
             }
-            else if (!board.getTile(row, col).getrevealed()) {
+            else if (!minesweeperBoard.getTile(row, col).getrevealed()) {
                 b.setBackgroundResource(R.drawable.btile);
             }
             else {
-                b.setBackgroundResource(board.getTile(row, col).getBackground());
+                b.setBackgroundResource(minesweeperBoard.getTile(row, col).getBackground());
             }
             nextPos++;
         }

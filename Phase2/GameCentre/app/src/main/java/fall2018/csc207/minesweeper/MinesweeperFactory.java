@@ -21,29 +21,29 @@ public class MinesweeperFactory extends GameFactory {
     /**
      * Return a gamestate
      * @param numUndos The number of undos to allow.
-     * @return a new GameState of type Board
+     * @return a new GameState of type MinesweeperBoard
      */
     @Override
     public GameState getGameState(int numUndos) {
-        Board board;
+        MinesweeperBoard minesweeperBoard;
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings anyways
             case "5x5":
-                board = new Board(5, .2);
+                minesweeperBoard = new MinesweeperBoard(5, .2);
                 break;
             case "8x8":
-                board = new Board(8, .2);
+                minesweeperBoard = new MinesweeperBoard(8, .2);
                 break;
             case "13x13":
-                board = new Board(13, .2);
+                minesweeperBoard = new MinesweeperBoard(13, .2);
                 break;
             case "20x20":
-                board = new Board(20, .4);
+                minesweeperBoard = new MinesweeperBoard(20, .4);
                 break;
             default:
                 throw new IllegalStateException("This factory's settings is in an illegal state!");
         }
-        board.setMaxUndos(numUndos);
-        return board;
+        minesweeperBoard.setMaxUndos(numUndos);
+        return minesweeperBoard;
     }
 
     @Override

@@ -150,13 +150,13 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
-     * Returns a string representation of Board.
+     * Returns a string representation of MinesweeperBoard.
      *
-     * @return A string representation of Board.
+     * @return A string representation of MinesweeperBoard.
      */
     @Override
     public String toString() {
-        return "Board{" +
+        return "MinesweeperBoard{" +
                 "tiles=" + tiles.toString() +
                 '}';
     }
@@ -223,7 +223,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
-     * A custom Board iterator
+     * A custom MinesweeperBoard iterator
      */
     private class BoardIterator implements Iterator<Tile> {
         /**

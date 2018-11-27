@@ -9,9 +9,9 @@ import java.util.Map;
 import fall2018.csc207.slidingtiles.R;
 
 /**
- * A Tile in minesweeper
+ * A MinesweeperTile in minesweeper
  */
-public class Tile implements Serializable {
+public class MinesweeperTile implements Serializable {
     /**
      * Contains integer to respective image
      */
@@ -59,7 +59,7 @@ public class Tile implements Serializable {
     }
 
     /**
-     * Set whether if Tile is flagged
+     * Set whether if MinesweeperTile is flagged
      * @param flagged
      */
     public void setFlagged(boolean flagged) {
@@ -74,7 +74,7 @@ public class Tile implements Serializable {
      * A tile with an id
      * @param id
      */
-    public Tile(int id){
+    public MinesweeperTile(int id){
         this.id = id;
         this.background = imageMap().get(id);
 
@@ -82,7 +82,7 @@ public class Tile implements Serializable {
     /**
      * Return the tile id.
      *
-     * @return the type of Tile
+     * @return the type of MinesweeperTile
      */
     public int getId() {
         return id;

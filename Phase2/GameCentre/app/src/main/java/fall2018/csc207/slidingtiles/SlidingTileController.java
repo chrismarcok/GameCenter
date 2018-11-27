@@ -62,7 +62,7 @@ public class SlidingTileController extends BoardController<Board> implements Ser
         int row = position / dimensions;
         int col = position % dimensions;
 
-        // tiles is the blank tile, swap by calling Board's swap method.
+        // tiles is the blank tile, swap by calling MinesweeperBoard's swap method.
         Pair<Integer, Integer> blankCoord = gameState.findBlankTile();
 
         // We are precisely 1 tile away from the blank tile, which means we're adjacent to it
