@@ -41,6 +41,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardControlle
      * of positions, and then call the adapter to set the view.
      */
     public void display() {
+        updateTileButtons();
         gridView.setAdapter(new TileAdapter(tileTextViews, columnWidth, columnHeight));
     }
 
@@ -117,18 +118,37 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardControlle
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 TextView tmp = new TextView(context);
-                if (board.getTile(row, col).isEmpty()) {
-                    tmp.setBackgroundColor(getResources().getColor(R.color.gridColor, null));
-                } else {
-                    tmp.setBackgroundColor(getResources().getColor(board.getTile(row,col).getBackground(), null));
-                    tmp.setText(Integer.toString(board.getTile(row,col).value));
-                    tmp.setTextColor(getResources().getColor(R.color.textDark,null));
-                    tmp.setTextSize(36);
-                    tmp.setGravity(Gravity.CENTER);
-                }
+                Tile tile = board.getTile(row, col);
+                setTiles(tmp, tile);
+
                 this.tileTextViews.add(tmp);
             }
         }
 
+    }
+
+    private void setTiles(TextView tmp, Tile tile) {
+        tmp.setBackgroundColor(getResources().getColor(tile.getBackground(), null));
+        String text = tile.value == 0 ? "" : Integer.toString(tile.value);
+        tmp.setText(text);
+        tmp.setTextColor(getResources().getColor(R.color.textDark, null));
+        tmp.setTextSize(36);
+        tmp.setGravity(Gravity.CENTER);
+    }
+
+    /**
+     * Update the backgrounds on the buttons to match the tiles.
+     */
+    private void updateTileButtons() {
+        Board board = gameManager.getGameState();
+        int nextPos = 0;
+        for (TextView tile : tileTextViews) {
+            int row = nextPos / dimensions;
+            int col = nextPos % dimensions;
+            Tile cur = board.getTile(row, col);
+            setTiles(tile, cur);
+
+            nextPos++;
+        }
     }
 }

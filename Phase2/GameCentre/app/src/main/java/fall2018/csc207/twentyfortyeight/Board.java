@@ -15,7 +15,9 @@ public class Board extends GameState implements Iterable<Tile> {
     private int numCols;
     private static final int COLS = 4;
 
-    Board(int dimensions){
+    Board(int dimensions) {
+        numCols = dimensions;
+        numRows = dimensions;
         this.board = new Tile[dimensions][dimensions];
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
@@ -47,7 +49,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * 2048 Tile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
-     *
+     * <p>
      * Add a new tile at an available spot
      */
     private void addTile() {
@@ -63,9 +65,9 @@ public class Board extends GameState implements Iterable<Tile> {
     private List<Tile> availableSpace() {
         final List<Tile> list = new ArrayList<Tile>(16);
 
-        for (Tile[] row: board){
-            for (Tile tile: row){
-                if (tile.isEmpty()){
+        for (Tile[] row : board) {
+            for (Tile tile : row) {
+                if (tile.isEmpty()) {
                     list.add(tile);
                 }
             }
@@ -76,9 +78,40 @@ public class Board extends GameState implements Iterable<Tile> {
 
     /**
      * Merging tile Function: https://rosettacode.org/wiki/2048#Java
-     *
      */
     private boolean move(int countDownFrom, int yIncr, int xIncr) {
+        for (int i = 0; i < getDimensions() * getDimensions(); i++) {
+            int j = Math.abs(countDownFrom - i);
+            int r = j / getDimensions();
+            int c = j % getDimensions();
+
+            if (board[r][c].isEmpty()) {
+                continue;
+            }
+            int nextR = r + yIncr;
+            int nextC = c + xIncr;
+
+            while(nextR >= 0 && nextR < getDimensions() && nextC >= 0 && nextC < getDimensions()) {
+
+                Tile next = board[nextR][nextC];
+                Tile curr = board[r][c];
+
+                if (next.isEmpty()) {
+
+                    board[nextR][nextC] = curr;
+                    board[r][c] = new Tile();
+                    r = nextR;
+                    c = nextC;
+                    nextR += yIncr;
+                    nextC += xIncr;
+
+                } else {
+                    break;
+                }
+            }
+        }
+        setChanged();
+        notifyObservers();
         return true;
     }
 
