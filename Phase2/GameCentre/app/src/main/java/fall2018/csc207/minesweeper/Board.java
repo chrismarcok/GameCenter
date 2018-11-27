@@ -28,7 +28,6 @@ public class Board extends GameState {
         this.dimensions = dimensions;
         this.numrevealedTiles = 0;
         mineField = generateBoard(dimensions, difficulty);
-        print_board();
     }
 
     /**
@@ -37,10 +36,14 @@ public class Board extends GameState {
      * @param numRep a 2d array representation of the board
      */
     public Board(int[][] numRep) {
+        setScore(100000);
         mineField = new Tile[numRep.length][numRep[0].length];
         for (int i = 0; i < numRep.length; i++) {
             for (int j = 0; j < numRep.length; j++) {
                 mineField[i][j] = new Tile(numRep[i][j]);
+                if (numRep[i][j] == -1) {
+                    numMines++;
+                }
             }
         }
         this.dimensions = mineField.length;
@@ -78,26 +81,31 @@ public class Board extends GameState {
 
     @Override
     public boolean isOver() {
-        if (score == 0){
+        if (score == 0) {
             return true;
+        }
+        for (Tile[] first : mineField) {
+            for (Tile tile : first) {
+                if (tile.getId() == Tile.BOMB && tile.getrevealed()){
+                    return true;
+                }
+                if (tile.getId() == Tile.BOMB && !tile.isFlagged()) {
+                    return false;
+                }
+
+
+            }
         }
         if (numrevealedTiles + getNumMines() <= mineField.length * mineField.length - 1) {
             return false;
-        }
-
-        for (Tile [] first: mineField){
-            for (Tile tile: first){
-                if(tile.getId() == Tile.BOMB && !tile.isFlagged()){
-                    return false;
-                }
-            }
         }
         return true;
 
     }
 
     /**
-     *  Returns the name of the game
+     * Returns the name of the game
+     *
      * @return minesweeper name
      */
     @Override
@@ -152,7 +160,7 @@ public class Board extends GameState {
      *
      * @return Returns the number of mines on the board
      */
-    private int getNumMines() {
+    public int getNumMines() {
         return numMines;
     }
 
@@ -215,31 +223,19 @@ public class Board extends GameState {
     /**
      * Flags a tile
      *
-     * @param tile represents a tile
+     * @param
      */
-    public void flagTile(Tile tile) {
-        if (!tile.getrevealed()) {
-            tile.setFlagged(!tile.isFlagged());
+    public void flagTile(int row, int col) {
+
+        if (!getTile(row, col).getrevealed()) {
+            getTile(row, col).setFlagged(!getTile(row, col).isFlagged());
         }
         setChanged();
         notifyObservers();
     }
 
     /**
-     * Testing method for printing out the board
-     */
-    private void print_board() {
-        for (Tile [] first: mineField){
-            for (Tile second: first){
-                System.out.print(second + "  ");
-            }
-            System.out.println();
-        }
-    }
-
-    /**
      * Decreases the score by one
-     *
      */
     public void decrementScore() {
 

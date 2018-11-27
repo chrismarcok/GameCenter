@@ -65,7 +65,6 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     public void flagTile(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Tile curr_tile = gameState.getTile(row, col);
-        gameState.flagTile(curr_tile);
+        gameState.flagTile(row, col);
     }
 }
