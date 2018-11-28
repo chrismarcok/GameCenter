@@ -105,13 +105,17 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
 
         //Needs to match the names of the games in SlidingTilesFactory.java
         String query =
-                //Get the scores of just sliding tiles game.
+                //Get the scores of just sliding tiles and variants.
                 "SELECT username, game, max(score) FROM " + TABLE_NAME +
                 " WHERE username = \"" + username + "\" AND game IN (\"Sliding Tiles 3x3\",\"Sliding Tiles 4x4\",\"Sliding Tiles 5x5\")" +
                 " UNION" +
-                //Get the scores of all other games. Merge the two tables.
+                //Get the scores of Minesweeper and variants.
                 " SELECT username, game, max(score) FROM " + TABLE_NAME +
-                " WHERE username = \"" + username + "\" AND game IN (\"Minesweeper\", \"2048\")" +
+                " WHERE username = \"" + username + "\" AND game IN (\"Minesweeper 5x5\",\"Minesweeper 8x8\",\"Minesweeper 13x13\",\"Minesweeper 20x20\")" +
+                " UNION" +
+                //Get the scores of just 2048.
+                " SELECT username, game, max(score) FROM " + TABLE_NAME +
+                " WHERE username = \"" + username + "\" AND game IN (\"2048\")" +
                 " GROUP BY game;";
         return getEntriesFromQuery(db, query, "max(score)");
     }

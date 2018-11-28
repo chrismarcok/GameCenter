@@ -97,6 +97,11 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
+
     public void setBoardManager(MinesweeperController boardManager) {
         this.boardManager = boardManager;
     }
