@@ -32,7 +32,8 @@
                 android:layout_height="140dp"
                 android:padding="8dp"
                 android:scaleType="fitXY"
-                android:src="@color/colorPrimaryDark" />
+                android:src="@color/colorPrimaryDark"
+                android:contentDescription="@null"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -45,6 +46,7 @@
                     android:layout_gravity="bottom"
                     android:paddingBottom="16dp"
                     android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
                     android:text="@string/game_name_uppercase"
                     android:textColor="@color/cardview_light_background" />
 
@@ -55,6 +57,7 @@
                     android:layout_gravity="bottom|end"
                     android:paddingBottom="16dp"
                     android:paddingEnd="12dp"
+                    android:paddingStart="0dp"
                     android:text="@string/score_0"
                     android:textColor="@color/cardview_light_background" />
             </FrameLayout>

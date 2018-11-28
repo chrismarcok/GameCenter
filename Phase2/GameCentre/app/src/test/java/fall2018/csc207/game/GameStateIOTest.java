@@ -3,9 +3,6 @@ package fall2018.csc207.game;
 import android.content.Context;
 
 import androidx.test.core.app.ApplicationProvider;
-import fall2018.csc207.game.GameFactory;
-import fall2018.csc207.game.GameState;
-import fall2018.csc207.game.GameStateIO;
 import fall2018.csc207.slidingtiles.SlidingTilesFactory;
 
 import org.junit.Before;
@@ -13,14 +10,10 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.Assert.fail;
 
 
 public class GameStateIOTest {
-    private Context context = ApplicationProvider.getApplicationContext();
+    private final Context context = ApplicationProvider.getApplicationContext();
 
     @Before
     public void setupBefore() {

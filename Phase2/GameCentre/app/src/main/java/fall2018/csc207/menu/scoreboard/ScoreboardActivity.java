@@ -39,7 +39,7 @@ public class ScoreboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scoreboard);
 
-        ArrayList<String> gameNames = getIntent().getStringArrayListExtra(GAME_NAMES);
+        Iterable<String> gameNames = getIntent().getStringArrayListExtra(GAME_NAMES);
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
         for (String game : gameNames) {
             scores.put(game, getEntries(game, db));

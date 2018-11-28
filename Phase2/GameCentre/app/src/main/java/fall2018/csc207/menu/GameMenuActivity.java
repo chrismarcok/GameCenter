@@ -40,7 +40,8 @@ public class GameMenuActivity extends AppCompatActivity {
      */
     private GameFactory gameFactory;
     /**
-     * The name of the game that we're playing. We should be able to use this to retrieve the game factory.
+     * The name of the game that we're playing. We should be able to use this to retrieve
+     * the game factory.
      */
     private String gameName;
     //TODO: Probably remove this?
@@ -84,7 +85,8 @@ public class GameMenuActivity extends AppCompatActivity {
         CardView scoreBoard = findViewById(R.id.score_board);
         scoreBoard.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent scoreboardIntent = new Intent(GameMenuActivity.this, ScoreboardActivity.class);
+                Intent scoreboardIntent = new Intent(GameMenuActivity.this,
+                        ScoreboardActivity.class);
                 ArrayList<String> gameNames = new ArrayList<>(gameFactory.getGameNames());
                 scoreboardIntent.putStringArrayListExtra(ScoreboardActivity.GAME_NAMES, gameNames);
                 startActivity(scoreboardIntent);
@@ -139,7 +141,8 @@ public class GameMenuActivity extends AppCompatActivity {
     /**
      * Grabs the saved games for all the games in gameFactory.getGameNames
      *
-     * @return A map of the name of the save file (for display purposes), and the File object corresponding to the game.
+     * @return A map of the name of the save file (for display purposes), and the File
+     * object corresponding to the game.
      */
     private Map<String, File> getSavedGames() {
         final Map<String, File> files = new HashMap<>();
@@ -190,7 +193,7 @@ public class GameMenuActivity extends AppCompatActivity {
                 })
                 .setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if (!deleteFile(file, io)) {
+                        if (!canDeleteFile(file, io)) {
                             Toast.makeText(GameMenuActivity.this,
                                     "Could not delete file!",
                                     Toast.LENGTH_SHORT).show();
@@ -227,13 +230,13 @@ public class GameMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Deletes the file.
+     * Deletes the file, if possible.
      *
      * @param file The file to delete.
      * @param io   The appropriate helper class to delete the save file.
      * @return true if the file was successfully deleted. false otherwise.
      */
-    private boolean deleteFile(File file, GameStateIO io) {
+    private boolean canDeleteFile(File file, GameStateIO io) {
         try {
             io.deleteSave(file);
             return true;

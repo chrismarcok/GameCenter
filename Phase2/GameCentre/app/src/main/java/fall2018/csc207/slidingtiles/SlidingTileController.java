@@ -50,7 +50,9 @@ public class SlidingTileController extends BoardController<Board> implements Ser
     }
 
     private boolean isTileAdjacent(int row, int col, Pair<Integer, Integer> tile) {
-        return Math.abs(tile.first - row + tile.second - col) == 1;
+        return tile.first != null && tile.second != null &&
+                Math.abs(tile.first - row + tile.second - col) == 1;
+
     }
 
     /**
@@ -66,7 +68,8 @@ public class SlidingTileController extends BoardController<Board> implements Ser
         Pair<Integer, Integer> blankCoord = gameState.findBlankTile();
 
         // We are precisely 1 tile away from the blank tile, which means we're adjacent to it
-        if (isTileAdjacent(row, col, blankCoord))
+        if (isTileAdjacent(row, col, blankCoord) &&
+                blankCoord.first != null && blankCoord.second != null)
             gameState.swapTiles(blankCoord.first, blankCoord.second, row, col, true);
     }
 }

@@ -27,7 +27,8 @@ public class SlidingTilesFactoryTest {
     @Test
     public void testGameNames() {
         List<String> gameNames = stFactory.getGameNames();
-        List<String> expectedNames = Arrays.asList("Sliding Tiles 3x3", "Sliding Tiles 4x4", "Sliding Tiles 5x5");
+        List<String> expectedNames = Arrays.asList("Sliding Tiles 3x3", "Sliding Tiles 4x4",
+                "Sliding Tiles 5x5");
         assert gameNames.equals(expectedNames);
     }
 
@@ -38,10 +39,10 @@ public class SlidingTilesFactoryTest {
 
         GameFactory.Setting boardSize = settings.get(0);
         List<String> possibleValues = boardSize.getPossibleValues();
-        List<String> expectedPossibleValues = Arrays.asList("3x3", "4x4", "5x5");
+        List<String> expectedPossibleVals = Arrays.asList("3x3", "4x4", "5x5");
 
         assert boardSize.getName().equals("MinesweeperBoard Size");
-        assert possibleValues.equals(expectedPossibleValues);
+        assert possibleValues.equals(expectedPossibleVals);
 
         assert boardSize.getCurrentValue().equals("3x3");
         assert boardSize.getCurrentValueIndex() == 0;

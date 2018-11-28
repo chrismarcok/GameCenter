@@ -11,11 +11,6 @@ import fall2018.csc207.slidingtiles.R;
  */
 public class SplashScreenActivity extends AppCompatActivity {
 
-    /**
-     * The number of milliseconds the splash screen lingers. 1000ms = 1s.
-     */
-    private final int SLEEP_TIMER = 1000;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +31,7 @@ public class SplashScreenActivity extends AppCompatActivity {
          */
         public void run() {
             try {
-                sleep(SLEEP_TIMER);
+                sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

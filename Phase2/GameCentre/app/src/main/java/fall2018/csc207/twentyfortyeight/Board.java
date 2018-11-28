@@ -28,7 +28,7 @@ public class Board extends GameState implements Iterable<Tile> {
         addTile();
     }
 
-    Board(List<Tile> tiles, int dimensions) {
+    Board(Iterable<Tile> tiles, int dimensions) {
         this.board = new Tile[dimensions][dimensions];
         Iterator<Tile> iter = tiles.iterator();
         numCols = dimensions;
@@ -63,7 +63,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     private List<Tile> availableSpace() {
-        final List<Tile> list = new ArrayList<Tile>(16);
+        final List<Tile> list = new ArrayList<>(16);
 
         for (Tile[] row : board) {
             for (Tile tile : row) {
@@ -79,7 +79,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * Merging tile Function: https://rosettacode.org/wiki/2048#Java
      */
-    private boolean move(int countDownFrom, int yIncr, int xIncr) {
+    private boolean canMove(int countDownFrom, int yIncr, int xIncr) {
         for (int i = 0; i < getDimensions() * getDimensions(); i++) {
             int j = Math.abs(countDownFrom - i);
             int r = j / getDimensions();
@@ -115,20 +115,20 @@ public class Board extends GameState implements Iterable<Tile> {
         return true;
     }
 
-    boolean moveUp() {
-        return move(0, -1, 0);
+    boolean canMoveUp() {
+        return canMove(0, -1, 0);
     }
 
-    boolean moveDown() {
-        return move(getDimensions() * getDimensions() - 1, 1, 0);
+    boolean canMoveDown() {
+        return canMove(getDimensions() * getDimensions() - 1, 1, 0);
     }
 
-    boolean moveLeft() {
-        return move(0, 0, -1);
+    boolean canMoveLeft() {
+        return canMove(0, 0, -1);
     }
 
-    boolean moveRight() {
-        return move(getDimensions() * getDimensions() - 1, 0, 1);
+    boolean canMoveRight() {
+        return canMove(getDimensions() * getDimensions() - 1, 0, 1);
     }
 
     void clearMerged() {
@@ -138,8 +138,8 @@ public class Board extends GameState implements Iterable<Tile> {
                     tile.setMerged(false);
     }
 
-    boolean movesAvailable() {
-        return moveUp() || moveDown() || moveLeft() || moveRight();
+    boolean hasMovesAvailable() {
+        return canMoveUp() || canMoveDown() || canMoveLeft() || canMoveRight();
     }
 
     @Override
@@ -168,7 +168,7 @@ public class Board extends GameState implements Iterable<Tile> {
         return new BoardIterator(board);
     }
 
-    public int getDimensions() {
+    private int getDimensions() {
         return numRows;
     }
 
@@ -176,16 +176,13 @@ public class Board extends GameState implements Iterable<Tile> {
         return board[row][col];
     }
 
-    public void move() {
-
-    }
 
     private class BoardIterator implements Iterator<Tile> {
 
         /**
          * index indicates the position of the board
          */
-        private int index = 0;
+        private int index;
         private Tile[][] array2D;
 
         private BoardIterator(Tile[][] tiles) {

@@ -10,7 +10,7 @@ public abstract class BoardController<T extends GameState> extends GameControlle
      *
      * @param gameState The gameState of this game.
      */
-    public BoardController(T gameState) {
+    protected BoardController(T gameState) {
         super(gameState);
     }
 

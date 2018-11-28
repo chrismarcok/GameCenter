@@ -17,7 +17,7 @@ public class GameStateIO {
     /**
      * The folder that holds all the saves for this game.
      */
-    private File gameFolder;
+    private final File gameFolder;
 
     /**
      * Constructs GameStateIO.

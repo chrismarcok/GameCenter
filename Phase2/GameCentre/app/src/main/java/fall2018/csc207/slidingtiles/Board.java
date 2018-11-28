@@ -20,7 +20,7 @@ public class Board extends GameState implements Iterable<Tile> {
 
     /**
      * The current maximum allowed undos. This is decremented when we undo, and incremented when we
-     * make a move.
+     * make a canMove.
      */
     private int allowedUndos = getMaxUndos();
 
@@ -118,7 +118,7 @@ public class Board extends GameState implements Iterable<Tile> {
      * @param col1           the first tile col
      * @param row2           the second tile row
      * @param col2           the second tile col
-     * @param addToPrevMoves If we should add this move onto the stack holding previous moves.
+     * @param addToPrevMoves If we should add this canMove onto the stack holding previous moves.
      */
     public void swapTiles(int row1, int col1, int row2, int col2, boolean addToPrevMoves) {
 
@@ -128,7 +128,7 @@ public class Board extends GameState implements Iterable<Tile> {
         tiles.get(row1).set(col1, new Tile(second.getId(), second.getBackground()));
         tiles.get(row2).set(col2, new Tile(first.getId(), first.getBackground()));
 
-        // We may not want this move to be recorded.
+        // We may not want this canMove to be recorded.
         if (addToPrevMoves) {
             // prevMoves may be null if we load a game.
             //TODO: Fix
@@ -139,7 +139,7 @@ public class Board extends GameState implements Iterable<Tile> {
             if (first.getId() == numTiles()) prevMoves.add(new Pair<>(row1, col1));
             else prevMoves.add(new Pair<>(row2, col2));
 
-            // We made another move, so we can continue undoing.
+            // We made another canMove, so we can continue undoing.
             if (allowedUndos < getMaxUndos() && 0 <= allowedUndos) {
                 allowedUndos++;
             }
@@ -173,8 +173,8 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
-     * Revert to a past game state. This call always undos a move. To check if we're allowed to
-     * undo that move, call canUndo().
+     * Revert to a past game state. This call always undos a canMove. To check if we're allowed to
+     * undo that canMove, call canUndo().
      */
     @Override
     public void undo() {
@@ -183,16 +183,19 @@ public class Board extends GameState implements Iterable<Tile> {
             allowedUndos--;
 
         Pair<Integer, Integer> prevMove = prevMoves.pop();
-        int row = prevMove.first;
-        int col = prevMove.second;
-        Pair<Integer, Integer> blankLocation = findBlankTile();
-        swapTiles(row, col, blankLocation.first, blankLocation.second, false);
+        if (prevMove.first != null && prevMove.second != null) {
+            int row = prevMove.first;
+            int col = prevMove.second;
+            Pair<Integer, Integer> blankLocation = findBlankTile();
+            if (blankLocation.first != null && blankLocation.second != null)
+                swapTiles(row, col, blankLocation.first, blankLocation.second, false);
+        }
     }
 
     /**
-     * Determines whether we can undo a move.
+     * Determines whether we can undo a canMove.
      *
-     * @return Whether we can undo a move.
+     * @return Whether we can undo a canMove.
      */
     @Override
     public boolean canUndo() {

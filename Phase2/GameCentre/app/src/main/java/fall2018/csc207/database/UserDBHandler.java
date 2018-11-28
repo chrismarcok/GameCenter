@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A class to facilitate interaction between the app and the database.
@@ -28,7 +29,8 @@ public class UserDBHandler extends SQLiteOpenHelper{
      * @param factory The cursor factory (left as null)
      * @param version the Version of our database
      */
-    public UserDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public UserDBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory,
+                         int version) {
         super(context, name, factory, version);
     }
 
@@ -76,13 +78,14 @@ public class UserDBHandler extends SQLiteOpenHelper{
     /**
      * Get all entries to the database
      *
-     * @return an ArrayList of [user, pass] pairs. Each array in the ArrayList represents one entry (one user).
+     * @return an ArrayList of [user, pass] pairs. Each array in the ArrayList represents one entry
+     * (one user).
      */
-    public HashMap<String, String> fetchDatabaseEntries(){
+    public Map<String, String> fetchDatabaseEntries(){
         SQLiteDatabase db = getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + ";";
 
-        HashMap<String, String> userMap = new HashMap<>();
+        Map<String, String> userMap = new HashMap<>();
 
         Cursor c = db.rawQuery(query, null);
         c.moveToFirst();

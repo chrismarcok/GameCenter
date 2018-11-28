@@ -7,7 +7,8 @@ import fall2018.csc207.game.BoardController;
 /**
  * Controller for Minesweeper.
  */
-public class MinesweeperController extends BoardController<MinesweeperBoard> implements Serializable {
+public class MinesweeperController extends BoardController<MinesweeperBoard>
+        implements Serializable {
 
     /**
      * The dimension of the board
@@ -33,15 +34,16 @@ public class MinesweeperController extends BoardController<MinesweeperBoard> imp
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        MinesweeperTile curr_Minesweeper_tile = gameState.getTile(row, col);
-        if (!curr_Minesweeper_tile.isFlagged()) {
+        MinesweeperTile currMinesweeperTile = gameState.getTile(row, col);
+        if (!currMinesweeperTile.isFlagged()) {
             gameState.revealTile(row, col);
         }
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
-        if (curr_Minesweeper_tile.getId() == MinesweeperTile.BOMB) {
+        if (currMinesweeperTile.getId() == MinesweeperTile.BOMB) {
 
             gameState.endGame(row, col);
-        } else if (curr_Minesweeper_tile.getId() == MinesweeperTile.BLANK_TILE && !curr_Minesweeper_tile.isFlagged()) {
+        } else if (currMinesweeperTile.getId() == MinesweeperTile.BLANK_TILE &&
+                !currMinesweeperTile.isFlagged()) {
             gameState.revealSurroundingBlanks(row, col);
         }
 

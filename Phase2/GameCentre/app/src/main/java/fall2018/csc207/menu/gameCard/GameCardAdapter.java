@@ -43,18 +43,20 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
      * Inflate the LayoutInflater with game_card_item.
      * @param parent The ViewGroup into which the new View will be added.
      * @param viewType the type of the new View.
-     * @return
+     * @return A new ViewHolder that holds a View of the given view type.
      */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_card_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.game_card_item,
+                parent, false);
         return new ViewHolder(v);
     }
 
     /**
      * Displays the GameCardItem at the specified position.
-     * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+     * @param holder The ViewHolder which should be updated to represent the contents of the item at
+     *              the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
     @Override
@@ -77,9 +79,9 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        protected TextView gameScore;
-        protected TextView gameTitle;
-        protected ImageView gameImage;
+        TextView gameScore;
+        TextView gameTitle;
+        ImageView gameImage;
         private CardView cardView;
 
         /**

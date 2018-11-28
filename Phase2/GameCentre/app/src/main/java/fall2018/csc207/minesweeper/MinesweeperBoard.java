@@ -14,7 +14,7 @@ public class MinesweeperBoard extends GameState {
      */
     private int dimensions;
     private int numrevealedTiles;
-    private int numMines = 0;
+    private int numMines;
 
     /**
      * Generate a board given the dimensions and difficulty
@@ -86,10 +86,12 @@ public class MinesweeperBoard extends GameState {
         }
         for (MinesweeperTile[] first : mineField) {
             for (MinesweeperTile minesweeperTile : first) {
-                if (minesweeperTile.getId() == MinesweeperTile.BOMB && minesweeperTile.getrevealed()){
+                if (minesweeperTile.getId() == MinesweeperTile.BOMB &&
+                        minesweeperTile.isRevealed()){
                     return true;
                 }
-                if (minesweeperTile.getId() == MinesweeperTile.BOMB && !minesweeperTile.isFlagged()) {
+                if (minesweeperTile.getId() == MinesweeperTile.BOMB &&
+                        !minesweeperTile.isFlagged()) {
                     return false;
                 }
 
@@ -113,7 +115,8 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Generates a minesweeper board
-     * Minesweeper MinesweeperBoard generating algorithm: https://introcs.cs.princeton.edu/java/14array/Minesweeper.java.html
+     * Minesweeper MinesweeperBoard generating algorithm:
+     * https://introcs.cs.princeton.edu/java/14array/Minesweeper.java.html
      * Credits go to Princeton University
      *
      * @param dimensions the width and height of the board
@@ -171,7 +174,7 @@ public class MinesweeperBoard extends GameState {
      * @param row position of the row
      */
     public void revealTile(int row, int col) {
-        mineField[row][col].setrevealed(true);
+        mineField[row][col].setRevealed(true);
         mineField[row][col].setFlagged(false);
         numrevealedTiles++;
         setChanged();
@@ -186,28 +189,37 @@ public class MinesweeperBoard extends GameState {
      * @param row position of the row
      */
     public void revealSurroundingBlanks(int row, int col) {
-        //Reveal the 4 surrounding tiles that aren't Bombs, if a blank is revealed reveal the tiles around that blank as well
+        //Reveal the 4 surrounding tiles that aren't Bombs, if a blank is revealed reveal
+        // the tiles around that blank as well
         // revealTile(row,col);
 
-        if (row + 1 < dimensions && mineField[row + 1][col].getId() != MinesweeperTile.BOMB && !mineField[row + 1][col].getrevealed()) {
+        if (row + 1 < dimensions && mineField[row + 1][col].getId() != MinesweeperTile.BOMB &&
+                !mineField[row + 1][col].isRevealed()) {
+
             revealTile(row + 1, col);
             if (mineField[row + 1][col].getId() == MinesweeperTile.BLANK_TILE) {
                 revealSurroundingBlanks(row + 1, col);
             }
         }
-        if (row - 1 >= 0 && mineField[row - 1][col].getId() != MinesweeperTile.BOMB && !mineField[row - 1][col].getrevealed()) {
+        if (row - 1 >= 0 && mineField[row - 1][col].getId() != MinesweeperTile.BOMB &&
+                !mineField[row - 1][col].isRevealed()) {
+
             revealTile(row - 1, col);
             if (mineField[row - 1][col].getId() == MinesweeperTile.BLANK_TILE) {
                 revealSurroundingBlanks(row - 1, col);
             }
         }
-        if (col + 1 < dimensions && mineField[row][col + 1].getId() != MinesweeperTile.BOMB && !mineField[row][col + 1].getrevealed()) {
+        if (col + 1 < dimensions && mineField[row][col + 1].getId() != MinesweeperTile.BOMB &&
+                !mineField[row][col + 1].isRevealed()) {
+
             revealTile(row, col + 1);
             if (mineField[row][col + 1].getId() == MinesweeperTile.BLANK_TILE) {
                 revealSurroundingBlanks(row, col + 1);
             }
         }
-        if (col - 1 >= 0 && mineField[row][col - 1].getId() != MinesweeperTile.BOMB && !mineField[row][col - 1].getrevealed()) {
+        if (col - 1 >= 0 && mineField[row][col - 1].getId() != MinesweeperTile.BOMB &&
+                !mineField[row][col - 1].isRevealed()) {
+
             revealTile(row, col - 1);
             if (mineField[row][col - 1].getId() == MinesweeperTile.BLANK_TILE) {
                 revealSurroundingBlanks(row, col - 1);
@@ -219,11 +231,12 @@ public class MinesweeperBoard extends GameState {
     /**
      * Flags a tile
      *
-     * @param
+     * @param row The row of the tile.
+     * @param col The col of the tile.
      */
     public void flagTile(int row, int col) {
 
-        if (!getTile(row, col).getrevealed()) {
+        if (!getTile(row, col).isRevealed()) {
             getTile(row, col).setFlagged(!getTile(row, col).isFlagged());
         }
         setChanged();

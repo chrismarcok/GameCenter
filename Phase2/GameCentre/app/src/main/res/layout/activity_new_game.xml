@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
-        android:text="Start Game"
+        android:text="@string/start_game"
         android:textColor="@color/backgroundcolor" />
 
     <EditText
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="File Name"
+        android:hint="@string/file_name"
         android:inputType="textNoSuggestions|textPersonName" />
 
     <TextView

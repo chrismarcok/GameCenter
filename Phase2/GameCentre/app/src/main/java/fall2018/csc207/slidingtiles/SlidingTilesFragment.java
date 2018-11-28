@@ -37,7 +37,7 @@ public class SlidingTilesFragment extends GameFragment<Board, SlidingTileControl
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    public void display() {
+    private void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
