@@ -33,16 +33,21 @@ public class MinesweeperController extends BoardController<MinesweeperBoard> imp
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        MinesweeperTile curr_Minesweeper_tile = gameState.getTile(row, col);
-        if (!curr_Minesweeper_tile.isFlagged()) {
-            gameState.revealTile(row, col);
-        }
+        MinesweeperTile currTile = gameState.getTile(row, col);
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
-        if (curr_Minesweeper_tile.getId() == MinesweeperTile.BOMB) {
-
-            gameState.endGame(row, col);
-        } else if (curr_Minesweeper_tile.getId() == MinesweeperTile.BLANK_TILE && !curr_Minesweeper_tile.isFlagged()) {
+        if (currTile.getId() == MinesweeperTile.BOMB && gameState.getNumRevealedTiles() == 0){
+            gameState.deleteBomb(row,col);
             gameState.revealSurroundingBlanks(row, col);
+        }
+        else if (currTile.getId() == MinesweeperTile.BOMB) {
+            gameState.endGame(row, col);
+        }
+        else if (currTile.getId() == MinesweeperTile.BLANK_TILE && !currTile.isFlagged()) {
+            gameState.revealSurroundingBlanks(row, col);
+        }
+
+        if (!currTile.isFlagged()) {
+            gameState.revealTile(row, col);
         }
 
     }

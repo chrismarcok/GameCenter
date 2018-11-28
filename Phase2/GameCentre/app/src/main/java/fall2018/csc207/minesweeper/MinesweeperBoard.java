@@ -60,6 +60,24 @@ public class MinesweeperBoard extends GameState {
         return dimensions;
     }
 
+
+    /**
+     * Return the number of mines
+     *
+     * @return Returns the number of mines on the board
+     */
+    public int getNumMines() {
+        return numMines;
+    }
+
+    /**
+     * Return the number of revealed tiles.
+     *
+     * @return Returns the number of mines on the board
+     */
+    public int getNumRevealedTiles(){return numrevealedTiles;}
+
+
     @Override
     public void undo() {
         
@@ -151,14 +169,6 @@ public class MinesweeperBoard extends GameState {
         return mines;
     }
 
-    /**
-     * Return the number of mines
-     *
-     * @return Returns the number of mines on the board
-     */
-    public int getNumMines() {
-        return numMines;
-    }
 
     public MinesweeperTile getTile(int row, int col) {
         return mineField[row][col];
@@ -212,6 +222,41 @@ public class MinesweeperBoard extends GameState {
             if (mineField[row][col - 1].getId() == MinesweeperTile.BLANK_TILE) {
                 revealSurroundingBlanks(row, col - 1);
             }
+        }
+
+    }
+
+    /**
+     * Removes the BOMB at given position to change the tile to a null tile.
+     * Updates the values of the surronding tiles accordingly.
+     * @param row
+     * @param col
+     */
+    public void deleteBomb(int row, int col){
+        mineField[row][col] = new MinesweeperTile(0);
+        if (row + 1 < dimensions){
+            mineField[row+1][col] = new MinesweeperTile(mineField[row+1][col].getId() - 1);
+        }
+        if (col + 1 < dimensions){
+            mineField[row][col+1] = new MinesweeperTile(mineField[row][col+1].getId() - 1);
+        }
+        if (row + 1 < dimensions && col + 1 < dimensions){
+            mineField[row+1][col+1] = new MinesweeperTile(mineField[row+1][col+1].getId() - 1);
+        }
+        if (row - 1 >= 0){
+            mineField[row-1][col] = new MinesweeperTile(mineField[row-1][col].getId() - 1);
+        }
+        if (col - 1 >= 0){
+            mineField[row][col-1] = new MinesweeperTile(mineField[row][col-1].getId() - 1);
+        }
+        if (row - 1 >= 0 && col - 1 >= 0){
+            mineField[row-1][col-1] = new MinesweeperTile(mineField[row-1][col-1].getId() - 1);
+        }
+        if (row - 1 >= 0 && col + 1 < dimensions){
+            mineField[row-1][col+1] = new MinesweeperTile(mineField[row-1][col+1].getId() - 1);
+        }
+        if (row + 1 >= dimensions && col - 1 >= 0){
+            mineField[row+1][col-1] = new MinesweeperTile(mineField[row+1][col-1].getId() - 1);
         }
 
     }
