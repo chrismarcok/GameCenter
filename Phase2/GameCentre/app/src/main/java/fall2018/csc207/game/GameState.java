@@ -19,6 +19,27 @@ public abstract class GameState extends Observable implements Serializable {
     private int maxUndos;
 
     /**
+     * Whether the game is in a lost state.
+     */
+    private boolean isGameLost;
+
+    /**
+     * Return whether the game is lost.
+     * @return whether the game is lost.
+     */
+    public boolean isGameLost() {
+        return isGameLost;
+    }
+
+    /**
+     * Sets whether the game is lost.
+     * @param gameLost the state we are setting the game's lost state to.
+     */
+    public void setGameLost(boolean gameLost) {
+        isGameLost = gameLost;
+    }
+
+    /**
      * Sets the maximum number of undos.
      * @param maxUndos The number of max undos.
      */

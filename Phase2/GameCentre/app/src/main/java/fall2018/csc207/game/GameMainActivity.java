@@ -241,9 +241,29 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      * End the game. Add the score to the Scoreboard.
      */
     private void endGame() {
-        ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
         String message = "Your final score is: "
                 + state.getScore();
+        if (state.isGameLost()){
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setTitle("You Lost")
+                    .setMessage(message)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            try {
+                                io.deleteSave(fileName);
+                            } catch (IOException e) {
+                                Toast.makeText(GameMainActivity.this,
+                                        "Error deleting save file!",
+                                        Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+                            finish();
+                        }
+                    });
+            alertBuilder.create().show();
+            return;
+        }
+        ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
         String game = state.getGameName();
         db.addEntry(username, state.getScore(), game);
 
