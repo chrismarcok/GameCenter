@@ -19,7 +19,7 @@ import fall2018.csc207.game.GameFragment;
  * The fragment used for displaying Sliding Tiles.
  * This helps setup the game given GAME_STATE as a parcel.
  */
-public class SlidingTilesFragment extends GameFragment<Board, SlidingTileController> {
+public class SlidingTilesFragment extends GameFragment<SlidingTilesBoard, SlidingTileController> {
 
     /**
      * The buttons (tiles) that can be clicked on to be moved.
@@ -105,12 +105,12 @@ public class SlidingTilesFragment extends GameFragment<Board, SlidingTileControl
      * @param context the context
      */
     private void createTileButtons(Context context) {
-        Board board = gameManager.getGameState();
+        SlidingTilesBoard slidingTilesBoard = gameManager.getGameState();
         tileButtons = new ArrayList<>();
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 Button tmp = new Button(context);
-                tmp.setBackgroundResource(board.getTile(row, col).getBackground());
+                tmp.setBackgroundResource(slidingTilesBoard.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -120,12 +120,12 @@ public class SlidingTilesFragment extends GameFragment<Board, SlidingTileControl
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = gameManager.getGameState();
+        SlidingTilesBoard slidingTilesBoard = gameManager.getGameState();
         int nextPos = 0;
         for (Button b : tileButtons) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            b.setBackgroundResource(board.getTile(row, col).getBackground());
+            b.setBackgroundResource(slidingTilesBoard.getTile(row, col).getBackground());
             nextPos++;
         }
     }
