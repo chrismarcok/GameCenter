@@ -14,6 +14,15 @@ public class MinesweeperBoardTest {
         };
     }
 
+    private int [][] generate4x4Board2(){
+        return new int[][]{
+                {0, 0, 0, 0},
+                {0, 1, 1, 1},
+                {0, 1, -1, 1},
+                {0, 1, 1, 1}
+        };
+    }
+
     public void testGenerateBoard() {
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());
         assert minesweeperBoard.getNumMines() == 1;
@@ -66,5 +75,15 @@ public class MinesweeperBoardTest {
         minesweeperBoard.decrementScore();
         assert minesweeperBoard.getScore() == (100000-2);
     }
+
+    @Test
+    public void testdeleteBomb(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board2());
+        minesweeperBoard.deleteBomb(3, 3);
+
+        assert minesweeperBoard.getNumMines() == 0;
+
+    }
+
 
 }

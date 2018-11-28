@@ -89,7 +89,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * Called when a bomb is clicked. Triggers board reveal
+     * Called when a bomb is clicked.
      */
     public void endGame(int row, int col) {
         score = 0;
@@ -172,7 +172,11 @@ public class MinesweeperBoard extends GameState {
         return mines;
     }
 
-
+    /**
+     * @param rowgit 
+     * @param col
+     * @return Returns the time at row and col in the mineField
+     */
     public MinesweeperTile getTile(int row, int col) {
         return mineField[row][col];
     }
@@ -330,6 +334,7 @@ public class MinesweeperBoard extends GameState {
         if (canDecrementTile(row + 1, col - 1)){
             decrementTile(row + 1, col - 1);
         }
+        numMines--;
     }
 
     /**
