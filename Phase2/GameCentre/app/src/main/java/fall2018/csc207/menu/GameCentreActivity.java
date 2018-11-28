@@ -129,7 +129,7 @@ public class GameCentreActivity extends AppCompatActivity {
      */
     private Map<String, Drawable> getCardDrawables() {
         Map<String, Drawable> pictureMap = new HashMap<>();
-        Drawable slidingTiles = getDrawable(R.drawable.sliding_tiles);
+        Drawable slidingTiles = getDrawable(R.drawable.slidingtiles);
         Drawable twentyFortyEight = getDrawable(R.drawable.tilelogo);
         Drawable minesweeper = getDrawable(R.drawable.mine);
         pictureMap.put("Sliding Tiles", slidingTiles);
