@@ -99,7 +99,7 @@ public class SlidingTilesFactoryTest {
     public void testGet3x3(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
         boardSize.setCurrentValue(0);
-        Board state = stFactory.getGameState(1);
+        SlidingTilesBoard state = stFactory.getGameState(1);
         assert state.numTiles() == 3*3;
         assert state.getMaxUndos() == 1;
 
@@ -113,7 +113,7 @@ public class SlidingTilesFactoryTest {
     public void testGet4x4(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
         boardSize.setCurrentValue(1);
-        Board state = stFactory.getGameState(1);
+        SlidingTilesBoard state = stFactory.getGameState(1);
         assert state.numTiles() == 4*4;
         assert state.getMaxUndos() == 1;
 
@@ -126,7 +126,7 @@ public class SlidingTilesFactoryTest {
     public void testGet5x5(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
         boardSize.setCurrentValue(2);
-        Board state = stFactory.getGameState(1);
+        SlidingTilesBoard state = stFactory.getGameState(1);
         assert state.numTiles() == 5*5;
         assert state.getMaxUndos() == 1;
 

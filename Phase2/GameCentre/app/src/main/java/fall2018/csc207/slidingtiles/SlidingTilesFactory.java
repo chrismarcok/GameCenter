@@ -95,24 +95,24 @@ public class SlidingTilesFactory extends GameFactory {
      * @param numUndos The number of undos to allow.
      * @return The new GameState.
      */
-    @Override
-    public Board getGameState(int numUndos) {
-        Board board;
-        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
+    public SlidingTilesBoard getGameState(int numUndos) {
+        SlidingTilesBoard slidingTilesBoard;
+        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings 
+
             case "3x3":
-                board = new Board(generateBoard(3));
+                slidingTilesBoard = new SlidingTilesBoard(generateBoard(3));
                 break;
             case "4x4":
-                board = new Board(generateBoard(4));
+                slidingTilesBoard = new SlidingTilesBoard(generateBoard(4));
                 break;
             case "5x5":
-                board = new Board(generateBoard(5));
+                slidingTilesBoard = new SlidingTilesBoard(generateBoard(5));
                 break;
             default:
                 throw new IllegalStateException("This factory's settings is in an illegal state!");
         }
-        board.setMaxUndos(numUndos);
-        return board;
+        slidingTilesBoard.setMaxUndos(numUndos);
+        return slidingTilesBoard;
     }
 
     /**
