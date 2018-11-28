@@ -42,6 +42,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
             gameState.revealSurroundingBlanks(row, col);
         }
         else if (currTile.getId() == MinesweeperTile.BOMB) {
+            gameState.setGameLost(true);
             gameState.endGame(row, col);
         }
         else if (currTile.getId() == MinesweeperTile.BLANK_TILE && !currTile.isFlagged()) {
