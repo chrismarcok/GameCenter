@@ -96,11 +96,7 @@ public class MinesweeperBoard extends GameState {
 
             }
         }
-        if (numrevealedTiles + getNumMines() <= mineField.length * mineField.length - 1) {
-            return false;
-        }
-        return true;
-
+        return !(numrevealedTiles + getNumMines() <= mineField.length * mineField.length - 1);
     }
 
     /**
@@ -238,7 +234,6 @@ public class MinesweeperBoard extends GameState {
      * Decreases the score by one
      */
     public void decrementScore() {
-
         setScore(getScore() - 1);
     }
 

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fall2018.csc207.database.ScoreboardDBHandler;
 import fall2018.csc207.menu.gameCard.GameCardAdapter;
@@ -27,7 +28,7 @@ public class GameCentreActivity extends AppCompatActivity {
     /*
      * A map from the name of the game to the game's factory class.
      */
-    private static final HashMap<String, Class> gameLibrary = new HashMap<>();
+    private static final Map<String, Class> gameLibrary = new HashMap<>();
 
     /**
      * Retrieves the factory class for a particular game.
@@ -87,8 +88,8 @@ public class GameCentreActivity extends AppCompatActivity {
      * Create the GameCardItems.
      */
     private void createGameCards() {
-        HashMap<String, Drawable> pictureMap = getCardDrawables();
-        HashMap<String, Integer> userHighScores = new HashMap<>();
+        Map<String, Drawable> pictureMap = getCardDrawables();
+        Map<String, Integer> userHighScores = new HashMap<>();
 
         //Set the default highscores to 0.
         for (HashMap.Entry<String, Class> entry : gameLibrary.entrySet()) {
@@ -97,13 +98,15 @@ public class GameCentreActivity extends AppCompatActivity {
 
         //Get a reference to the Database, load the highscores.
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
-        ArrayList<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
+        List<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
 
         //Fill the highscores of the different games
         for (ScoreboardEntry entry : userHighScoreList) {
             // If the name is Sliding Tiles 3x3, 4z4 etc change it to just SlidingTiles.
             if (entry.getGame().contains("Sliding Tiles"))
                 entry.setGame("Sliding Tiles");
+            else if (entry.getGame().contains("Minesweeper"))
+                entry.setGame("Minesweeper");
             userHighScores.put(entry.getGame(), entry.getScore());
         }
 
@@ -123,8 +126,8 @@ public class GameCentreActivity extends AppCompatActivity {
      *
      * @return The hashmap of the game's names and their corresponding pictures.
      */
-    private HashMap<String, Drawable> getCardDrawables() {
-        HashMap<String, Drawable> pictureMap = new HashMap<>();
+    private Map<String, Drawable> getCardDrawables() {
+        Map<String, Drawable> pictureMap = new HashMap<>();
         Drawable slidingTiles = getDrawable(R.drawable.sliding_tiles);
         Drawable twentyFortyEight = getDrawable(R.drawable.twentyfortyeight);
         Drawable minesweeper = getDrawable(R.drawable.minesweeper);
