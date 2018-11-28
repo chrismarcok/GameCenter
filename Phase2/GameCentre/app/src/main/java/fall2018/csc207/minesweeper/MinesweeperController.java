@@ -34,7 +34,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-git pu
+
         MinesweeperTile currTile = gameState.getTile(row, col);
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
         if (currTile.getId() == MinesweeperTile.BOMB && gameState.getNumRevealedTiles() == 0){
