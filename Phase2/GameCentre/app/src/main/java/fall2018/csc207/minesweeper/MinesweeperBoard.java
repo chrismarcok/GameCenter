@@ -310,7 +310,7 @@ public class MinesweeperBoard extends GameState {
      */
     public void deleteBomb(int row, int col){
         //Delete the bomb.
-        mineField[row][col] = new MinesweeperTile(0);
+        mineField[row][col] = new MinesweeperTile(getNumAdjacentBombs(row, col));
         if (canDecrementTile(row + 1, col)){
             decrementTile(row + 1, col);
         }
@@ -336,6 +336,19 @@ public class MinesweeperBoard extends GameState {
             decrementTile(row + 1, col - 1);
         }
         numMines--;
+    }
+
+    private int getNumAdjacentBombs(int row, int col){
+        int count = 0;
+        if (mineField[row + 1][col].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row - 1][col].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row][col - 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row + 1][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row + 1][col - 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row - 1][col - 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row - 1][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        return count;
     }
 
     /**
