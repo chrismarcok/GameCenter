@@ -12,7 +12,7 @@ import fall2018.csc207.game.GameState;
 /**
  * The sliding tiles board.
  */
-public class Board extends GameState implements Iterable<Tile> {
+public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
     /**
      * The tiles on the board in row-major order.
      */
@@ -39,7 +39,7 @@ public class Board extends GameState implements Iterable<Tile> {
      *
      * @param tiles the tiles for the board
      */
-    Board(List<List<Tile>> tiles) {
+    SlidingTilesBoard(List<List<Tile>> tiles) {
         // We start the score at 100, where 100 is a perfect (and unobtainable) score.
         setScore(100);
         this.tiles = tiles;

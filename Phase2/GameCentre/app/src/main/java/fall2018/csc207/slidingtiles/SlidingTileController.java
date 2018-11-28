@@ -9,7 +9,7 @@ import fall2018.csc207.game.BoardController;
 /**
  * Manage the board state by processing taps.
  */
-public class SlidingTileController extends BoardController<Board> implements Serializable {
+public class SlidingTileController extends BoardController<SlidingTilesBoard> implements Serializable {
 
     /**
      * The dimension of the board
@@ -17,12 +17,12 @@ public class SlidingTileController extends BoardController<Board> implements Ser
     private int dimensions;
 
     /**
-     * Manage a board that has been pre-populated.
+     * Manage a slidingTilesBoard that has been pre-populated.
      *
-     * @param board the board
+     * @param slidingTilesBoard the slidingTilesBoard
      */
-    public SlidingTileController(Board board) {
-        super(board);
+    public SlidingTileController(SlidingTilesBoard slidingTilesBoard) {
+        super(slidingTilesBoard);
         dimensions = (int)Math.sqrt(this.gameState.numTiles());
     }
 
