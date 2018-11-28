@@ -18,7 +18,7 @@
         android:background="@drawable/circlebackgroundpink"
         android:clickable="true"
         android:gravity="center"
-        android:onClick="showSlidingTileInfo"
+        android:onClick="showGameInstructions"
         android:text="@string/exclamation_mark"
         android:textColor="@color/white"
         android:textSize="18sp"

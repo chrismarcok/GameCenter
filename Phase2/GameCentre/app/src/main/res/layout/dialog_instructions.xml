@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:paddingTop="10dp"
+        android:padding="10dp"
         android:text="@string/sliding_tiles_info"
         android:textSize="20sp" />
 

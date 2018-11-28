@@ -68,8 +68,8 @@ public class GameMenuActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        TextView newName = findViewById(R.id.game_name);
-        newName.setText(gameName);
+        TextView gameTitle = findViewById(R.id.game_name);
+        gameTitle.setText(gameName);
         newGame();
         showSavedGames();
         initScoreboard();
@@ -94,19 +94,25 @@ public class GameMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Shows information on SlidingTiles.
+     * Shows information about game.
      *
      * @param v The given view from the onClick method.
      */
-    public void showSlidingTileInfo(View v) {
+    public void showGameInstructions(View v) {
         infoDialog.setContentView(R.layout.dialog_instructions);
         TextView instructionsTextView = infoDialog.findViewById(R.id.instructionsTextView);
-        if (gameName.equals("Sliding Tiles"))
-            instructionsTextView.setText(R.string.sliding_tiles_info);
-        else if (gameName.equals("Minesweeper"))
-            instructionsTextView.setText(R.string.minesweeper_info);
-        else //Must be 2048
-            instructionsTextView.setText(R.string.twentyfortyeight_info);
+        switch(gameName){
+            case "Sliding Tiles":
+                instructionsTextView.setText(R.string.sliding_tiles_info);
+                break;
+            case "Minesweeper":
+                instructionsTextView.setText(R.string.minesweeper_info);
+                break;
+            case "2048":
+                instructionsTextView.setText(R.string.twentyfortyeight_info);
+                break;
+            default: instructionsTextView.setText(R.string.error);
+        }
         TextView infoTxtClose;
         infoTxtClose = infoDialog.findViewById(R.id.infoTxtCloseInstructions);
         infoTxtClose.setOnClickListener(new View.OnClickListener() {

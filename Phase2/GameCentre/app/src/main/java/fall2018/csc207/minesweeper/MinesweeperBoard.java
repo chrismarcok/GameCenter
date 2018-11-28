@@ -201,76 +201,123 @@ public class MinesweeperBoard extends GameState {
     public void revealSurroundingBlanks(int row, int col) {
         //Reveal the 4 surrounding tiles that aren't Bombs, if a blank is revealed reveal
         // the tiles around that blank as well
-        // revealTile(row,col);
 
-        if (row + 1 < dimensions && mineField[row + 1][col].getId() != MinesweeperTile.BOMB &&
-                !mineField[row + 1][col].isRevealed()) {
-
+        //Tile Below
+        if (canRevealTile(row + 1, col)) {
             revealTile(row + 1, col);
-            if (mineField[row + 1][col].getId() == MinesweeperTile.BLANK_TILE) {
+            if (isBlankTile(row + 1, col)) {
                 revealSurroundingBlanks(row + 1, col);
             }
         }
-        if (row - 1 >= 0 && mineField[row - 1][col].getId() != MinesweeperTile.BOMB &&
-                !mineField[row - 1][col].isRevealed()) {
-
+        //Tile above
+        if (canRevealTile(row - 1, col)) {
             revealTile(row - 1, col);
-            if (mineField[row - 1][col].getId() == MinesweeperTile.BLANK_TILE) {
+            if (isBlankTile(row - 1, col)) {
                 revealSurroundingBlanks(row - 1, col);
             }
         }
-        if (col + 1 < dimensions && mineField[row][col + 1].getId() != MinesweeperTile.BOMB &&
-                !mineField[row][col + 1].isRevealed()) {
-
+        //Tile to right
+        if (canRevealTile(row, col + 1)) {
             revealTile(row, col + 1);
-            if (mineField[row][col + 1].getId() == MinesweeperTile.BLANK_TILE) {
+            if (isBlankTile(row, col + 1)) {
                 revealSurroundingBlanks(row, col + 1);
             }
         }
-        if (col - 1 >= 0 && mineField[row][col - 1].getId() != MinesweeperTile.BOMB &&
-                !mineField[row][col - 1].isRevealed()) {
-
+        //Tile to left
+        if (canRevealTile(row, col - 1)) {
             revealTile(row, col - 1);
-            if (mineField[row][col - 1].getId() == MinesweeperTile.BLANK_TILE) {
+            if (isBlankTile(row, col - 1)) {
                 revealSurroundingBlanks(row, col - 1);
             }
         }
+        //Tile below-right
+        if (canRevealTile(row + 1, col + 1)){
+            revealTile(row + 1, col + 1);
+            if (isBlankTile(row + 1, col + 1)){
+                revealSurroundingBlanks(row + 1, col + 1);
+            }
+        }
+        //Tile above-left
+        if (canRevealTile(row - 1, col - 1)){
+            revealTile(row - 1, col - 1);
+            if (isBlankTile(row - 1, col - 1)){
+                revealSurroundingBlanks(row - 1, col - 1);
+            }
+        }
+        //Tile above-right
+        if (canRevealTile(row - 1, col + 1)){
+            revealTile(row - 1, col + 1);
+            if (isBlankTile(row - 1, col + 1)){
+                revealSurroundingBlanks(row - 1, col + 1);
+            }
+        }
+        //Tile below-left
+        if (canRevealTile(row + 1, col - 1)){
+            revealTile(row + 1, col - 1);
+            if (isBlankTile(row + 1, col - 1)){
+                revealSurroundingBlanks(row + 1, col - 1);
+            }
+        }
+    }
 
+    /**
+     * Return if tile at row, col can be revealed.
+     * @param row The row of the tile.
+     * @param col The column of the tile.
+     * @return Whether the tile can be revealed.
+     */
+    private boolean canRevealTile(int row, int col){
+        return col < dimensions && col >= 0 && row < dimensions && row >= 0 &&
+                mineField[row][col].getId() != MinesweeperTile.BOMB &&
+                !mineField[row][col].isRevealed();
+    }
+
+    /**
+     * Return whether tile at row, col is blank.
+     * @param row The row of the tile.
+     * @param col The column of the tile.
+     * @return Whether the tile is blank.
+     */
+    private boolean isBlankTile(int row, int col){
+        return mineField[row][col].getId() == MinesweeperTile.BLANK_TILE;
     }
 
     /**
      * Removes the BOMB at given position to change the tile to a null tile.
      * Updates the values of the surronding tiles accordingly.
-     * @param row
-     * @param col
+     * @param row The row of this tile.
+     * @param col The column of this tile.
      */
     public void deleteBomb(int row, int col){
         mineField[row][col] = new MinesweeperTile(0);
-        if (row + 1 < dimensions){
+        if (isValidTile(row + 1, col)){
             mineField[row+1][col] = new MinesweeperTile(mineField[row+1][col].getId() - 1);
         }
-        if (col + 1 < dimensions){
+        if (isValidTile(row, col + 1)){
             mineField[row][col+1] = new MinesweeperTile(mineField[row][col+1].getId() - 1);
         }
-        if (row + 1 < dimensions && col + 1 < dimensions){
-            mineField[row+1][col+1] = new MinesweeperTile(mineField[row+1][col+1].getId() - 1);
-        }
-        if (row - 1 >= 0){
+        if (isValidTile(row - 1, col)){
             mineField[row-1][col] = new MinesweeperTile(mineField[row-1][col].getId() - 1);
         }
-        if (col - 1 >= 0){
+        if (isValidTile(row, col - 1)){
             mineField[row][col-1] = new MinesweeperTile(mineField[row][col-1].getId() - 1);
         }
-        if (row - 1 >= 0 && col - 1 >= 0){
+        if (isValidTile(row + 1, col + 1)){
+            mineField[row+1][col+1] = new MinesweeperTile(mineField[row+1][col+1].getId() - 1);
+        }
+        if (isValidTile(row - 1, col - 1)){
             mineField[row-1][col-1] = new MinesweeperTile(mineField[row-1][col-1].getId() - 1);
         }
-        if (row - 1 >= 0 && col + 1 < dimensions){
+        if (isValidTile(row - 1, col + 1)){
             mineField[row-1][col+1] = new MinesweeperTile(mineField[row-1][col+1].getId() - 1);
         }
-        if (row + 1 >= dimensions && col - 1 >= 0){
+        if (isValidTile(row + 1, col - 1)){
             mineField[row+1][col-1] = new MinesweeperTile(mineField[row+1][col-1].getId() - 1);
         }
+    }
 
+    private boolean isValidTile(int row, int col){
+        return row < dimensions && col < dimensions && row >= 0 && col >= 0;
     }
 
     /**
