@@ -91,7 +91,7 @@ public class NewGameActivity extends AppCompatActivity {
     /**
      * Create the seek bar and update it as its value changes.
      */
-    public void setupUndoOptions() {
+    private void setupUndoOptions() {
         undoSeekbar = findViewById(R.id.seekBar);
         infUndoSwitch = findViewById(R.id.infiniteUndo);
 
@@ -144,7 +144,7 @@ public class NewGameActivity extends AppCompatActivity {
      *
      * @param state The state we change the seekbar to. Enabled = true.
      */
-    public void setSeekbarState(boolean state) {
+    private void setSeekbarState(boolean state) {
         final SeekBar seekbar = findViewById(R.id.seekBar);
         seekbar.setEnabled(state);
     }
@@ -165,7 +165,8 @@ public class NewGameActivity extends AppCompatActivity {
             dropdown.setSelection(setting.getCurrentValueIndex());
 
 
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,
+                    LayoutParams.WRAP_CONTENT);
             lp.setMargins(10, 20, 10, 0);
 
             screenView.addView(dropdown, lp);
@@ -179,7 +180,8 @@ public class NewGameActivity extends AppCompatActivity {
                  * @param id The row id of the selected item
                  */
                 @Override
-                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+                                           int position, long id) {
                     setting.setCurrentValue(position);
                 }
 
@@ -205,7 +207,7 @@ public class NewGameActivity extends AppCompatActivity {
         GameStateIO io = new GameStateIO(username, state.getGameName(), getFilesDir());
         //TODO: Determine if the filename has valid chars? eg. / isn't allowed in a filename!
         if (!isValidFileName(userFileName, io)) {
-            Toast.makeText(this, "File name cannot be empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File name is invalid!", Toast.LENGTH_SHORT).show();
             return;
         }
 

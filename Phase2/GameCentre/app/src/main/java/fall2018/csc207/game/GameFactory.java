@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A class used for generating GameStates and other information needed for games from given settings.
+ * A class used for generating GameStates and other information needed for games
+ * from given settings.
  */
 public abstract class GameFactory {
     /**

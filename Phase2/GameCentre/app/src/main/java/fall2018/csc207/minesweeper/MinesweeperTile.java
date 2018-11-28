@@ -16,7 +16,7 @@ public class MinesweeperTile implements Serializable {
      * Contains integer to respective image
      */
     private static Map<Integer, Integer> imageMap(){
-        @SuppressLint("UseSparseArrays") Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+        @SuppressLint("UseSparseArrays") Map<Integer,Integer> map = new HashMap<>();
         map.put(BOMB, R.drawable.bomb);
         map.put(BLANK_TILE, R.drawable.blanktile);
         map.put(1, R.drawable.tile_1);
@@ -48,7 +48,7 @@ public class MinesweeperTile implements Serializable {
     /**
      * The state of the tile (revealed or not revealed)
      */
-    private boolean revealed = false;
+    private boolean revealed;
 
     /**
      *  Returns whether if tile is flagged
@@ -60,7 +60,7 @@ public class MinesweeperTile implements Serializable {
 
     /**
      * Set whether if MinesweeperTile is flagged
-     * @param flagged
+     * @param flagged The value we want to set flagged to.
      */
     public void setFlagged(boolean flagged) {
         this.flagged = flagged;
@@ -69,10 +69,10 @@ public class MinesweeperTile implements Serializable {
     /**
      * The state of whether the tile is flagged
      */
-    private boolean flagged = false;
+    private boolean flagged;
     /**
      * A tile with an id
-     * @param id
+     * @param id The id of this Tile.
      */
     public MinesweeperTile(int id){
         this.id = id;
@@ -90,7 +90,7 @@ public class MinesweeperTile implements Serializable {
 
     /**
      * Return the background
-     * @return
+     * @return The background of this Tile.
      */
     public int getBackground() {
         return background;
@@ -100,11 +100,11 @@ public class MinesweeperTile implements Serializable {
         return String.valueOf(this.getId());
     }
 
-    public boolean getrevealed(){
+    public boolean isRevealed(){
         return revealed;
     }
 
-    public void setrevealed(boolean reveal){
+    public void setRevealed(boolean reveal){
         revealed = reveal;
     }
 }

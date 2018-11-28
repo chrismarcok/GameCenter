@@ -142,7 +142,8 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
                 if (state.canUndo()) {
                     state.undo();
                 } else
-                    Toast.makeText(getApplicationContext(), "Cannot Undo!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Cannot Undo!",
+                            Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -160,7 +161,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      *
      * @param file The name of the file to be saved.
      */
-    public void autoSave(String file) {
+    private void autoSave(String file) {
         //TODO: Autosave interval
         if (state.getScore() % 5 == 0) {
             saveGame(file);
@@ -172,7 +173,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      *
      * @param fileName The name of the file.
      */
-    public void saveGame(String fileName) {
+    private void saveGame(String fileName) {
         try {
             io.saveState(state, fileName);
             Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT).show();

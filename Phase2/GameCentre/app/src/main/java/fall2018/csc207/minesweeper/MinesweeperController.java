@@ -7,7 +7,8 @@ import fall2018.csc207.game.BoardController;
 /**
  * Controller for Minesweeper.
  */
-public class MinesweeperController extends BoardController<MinesweeperBoard> implements Serializable {
+public class MinesweeperController extends BoardController<MinesweeperBoard>
+        implements Serializable {
 
     /**
      * The dimension of the board
@@ -33,6 +34,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard> imp
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
+git pu
         MinesweeperTile currTile = gameState.getTile(row, col);
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
         if (currTile.getId() == MinesweeperTile.BOMB && gameState.getNumRevealedTiles() == 0){

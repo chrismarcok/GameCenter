@@ -26,7 +26,7 @@ public class MinesweeperFactory extends GameFactory {
     @Override
     public GameState getGameState(int numUndos) {
         MinesweeperBoard minesweeperBoard;
-        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings anyways
+        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
             case "5x5":
                 minesweeperBoard = new MinesweeperBoard(5, .2);
                 break;
@@ -53,6 +53,7 @@ public class MinesweeperFactory extends GameFactory {
 
     @Override
     public List<String> getGameNames() {
-        return Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8","Minesweeper 13x13","Minesweeper 20x20");
+        return Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8","Minesweeper 13x13",
+                "Minesweeper 20x20");
     }
 }

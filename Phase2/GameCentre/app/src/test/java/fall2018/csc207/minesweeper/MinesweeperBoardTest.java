@@ -5,14 +5,13 @@ import org.junit.Test;
 public class MinesweeperBoardTest {
 
 
-    public int [][] generate4x4Board(){
-        int[][] test_board = new int[][]{
+    private int [][] generate4x4Board(){
+        return new int[][]{
                 {0, 0, 0, 0},
                 {0, 0, 0, 0},
                 {0, 1, 1, 1},
                 {0, 1, -1, 1}
         };
-        return test_board;
     }
 
     public void testGenerateBoard() {
@@ -21,9 +20,9 @@ public class MinesweeperBoardTest {
     }
     @Test
     public void testGenerateBoardAuto() {
-        MinesweeperBoard new_Minesweeper_board = new MinesweeperBoard(5, .3);
-        assert new_Minesweeper_board.getNumMines() <= 13;
-        assert new_Minesweeper_board.getDimensions() == 5;
+        MinesweeperBoard newMinesweeperBoard = new MinesweeperBoard(5, .3);
+        assert newMinesweeperBoard.getNumMines() <= 13;
+        assert newMinesweeperBoard.getDimensions() == 5;
 
     }
     @Test
@@ -33,7 +32,7 @@ public class MinesweeperBoardTest {
         int num = 0;
         for (int i = 0; i < minesweeperBoard.getDimensions(); i++){
             for(int b = 0; b < minesweeperBoard.getDimensions(); b++){
-                if (minesweeperBoard.getTile(i,b).getrevealed()){
+                if (minesweeperBoard.getTile(i,b).isRevealed()){
                     num++;
                 }
             }
@@ -45,7 +44,7 @@ public class MinesweeperBoardTest {
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());
         minesweeperBoard.revealSurroundingBlanks(0,0);
         minesweeperBoard.revealTile(3,2);
-        assert minesweeperBoard.isOver() == true;
+        assert minesweeperBoard.isOver();
     }
     @Test
     public void testisOverWithFlag(){
@@ -53,7 +52,7 @@ public class MinesweeperBoardTest {
         minesweeperBoard.revealSurroundingBlanks(0,0);
         minesweeperBoard.revealTile(3,3);
         minesweeperBoard.flagTile(3,2);
-        assert minesweeperBoard.isOver() == true;
+        assert minesweeperBoard.isOver();
     }
     @Test
     public void testGetName(){

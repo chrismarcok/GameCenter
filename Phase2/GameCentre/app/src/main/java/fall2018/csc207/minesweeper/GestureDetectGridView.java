@@ -9,7 +9,7 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 public class GestureDetectGridView extends GridView {
-    public static final int SWIPE_MIN_DISTANCE = 100;
+    private static final int SWIPE_MIN_DISTANCE = 100;
     private GestureDetector gDetector;
 
     private boolean mFlingConfirmed;
@@ -94,6 +94,9 @@ public class GestureDetectGridView extends GridView {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
+            performClick();
+        }
         return gDetector.onTouchEvent(ev);
     }
 

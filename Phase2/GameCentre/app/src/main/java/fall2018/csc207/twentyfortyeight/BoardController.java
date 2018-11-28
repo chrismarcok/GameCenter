@@ -1,7 +1,5 @@
 package fall2018.csc207.twentyfortyeight;
 
-import android.gesture.Gesture;
-
 import java.io.Serializable;
 
 import fall2018.csc207.game.GameController;
@@ -9,7 +7,7 @@ import fall2018.csc207.game.GameController;
 /**
  * Manage the board state by processing taps.
  */
-public class BoardController extends GameController<Board> implements Serializable {
+class BoardController extends GameController<Board> implements Serializable {
 
     /**
      * Manage a board that has been pre-populated.
@@ -21,15 +19,15 @@ public class BoardController extends GameController<Board> implements Serializab
     }
 
     public void moveRight() {
-        gameState.moveRight();
+        gameState.canMoveRight();
     }
     public void moveLeft() {
-        gameState.moveLeft();
+        gameState.canMoveLeft();
     }
     public void moveUp() {
-        gameState.moveUp();
+        gameState.canMoveUp();
     }
     public void moveDown() {
-        gameState.moveDown();
+        gameState.canMoveDown();
     }
 }

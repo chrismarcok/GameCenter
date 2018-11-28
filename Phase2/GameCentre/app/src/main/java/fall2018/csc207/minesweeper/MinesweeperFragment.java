@@ -36,7 +36,7 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    public void display() {
+    private void display() {
         updateTileButtons();
         gridView.setAdapter(new CustomAdapter(tileButtons, columnWidth, columnHeight));
     }
@@ -102,9 +102,9 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
     /**
      * Starts the timer for the score
      */
-    public void starTimer(){
-        Timer T = new Timer();
-        T.scheduleAtFixedRate(new TimerTask() {
+    private void starTimer(){
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run(){
                 state.decrementScore();
@@ -126,7 +126,7 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
                 if (minesweeperBoard.getTile(row,col).isFlagged()){
                     tmp.setBackgroundResource(R.drawable.flag);
                 }
-                else if (!minesweeperBoard.getTile(row, col).getrevealed()) {
+                else if (!minesweeperBoard.getTile(row, col).isRevealed()) {
                     tmp.setBackgroundResource(R.drawable.btile);
                 }
                 else {
@@ -149,7 +149,7 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
             if (minesweeperBoard.getTile(row,col).isFlagged()){
                 b.setBackgroundResource(R.drawable.flag);
             }
-            else if (!minesweeperBoard.getTile(row, col).getrevealed()) {
+            else if (!minesweeperBoard.getTile(row, col).isRevealed()) {
                 b.setBackgroundResource(R.drawable.btile);
             }
             else {

@@ -95,10 +95,10 @@ public class SlidingTilesFactory extends GameFactory {
      * @param numUndos The number of undos to allow.
      * @return The new GameState.
      */
-    @Override
     public SlidingTilesBoard getGameState(int numUndos) {
         SlidingTilesBoard slidingTilesBoard;
-        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings anyways
+        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings 
+
             case "3x3":
                 slidingTilesBoard = new SlidingTilesBoard(generateBoard(3));
                 break;

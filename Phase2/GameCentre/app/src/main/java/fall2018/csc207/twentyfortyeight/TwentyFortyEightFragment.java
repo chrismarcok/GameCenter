@@ -40,7 +40,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardControlle
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    public void display() {
+    private void display() {
         updateTileButtons();
         gridView.setAdapter(new TileAdapter(tileTextViews, columnWidth, columnHeight));
     }

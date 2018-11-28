@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/snow"
     tools:context="fall2018.csc207.menu.GameMenuActivity">
 
     <TextView
@@ -28,7 +29,7 @@
         android:layout_width="30dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="Info"
+        android:text="@string/info_title"
         android:textAlignment="center" />
 
     <TextView
@@ -38,9 +39,10 @@
         android:layout_gravity="center"
         android:layout_marginBottom="120dp"
         android:layout_marginTop="42dp"
+        android:fontFamily="sans-serif-smallcaps"
         android:text="@string/sliding_tiles"
         android:textColor="@android:color/black"
-        android:textSize="36sp" />
+        android:textSize="48sp" />
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -59,7 +61,7 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:textSize="24sp"
-            app:cardBackgroundColor="@color/lightgreen"
+            app:cardBackgroundColor="@color/brightlightblue"
             card_view:cardCornerRadius="15dp">
 
             <TextView
@@ -90,7 +92,7 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:textSize="24sp"
-            app:cardBackgroundColor="@color/green"
+            app:cardBackgroundColor="@color/brightlightblue"
             card_view:cardCornerRadius="15dp">
 
             <TextView
@@ -121,7 +123,7 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:textSize="24sp"
-            app:cardBackgroundColor="@color/darkSeaGreen"
+            app:cardBackgroundColor="@color/brightlightblue"
             card_view:cardCornerRadius="15dp">
 
             <TextView

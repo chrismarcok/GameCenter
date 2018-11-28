@@ -14,7 +14,7 @@
         android:layout_margin="0dp"
         android:background="@color/lightSeaGreen"
         android:padding="6dp"
-        android:text="Scoreboard"
+        android:text="@string/scoreboard"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@color/cardview_light_background" />
 

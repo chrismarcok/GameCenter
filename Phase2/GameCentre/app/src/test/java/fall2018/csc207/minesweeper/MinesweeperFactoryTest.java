@@ -4,9 +4,6 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import fall2018.csc207.game.GameFactory;
-import fall2018.csc207.game.GameState;
-
 public class MinesweeperFactoryTest {
     @Test
     public void testFactoryConstructor(){
@@ -23,7 +20,8 @@ public class MinesweeperFactoryTest {
     public void testgetGamenames(){
         MinesweeperFactory newFactory = new MinesweeperFactory();
         List b = newFactory.getGameNames();
-        assert b.equals(Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8","Minesweeper 13x13","Minesweeper 20x20"));
+        assert b.equals(Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8","Minesweeper 13x13",
+                "Minesweeper 20x20"));
     }
 
 }

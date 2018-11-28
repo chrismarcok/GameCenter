@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fall2018.csc207.menu.scoreboard.ScoreboardEntry;
 
@@ -100,18 +101,21 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
      *
      * @return an ArrayList of ScoreboardEntry with one entry, the highscore entry.
      */
-    public ArrayList<ScoreboardEntry> fetchUserHighScores(String username){
+    public List<ScoreboardEntry> fetchUserHighScores(String username){
         SQLiteDatabase db = getWritableDatabase();
 
         //Needs to match the names of the games in SlidingTilesFactory.java
         String query =
                 //Get the scores of just sliding tiles and variants.
                 "SELECT username, game, max(score) FROM " + TABLE_NAME +
-                " WHERE username = \"" + username + "\" AND game IN (\"Sliding Tiles 3x3\",\"Sliding Tiles 4x4\",\"Sliding Tiles 5x5\")" +
+                " WHERE username = \"" + username + "\" AND game IN " +
+                        "(\"Sliding Tiles 3x3\",\"Sliding Tiles 4x4\",\"Sliding Tiles 5x5\")" +
                 " UNION" +
                 //Get the scores of Minesweeper and variants.
                 " SELECT username, game, max(score) FROM " + TABLE_NAME +
-                " WHERE username = \"" + username + "\" AND game IN (\"Minesweeper 5x5\",\"Minesweeper 8x8\",\"Minesweeper 13x13\",\"Minesweeper 20x20\")" +
+                " WHERE username = \"" + username + "\" AND game IN " +
+                        "(\"Minesweeper 5x5\",\"Minesweeper 8x8\"," +
+                        "\"Minesweeper 13x13\",\"Minesweeper 20x20\")" +
                 " UNION" +
                 //Get the scores of just 2048.
                 " SELECT username, game, max(score) FROM " + TABLE_NAME +
@@ -121,7 +125,6 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
     }
 
 
-    @NonNull
     /**
      * Helper function which walks through the query on the scoreboard table.
      *
@@ -132,6 +135,7 @@ public class ScoreboardDBHandler extends SQLiteOpenHelper {
      * @return an ArrayList of ScoreboardEntry representing the entries returned from the query. One
      * entry per row in the table.
      */
+    @NonNull
     private ArrayList<ScoreboardEntry> getEntriesFromQuery(SQLiteDatabase db, String query,
                                                            String scoreType) {
 
