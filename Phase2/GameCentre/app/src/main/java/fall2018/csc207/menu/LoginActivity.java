@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameSignupET;
         final EditText passwordSignupET;
 
-        signupDialog.setContentView(R.layout.dialogue_signup);
+        signupDialog.setContentView(R.layout.dialog_signup);
 
         txtClose = signupDialog.findViewById(R.id.txtclose);
         submitButton = signupDialog.findViewById(R.id.submitButton);
@@ -174,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param v The View.
      */
     public void showInfo(View v){
-        infoDialog.setContentView(R.layout.dialogue_info);
+        infoDialog.setContentView(R.layout.dialog_info);
         TextView infoTxtClose;
         infoTxtClose = infoDialog.findViewById(R.id.infoTxtClose);
         infoTxtClose.setOnClickListener(new View.OnClickListener() {

@@ -97,7 +97,7 @@ public class SlidingTilesFactory extends GameFactory {
      */
     public SlidingTilesBoard getGameState(int numUndos) {
         SlidingTilesBoard slidingTilesBoard;
-        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings 
+        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
 
             case "3x3":
                 slidingTilesBoard = new SlidingTilesBoard(generateBoard(3));

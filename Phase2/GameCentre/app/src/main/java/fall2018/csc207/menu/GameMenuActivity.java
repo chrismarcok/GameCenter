@@ -44,7 +44,6 @@ public class GameMenuActivity extends AppCompatActivity {
      * the game factory.
      */
     private String gameName;
-    //TODO: Probably remove this?
     /**
      * The dialog box used to give instructions the game.
      */
@@ -100,8 +99,14 @@ public class GameMenuActivity extends AppCompatActivity {
      * @param v The given view from the onClick method.
      */
     public void showSlidingTileInfo(View v) {
-        //TODO: Set this dynamically?
-        infoDialog.setContentView(R.layout.dialogue_slidingtile_instructions);
+        infoDialog.setContentView(R.layout.dialog_instructions);
+        TextView instructionsTextView = infoDialog.findViewById(R.id.instructionsTextView);
+        if (gameName.equals("Sliding Tiles"))
+            instructionsTextView.setText(R.string.sliding_tiles_info);
+        else if (gameName.equals("Minesweeper"))
+            instructionsTextView.setText(R.string.minesweeper_info);
+        else //Must be 2048
+            instructionsTextView.setText(R.string.twentyfortyeight_info);
         TextView infoTxtClose;
         infoTxtClose = infoDialog.findViewById(R.id.infoTxtCloseInstructions);
         infoTxtClose.setOnClickListener(new View.OnClickListener() {
