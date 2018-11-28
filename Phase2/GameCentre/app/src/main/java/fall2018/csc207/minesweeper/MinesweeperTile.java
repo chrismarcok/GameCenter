@@ -49,6 +49,7 @@ public class MinesweeperTile implements Serializable {
      * The state of the tile (revealed or not revealed)
      */
     private boolean revealed;
+    private int underBackground;
 
     /**
      *  Returns whether if tile is flagged
@@ -63,6 +64,18 @@ public class MinesweeperTile implements Serializable {
      * @param flagged The value we want to set flagged to.
      */
     public void setFlagged(boolean flagged) {
+        if (flagged){
+            this.background = R.drawable.flag;
+        }
+        else{
+            if(isRevealed()){
+                this.background = underBackground;
+            }
+            else{
+                this.background = R.drawable.btile;
+            }
+
+        }
         this.flagged = flagged;
     }
 
@@ -76,7 +89,8 @@ public class MinesweeperTile implements Serializable {
      */
     public MinesweeperTile(int id){
         this.id = id;
-        this.background = imageMap().get(id);
+        this.background = R.drawable.btile;
+        this.underBackground = imageMap().get(id);
 
     }
     /**
@@ -105,6 +119,9 @@ public class MinesweeperTile implements Serializable {
     }
 
     public void setRevealed(boolean reveal){
-        revealed = reveal;
+        if (!isFlagged()) {
+            this.background = this.underBackground;
+            revealed = reveal;
+        }
     }
 }

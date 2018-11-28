@@ -35,5 +35,8 @@ public class MinesweeperControllerTest {
         minesweeperController2.updateGame(8);
         assert  minesweeperBoard.getNumRevealedTiles() == 7;
 
+
+        minesweeperController2.flagTile(3);
+
     }
 }
