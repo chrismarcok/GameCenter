@@ -15,7 +15,6 @@ public class Board extends GameState implements Iterable<Tile> {
     private int numCols;
 
     Board(int dimensions) {
-        this.score = 4;
         numCols = dimensions;
         numRows = dimensions;
         this.board = new Tile[dimensions][dimensions];
@@ -26,6 +25,7 @@ public class Board extends GameState implements Iterable<Tile> {
         }
         addTile();
         addTile();
+        determineScore();
     }
 
     Board(Iterable<Tile> tiles, int dimensions) {
