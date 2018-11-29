@@ -211,28 +211,28 @@ public class MinesweeperBoard extends GameState {
      * @param col The column of this tile.
      */
     private void revealDiagonalAdjacent(int row, int col) {
-        //Tile below-right
+        //TwentyFortyEightTile below-right
         if (canRevealTile(row + 1, col + 1)){
             revealTile(row + 1, col + 1);
             if (isBlankTile(row + 1, col + 1)){
                 revealSurroundingBlanks(row + 1, col + 1);
             }
         }
-        //Tile above-left
+        //TwentyFortyEightTile above-left
         if (canRevealTile(row - 1, col - 1)){
             revealTile(row - 1, col - 1);
             if (isBlankTile(row - 1, col - 1)){
                 revealSurroundingBlanks(row - 1, col - 1);
             }
         }
-        //Tile above-right
+        //TwentyFortyEightTile above-right
         if (canRevealTile(row - 1, col + 1)){
             revealTile(row - 1, col + 1);
             if (isBlankTile(row - 1, col + 1)){
                 revealSurroundingBlanks(row - 1, col + 1);
             }
         }
-        //Tile below-left
+        //TwentyFortyEightTile below-left
         if (canRevealTile(row + 1, col - 1)){
             revealTile(row + 1, col - 1);
             if (isBlankTile(row + 1, col - 1)){
@@ -247,28 +247,28 @@ public class MinesweeperBoard extends GameState {
      * @param col The column of this tile.
      */
     private void revealEdgeAdjacent(int row, int col) {
-        //Tile Below
+        //TwentyFortyEightTile Below
         if (canRevealTile(row + 1, col)) {
             revealTile(row + 1, col);
             if (isBlankTile(row + 1, col)) {
                 revealSurroundingBlanks(row + 1, col);
             }
         }
-        //Tile above
+        //TwentyFortyEightTile above
         if (canRevealTile(row - 1, col)) {
             revealTile(row - 1, col);
             if (isBlankTile(row - 1, col)) {
                 revealSurroundingBlanks(row - 1, col);
             }
         }
-        //Tile to right
+        //TwentyFortyEightTile to right
         if (canRevealTile(row, col + 1)) {
             revealTile(row, col + 1);
             if (isBlankTile(row, col + 1)) {
                 revealSurroundingBlanks(row, col + 1);
             }
         }
-        //Tile to left
+        //TwentyFortyEightTile to left
         if (canRevealTile(row, col - 1)) {
             revealTile(row, col - 1);
             if (isBlankTile(row, col - 1)) {
@@ -355,7 +355,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * Replace the Tile at row, col with a new tile with 1 less adjacent bombs.
+     * Replace the TwentyFortyEightTile at row, col with a new tile with 1 less adjacent bombs.
      * @param row The row of this tile.
      * @param col The column of this tile.
      */

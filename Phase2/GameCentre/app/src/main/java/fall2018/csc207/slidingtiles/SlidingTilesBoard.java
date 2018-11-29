@@ -12,11 +12,11 @@ import fall2018.csc207.game.GameState;
 /**
  * The sliding tiles board.
  */
-public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
+public class SlidingTilesBoard extends GameState implements Iterable<SlidingTilesTile> {
     /**
      * The tiles on the board in row-major order.
      */
-    private List<List<Tile>> tiles;
+    private List<List<SlidingTilesTile>> tiles;
 
     /**
      * The current maximum allowed undos. This is decremented when we undo, and incremented when we
@@ -39,7 +39,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
      *
      * @param tiles the tiles for the board
      */
-    SlidingTilesBoard(List<List<Tile>> tiles) {
+    SlidingTilesBoard(List<List<SlidingTilesTile>> tiles) {
         // We start the score at 100, where 100 is a perfect (and unobtainable) score.
         setScore(100);
         this.tiles = tiles;
@@ -53,7 +53,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
      */
     public Pair<Integer, Integer> findBlankTile() {
         int blankId = this.numTiles();
-        Iterator<Tile> iter = this.iterator();
+        Iterator<SlidingTilesTile> iter = this.iterator();
 
         int blankRow = 0;
         int blankCol = 0;
@@ -107,7 +107,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
      * @param col the tile column
      * @return the tile at (row, col)
      */
-    public Tile getTile(int row, int col) {
+    public SlidingTilesTile getTile(int row, int col) {
         return tiles.get(row).get(col);
     }
 
@@ -123,10 +123,10 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
     public void swapTiles(int row1, int col1, int row2, int col2, boolean addToPrevMoves) {
 
         this.score -= 1;
-        Tile first = tiles.get(row1).get(col1);
-        Tile second = tiles.get(row2).get(col2);
-        tiles.get(row1).set(col1, new Tile(second.getId(), second.getBackground()));
-        tiles.get(row2).set(col2, new Tile(first.getId(), first.getBackground()));
+        SlidingTilesTile first = tiles.get(row1).get(col1);
+        SlidingTilesTile second = tiles.get(row2).get(col2);
+        tiles.get(row1).set(col1, new SlidingTilesTile(second.getId(), second.getBackground()));
+        tiles.get(row2).set(col2, new SlidingTilesTile(first.getId(), first.getBackground()));
 
         // We may not want this canMove to be recorded.
         if (addToPrevMoves) {
@@ -168,7 +168,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
      */
     @NonNull
     @Override
-    public Iterator<Tile> iterator() {
+    public Iterator<SlidingTilesTile> iterator() {
         return new BoardIterator();
     }
 
@@ -208,7 +208,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
      * @return True if the tiles are in order, False otherwise.
      */
     public boolean isOver() {
-        Iterator<Tile> iter = iterator();
+        Iterator<SlidingTilesTile> iter = iterator();
         int counter = 1;
         while (iter.hasNext()) {
             int id = iter.next().getId();
@@ -228,7 +228,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
     /**
      * A custom MinesweeperBoard iterator
      */
-    private class BoardIterator implements Iterator<Tile> {
+    private class BoardIterator implements Iterator<SlidingTilesTile> {
         /**
          * index indicates the position of the board
          */
@@ -240,7 +240,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<Tile> {
         }
 
         @Override
-        public Tile next() {
+        public SlidingTilesTile next() {
             int col = index % getDimensions();
             int row = index / getDimensions();
             index++;

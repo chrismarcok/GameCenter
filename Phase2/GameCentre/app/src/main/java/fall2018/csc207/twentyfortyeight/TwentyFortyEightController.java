@@ -3,20 +3,19 @@ package fall2018.csc207.twentyfortyeight;
 import java.io.Serializable;
 
 import fall2018.csc207.game.BoardController;
-import fall2018.csc207.game.GameController;
 
 /**
  * Manage the board state by processing taps.
  */
-public class TwentyFortyEightController extends BoardController<Board> implements Serializable {
+public class TwentyFortyEightController extends BoardController<TwentyFortyEightBoard> implements Serializable {
 
     /**
-     * Manage a board that has been pre-populated.
+     * Manage a twentyFortyEightBoard that has been pre-populated.
      *
-     * @param board the board
+     * @param twentyFortyEightBoard the twentyFortyEightBoard
      */
-    public TwentyFortyEightController(Board board) {
-        super(board);
+    public TwentyFortyEightController(TwentyFortyEightBoard twentyFortyEightBoard) {
+        super(twentyFortyEightBoard);
     }
 
     public void moveRight() {

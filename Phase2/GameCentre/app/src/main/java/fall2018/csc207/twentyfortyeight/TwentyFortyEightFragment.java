@@ -23,7 +23,7 @@ import fall2018.csc207.slidingtiles.R;
 /**
  * Fragment class made to display the game in the GameMainActivity
  */
-public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEightController> {
+public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard, TwentyFortyEightController> {
 
 
     /**
@@ -115,13 +115,13 @@ public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEig
      * @param context the context
      */
     private void createTile(Context context) {
-        Board board = gameManager.getGameState();
+        TwentyFortyEightBoard twentyFortyEightBoard = gameManager.getGameState();
         tileTextViews = new ArrayList<>();
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 TextView tmp = new TextView(context);
-                Tile tile = board.getTile(row, col);
-                setTiles(tmp, tile);
+                TwentyFortyEightTile twentyFortyEightTile = twentyFortyEightBoard.getTile(row, col);
+                setTiles(tmp, twentyFortyEightTile);
 
                 this.tileTextViews.add(tmp);
             }
@@ -129,9 +129,9 @@ public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEig
 
     }
 
-    private void setTiles(TextView tmp, Tile tile) {
-        tmp.setBackgroundColor(getResources().getColor(tile.getBackground(), null));
-        String text = tile.getValue() == 0 ? "" : Integer.toString(tile.getValue());
+    private void setTiles(TextView tmp, TwentyFortyEightTile twentyFortyEightTile) {
+        tmp.setBackgroundColor(getResources().getColor(twentyFortyEightTile.getBackground(), null));
+        String text = twentyFortyEightTile.getValue() == 0 ? "" : Integer.toString(twentyFortyEightTile.getValue());
         tmp.setText(text);
         tmp.setTextColor(getResources().getColor(R.color.textDark, null));
         tmp.setTextSize(36);
@@ -142,12 +142,12 @@ public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEig
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        Board board = gameManager.getGameState();
+        TwentyFortyEightBoard twentyFortyEightBoard = gameManager.getGameState();
         int nextPos = 0;
         for (TextView tile : tileTextViews) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            Tile cur = board.getTile(row, col);
+            TwentyFortyEightTile cur = twentyFortyEightBoard.getTile(row, col);
             setTiles(tile, cur);
 
             nextPos++;

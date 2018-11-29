@@ -5,6 +5,7 @@ import org.junit.Test;
 public class TwentyFortyEightBoardTest {
 
     public void contructorTest(){
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(6);
 
     }
 
