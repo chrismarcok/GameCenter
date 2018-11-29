@@ -1,4 +1,4 @@
-package fall2018.csc207.minesweeper;
+package fall2018.csc207.game;
 
 /*
 Taken from:
@@ -16,7 +16,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import java.util.List;
 
-class CustomAdapter extends BaseAdapter {
+public class CustomAdapter extends BaseAdapter {
 
     /**
      * A list of the tile buttons for the slidingTiles game.
@@ -31,7 +31,7 @@ class CustomAdapter extends BaseAdapter {
      * @param columnWidth  The width of a column.
      * @param columnHeight The height of a column.
      */
-     CustomAdapter(List<Button> buttons, int columnWidth, int columnHeight) {
+     public CustomAdapter(List<Button> buttons, int columnWidth, int columnHeight) {
         mButtons = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

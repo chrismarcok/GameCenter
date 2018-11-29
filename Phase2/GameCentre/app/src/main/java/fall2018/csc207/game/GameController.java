@@ -1,7 +1,7 @@
 package fall2018.csc207.game;
 
 /**
- * Created by Steven on 2018-10-30.
+ *
  * Manages all the logic of a game while changing game data through interacting with
  * gamestates interface
  */
@@ -30,4 +30,5 @@ public abstract class GameController<T extends GameState> {
     public T getGameState() {
         return this.gameState;
     }
+
 }

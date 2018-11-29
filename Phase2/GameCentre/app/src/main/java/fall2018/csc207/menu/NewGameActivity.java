@@ -104,6 +104,13 @@ public class NewGameActivity extends AppCompatActivity {
                 setSeekbarState(!infUndoSwitch.isChecked());
             }
         });
+
+        //Minesweeper has no undo function, we dont want to see undo options.
+        //TODO: Some refactoring here?
+        if (gameName.equals("Minesweeper")){
+            findViewById(R.id.infUndoRow).setVisibility(View.GONE);
+            findViewById(R.id.allowedUndosRow).setVisibility(View.GONE);
+        }
     }
 
     /**

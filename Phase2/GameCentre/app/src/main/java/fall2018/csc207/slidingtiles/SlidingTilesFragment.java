@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
+
 import java.util.ArrayList;
 import java.util.Observable;
 
 import fall2018.csc207.game.GameFragment;
+import fall2018.csc207.game.CustomAdapter;
+import fall2018.csc207.game.GestureDetectGridView;
 
 /**
  * The fragment used for displaying Sliding Tiles.
@@ -59,7 +62,7 @@ public class SlidingTilesFragment extends GameFragment<SlidingTilesBoard, Slidin
         // Add View to activity
         gridView = thisView.findViewById(R.id.grid);
         gridView.setNumColumns(dimensions);
-        gridView.setBoardManager(gameManager);
+        gridView.setBoardController(gameManager);
 
 
         // Observer sets up desired dimensions as well as calls our display function

@@ -59,6 +59,7 @@
         app:srcCompat="@android:color/darker_gray" />
 
     <TableRow
+        android:id="@+id/infUndoRow"
         android:layout_width="match_parent"
         android:layout_height="128dp"
         android:layout_marginTop="0dp"

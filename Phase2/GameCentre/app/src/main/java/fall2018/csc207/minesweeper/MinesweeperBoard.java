@@ -22,9 +22,8 @@ public class MinesweeperBoard extends GameState {
      * @param dimensions the width and height of the board
      * @param difficulty the frequency of bombs
      */
-
     public MinesweeperBoard(int dimensions, double difficulty) {
-        setScore(100000);
+        setScore(1000);
         this.dimensions = dimensions;
         this.numRevealedTiles = 0;
         mineField = generateBoard(dimensions, difficulty);
@@ -52,7 +51,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * return the size of the board
+     * Return the size of the board.
      *
      * @return returns the size of the board
      */
@@ -77,10 +76,8 @@ public class MinesweeperBoard extends GameState {
      */
     public int getNumRevealedTiles(){return numRevealedTiles;}
 
-
     @Override
     public void undo() {
-        
     }
 
     @Override
@@ -183,10 +180,10 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * Reveals the single tile located at col,row
+     * Reveals the single tile located at row, col.
      *
-     * @param col position of the column
-     * @param row position of the row
+     * @param col position of the column.
+     * @param row position of the row.
      */
     public void revealTile(int row, int col) {
         mineField[row][col].setRevealed(true);
@@ -338,6 +335,12 @@ public class MinesweeperBoard extends GameState {
         numMines--;
     }
 
+    /**
+     * Return the number of adjacent bombs to this tile.
+     * @param row The row of this tile.
+     * @param col The column of this tile.
+     * @return The number of adjacent bombs.
+     */
     private int getNumAdjacentBombs(int row, int col){
         int count = 0;
         if (mineField[row + 1][col].getId() == MinesweeperTile.BOMB) count++;
@@ -378,7 +381,6 @@ public class MinesweeperBoard extends GameState {
      * @param col The col of the tile.
      */
     public void flagTile(int row, int col) {
-
         if (!getTile(row, col).isRevealed()) {
             getTile(row, col).setFlagged(!getTile(row, col).isFlagged());
         }

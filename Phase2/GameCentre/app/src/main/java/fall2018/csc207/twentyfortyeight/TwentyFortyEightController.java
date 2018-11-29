@@ -2,19 +2,20 @@ package fall2018.csc207.twentyfortyeight;
 
 import java.io.Serializable;
 
+import fall2018.csc207.game.BoardController;
 import fall2018.csc207.game.GameController;
 
 /**
  * Manage the board state by processing taps.
  */
-class BoardController extends GameController<Board> implements Serializable {
+public class TwentyFortyEightController extends BoardController<Board> implements Serializable {
 
     /**
      * Manage a board that has been pre-populated.
      *
      * @param board the board
      */
-    public BoardController(Board board) {
+    public TwentyFortyEightController(Board board) {
         super(board);
     }
 
@@ -29,5 +30,15 @@ class BoardController extends GameController<Board> implements Serializable {
     }
     public void moveDown() {
         gameState.canMoveDown();
+    }
+
+    @Override
+    protected void updateGame(int position) {
+
+    }
+
+    @Override
+    protected boolean isValidTap(int position) {
+        return false;
     }
 }
