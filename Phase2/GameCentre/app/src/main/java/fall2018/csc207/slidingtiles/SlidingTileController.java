@@ -1,10 +1,9 @@
 package fall2018.csc207.slidingtiles;
 
-import android.support.v4.util.Pair;
-
 import java.io.Serializable;
 
 import fall2018.csc207.game.BoardController;
+import fall2018.csc207.game.CoordinatePair;
 
 /**
  * Manage the board state by processing taps.
@@ -45,14 +44,13 @@ public class SlidingTileController extends BoardController<SlidingTilesBoard> im
     protected boolean isValidTap(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Pair<Integer, Integer> blank = gameState.findBlankTile();
-        return isTileAdjacent(row, col, blank); // The blank tile is adjacent to our tap
+        CoordinatePair blank = gameState.findBlankTile();
+        return isTileAdjacent(new CoordinatePair(row, col), blank); // The blank tile is adjacent to our tap
     }
 
-    private boolean isTileAdjacent(int row, int col, Pair<Integer, Integer> tile) {
-        return tile.first != null && tile.second != null &&
-                Math.abs(tile.first - row + tile.second - col) == 1;
-
+    private boolean isTileAdjacent(CoordinatePair first, CoordinatePair second) {
+        return first != null && second != null &&
+                Math.abs(first.getRow() - second.getRow() + second.getCol() - first.getCol()) == 1;
     }
 
     /**
@@ -65,11 +63,10 @@ public class SlidingTileController extends BoardController<SlidingTilesBoard> im
         int col = position % dimensions;
 
         // tiles is the blank tile, swap by calling MinesweeperBoard's swap method.
-        Pair<Integer, Integer> blankCoord = gameState.findBlankTile();
+        CoordinatePair blankCoord = gameState.findBlankTile();
 
         // We are precisely 1 tile away from the blank tile, which means we're adjacent to it
-        if (isTileAdjacent(row, col, blankCoord) &&
-                blankCoord.first != null && blankCoord.second != null)
-            gameState.swapTiles(blankCoord.first, blankCoord.second, row, col, true);
+        if (isTileAdjacent(new CoordinatePair(row, col), blankCoord))
+            gameState.swapTiles(blankCoord, new CoordinatePair(row, col), true);
     }
 }

@@ -56,7 +56,7 @@ public class SlidingTilesFactory extends GameFactory {
         int numTiles = slidingTilesTiles.size();
         Random rng = new Random();
 
-        int numSwaps = rng.nextInt(numTiles) * 2;
+        int numSwaps = rng.nextInt(numTiles) * 2 + numTiles;
         for (int i = 0; i < numSwaps; i++) {
             int ind1 = rng.nextInt(numTiles - 1);
             int ind2 = rng.nextInt(numTiles - 1);
