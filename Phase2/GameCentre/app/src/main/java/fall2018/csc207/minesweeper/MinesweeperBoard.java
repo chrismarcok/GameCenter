@@ -173,7 +173,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * @param rowgit 
+     * @param rowgit
      * @param col
      * @return Returns the time at row and col in the mineField
      */
