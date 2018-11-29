@@ -13,9 +13,9 @@ public class TwentyFortyEightFactory extends GameFactory{
 
     @Override
     public GameState getGameState(int numUndos) {
-        Board board = new Board(4);
-        board.setMaxUndos(numUndos);
-        return board;
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
+        twentyFortyEightBoard.setMaxUndos(numUndos);
+        return twentyFortyEightBoard;
     }
 
     @Override

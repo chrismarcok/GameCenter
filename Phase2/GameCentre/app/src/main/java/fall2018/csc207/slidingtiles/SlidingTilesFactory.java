@@ -17,7 +17,7 @@ public class SlidingTilesFactory extends GameFactory {
      */
     public SlidingTilesFactory() {
         addToSettings(new Setting(
-                "Board Size",
+                "TwentyFortyEightBoard Size",
                 Arrays.asList("3x3", "4x4", "5x5"),
                 "3x3"));
     }
@@ -28,32 +28,32 @@ public class SlidingTilesFactory extends GameFactory {
      * @param dimensions The dimension of the square board.
      * @return A list of the tiles of this board.
      */
-    private List<List<Tile>> generateBoard(int dimensions) {
-        List<Tile> tiles = new ArrayList<>();
+    private List<List<SlidingTilesTile>> generateBoard(int dimensions) {
+        List<SlidingTilesTile> slidingTilesTiles = new ArrayList<>();
         int numTiles = dimensions * dimensions;
         for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(tileNum));
+            slidingTilesTiles.add(new SlidingTilesTile(tileNum));
         }
 
         //Remove the last tile, add a blank tile.
-        tiles.remove(numTiles - 1);
-        tiles.add(new Tile(numTiles, R.drawable.blanktile));
-        shuffleTiles(tiles);
+        slidingTilesTiles.remove(numTiles - 1);
+        slidingTilesTiles.add(new SlidingTilesTile(numTiles, R.drawable.blanktile));
+        shuffleTiles(slidingTilesTiles);
 
-        return to2DArray(dimensions, tiles);
+        return to2DArray(dimensions, slidingTilesTiles);
     }
 
     /**
-     * Shuffles tiles. This will always generate a solved board, because we perform an even number
+     * Shuffles slidingTilesTiles. This will always generate a solved board, because we perform an even number
      * of swaps.
      * <p>
-     * This mutates tiles.
+     * This mutates slidingTilesTiles.
      * Source: https://www.jstor.org/stable/2369492
      *
-     * @param tiles The tiles to shuffle
+     * @param slidingTilesTiles The slidingTilesTiles to shuffle
      */
-    private void shuffleTiles(List<Tile> tiles) {
-        int numTiles = tiles.size();
+    private void shuffleTiles(List<SlidingTilesTile> slidingTilesTiles) {
+        int numTiles = slidingTilesTiles.size();
         Random rng = new Random();
 
         int numSwaps = rng.nextInt(numTiles) * 2;
@@ -65,25 +65,25 @@ public class SlidingTilesFactory extends GameFactory {
                 ind1--;
             if (ind2 == numTiles - 1) // We shouldn't swap the last tile
                 ind2--;
-            if (ind1 == ind2) // Ensures we never swap the same 2 tiles
+            if (ind1 == ind2) // Ensures we never swap the same 2 slidingTilesTiles
                 ind1 += ind1 > 0 ? -1 : 1;
 
-            Collections.swap(tiles, ind1, ind2);
+            Collections.swap(slidingTilesTiles, ind1, ind2);
         }
     }
 
     /**
-     * Converts tiles to a 2D list. Assumes tiles.size() == dim.
+     * Converts slidingTilesTiles to a 2D list. Assumes slidingTilesTiles.size() == dim.
      *
      * @param dim   The dimension of the 2D array (where width = length = dim).
-     * @param tiles The array to generate a 2D array from.
+     * @param slidingTilesTiles The array to generate a 2D array from.
      */
-    private List<List<Tile>> to2DArray(int dim, List<Tile> tiles) {
-        List<List<Tile>> returnList = new ArrayList<>();
+    private List<List<SlidingTilesTile>> to2DArray(int dim, List<SlidingTilesTile> slidingTilesTiles) {
+        List<List<SlidingTilesTile>> returnList = new ArrayList<>();
         for (int i = 0; i < dim; i++) {
-            returnList.add(new ArrayList<Tile>());
+            returnList.add(new ArrayList<SlidingTilesTile>());
             for (int j = 0; j < dim; j++) {
-                returnList.get(i).add(tiles.get(i * dim + j));
+                returnList.get(i).add(slidingTilesTiles.get(i * dim + j));
             }
         }
         return returnList;

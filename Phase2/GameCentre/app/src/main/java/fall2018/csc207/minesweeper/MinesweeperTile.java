@@ -85,7 +85,7 @@ public class MinesweeperTile implements Serializable {
     private boolean flagged;
     /**
      * A tile with an id
-     * @param id The id of this Tile.
+     * @param id The id of this TwentyFortyEightTile.
      */
     public MinesweeperTile(int id){
         this.id = id;
@@ -104,7 +104,7 @@ public class MinesweeperTile implements Serializable {
 
     /**
      * Return the background
-     * @return The background of this Tile.
+     * @return The background of this TwentyFortyEightTile.
      */
     public int getBackground() {
         return background;
