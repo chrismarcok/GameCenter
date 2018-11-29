@@ -13,6 +13,7 @@ public class Board extends GameState implements Iterable<Tile> {
     private final Tile[][] board;
     private int numRows;
     private int numCols;
+    private int numTiles;
 
     Board(int dimensions) {
         numCols = dimensions;
@@ -63,6 +64,7 @@ public class Board extends GameState implements Iterable<Tile> {
             Tile emptyTile = list.get(index);
             emptyTile.setValue(Math.random() < 0.9 ? 2 : 4);
             emptyTile.setBackground(emptyTile.value);
+            numTiles++;
         }
     }
 
@@ -210,6 +212,7 @@ public class Board extends GameState implements Iterable<Tile> {
         root.setBackground(root.value);
         merger.setBackground(merger.value);
         determineScore();
+        numTiles--;
     }
 
     private void determineScore(){
