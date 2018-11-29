@@ -54,7 +54,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
-     * <p>
+     * 
      * Add a new tile at an available spot
      */
     private void addTile() {
@@ -188,7 +188,7 @@ public class Board extends GameState implements Iterable<Tile> {
      * @param root tile with value
      * @param zero tile with no value
      */
-    public void swapWithZero(Tile root, Tile zero) {
+    private void swapWithZero(Tile root, Tile zero) {
         zero.value = root.value;
         root.value = 0;
         zero.setBackground(zero.value);
@@ -203,7 +203,7 @@ public class Board extends GameState implements Iterable<Tile> {
      * @param root   The destination of the tile
      * @param merger The merger
      */
-    public void merge(Tile root, Tile merger) {
+    private void merge(Tile root, Tile merger) {
         root.value = root.value + merger.value;
         merger.value = 0;
         merger.setMerged(true);
@@ -215,7 +215,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * Clears all merge flgs after a move
      */
-    public void clearMerged() {
+    private void clearMerged() {
         for (Tile[] row : board)
             for (Tile tile : row)
                 if (!tile.isEmpty())
@@ -223,13 +223,12 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     //TODO: Make a function to determine if there are any moves available
-    //TODO: Make merge work
 
 //    boolean movesAvailable() {
 //        return moveUp() || moveDown() || moveLeft() || moveRight();
 //    }
 
-    public void afterMoveActions() {
+    private void afterMoveActions() {
         clearMerged();
         setChanged();
         notifyObservers();
