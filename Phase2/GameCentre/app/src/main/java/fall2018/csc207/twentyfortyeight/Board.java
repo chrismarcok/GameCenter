@@ -8,9 +8,9 @@ import java.util.List;
 
 import fall2018.csc207.game.GameState;
 
-public class Board extends GameState implements Iterable<Tile> {
+public class Board extends GameState implements Iterable<TwentyFortyEightTile> {
 
-    private final Tile[][] board;
+    private final TwentyFortyEightTile[][] board;
     private int numRows;
     private int numCols;
     static int highest;
@@ -21,57 +21,57 @@ public class Board extends GameState implements Iterable<Tile> {
     Board(int dimensions) {
         numCols = dimensions;
         numRows = dimensions;
-        this.board = new Tile[dimensions][dimensions];
+        this.board = new TwentyFortyEightTile[dimensions][dimensions];
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
-                this.board[row][col] = new Tile(0);
+                this.board[row][col] = new TwentyFortyEightTile(0);
             }
         }
-        addTile();
-        addTile();
+        addTwentyFortyEightTile();
+        addTwentyFortyEightTile();
     }
 
-    Board(Iterable<Tile> tiles, int dimensions) {
-        this.board = new Tile[dimensions][dimensions];
-        Iterator<Tile> iter = tiles.iterator();
+    Board(Iterable<TwentyFortyEightTile> TwentyFortyEightTiles, int dimensions) {
+        this.board = new TwentyFortyEightTile[dimensions][dimensions];
+        Iterator<TwentyFortyEightTile> iter = TwentyFortyEightTiles.iterator();
         numCols = dimensions;
         numRows = dimensions;
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
-                Tile x = iter.next();
+                TwentyFortyEightTile x = iter.next();
                 this.board[row][col] = x;
             }
         }
 
     }
 
-    private int numTiles() {
+    private int numTwentyFortyEightTiles() {
         return numRows * numCols;
     }
 
     /**
-     * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
+     * 2048 MinesweeperTwentyFortyEightTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
      * <p>
-     * Add a new tile at an available spot
+     * Add a new TwentyFortyEightTile at an available spot
      */
-    private void addTile() {
-        List<Tile> list = availableSpace();
+    private void addTwentyFortyEightTile() {
+        List<TwentyFortyEightTile> list = availableSpace();
         if (!availableSpace().isEmpty()) {
             int index = (int) (Math.random() * list.size()) % list.size();
-            Tile emptyTile = list.get(index);
-            emptyTile.setValue(Math.random() < 0.9 ? 2 : 4);
-            emptyTile.setBackground(emptyTile.value);
+            TwentyFortyEightTile emptyTwentyFortyEightTile = list.get(index);
+            emptyTwentyFortyEightTile.setValue(Math.random() < 0.9 ? 2 : 4);
+            emptyTwentyFortyEightTile.setBackground(emptyTwentyFortyEightTile.value);
         }
     }
 
-    private List<Tile> availableSpace() {
-        final List<Tile> list = new ArrayList<>(16);
+    private List<TwentyFortyEightTile> availableSpace() {
+        final List<TwentyFortyEightTile> list = new ArrayList<>(16);
 
-        for (Tile[] row : board) {
-            for (Tile tile : row) {
-                if (tile.isEmpty()) {
-                    list.add(tile);
+        for (TwentyFortyEightTile[] row : board) {
+            for (TwentyFortyEightTile TwentyFortyEightTile : row) {
+                if (TwentyFortyEightTile.isEmpty()) {
+                    list.add(TwentyFortyEightTile);
                 }
             }
 
@@ -80,7 +80,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
-     * Merging tile Function: https://rosettacode.org/wiki/2048#Java
+     * Merging TwentyFortyEightTile Function: https://rosettacode.org/wiki/2048#Java
      */
     public void move(int countDownFrom, int yIncr, int xIncr) {
 
@@ -97,22 +97,22 @@ public class Board extends GameState implements Iterable<Tile> {
 
             while(nextRow >= 0 && nextRow < getDimensions() && nextCol >= 0 && nextCol < getDimensions()) {
 
-                Tile next = board[nextRow][nextCol];
-                Tile curTile = board[row][col];
+                TwentyFortyEightTile next = board[nextRow][nextCol];
+                TwentyFortyEightTile curTwentyFortyEightTile = board[row][col];
 
                 if (next.isEmpty()) {
-                    board[nextRow][nextCol] = curTile;
-                    board[row][col] = new Tile();
+                    board[nextRow][nextCol] = curTwentyFortyEightTile;
+                    board[row][col] = new TwentyFortyEightTile();
                     row = nextRow;
                     col = nextCol;
                     nextRow += yIncr;
                     nextCol += xIncr;
 
-                } else if (next.canMergeWith(curTile)) {
-                    board[nextRow][nextCol].value = curTile.value * 2;
+                } else if (next.canMergeWith(curTwentyFortyEightTile)) {
+                    board[nextRow][nextCol].value = curTwentyFortyEightTile.value * 2;
                     board[nextRow][nextCol].setBackground(next.value);
                     board[nextRow][nextCol].setMerged(true);
-                    board[row][col] = new Tile();
+                    board[row][col] = new TwentyFortyEightTile();
                     break;
 
                 } else {
@@ -121,7 +121,7 @@ public class Board extends GameState implements Iterable<Tile> {
             }
         }
         clearMerged();
-        addTile();
+        addTwentyFortyEightTile();
         setChanged();
         notifyObservers();
     }
@@ -137,20 +137,20 @@ public class Board extends GameState implements Iterable<Tile> {
             int nextRow = row - 1;
             while((nextRow >= 0) && (nextRow < getDimensions()) && (col < getDimensions())) {
 
-                Tile next = board[nextRow][col];
-                Tile curTile = board[row][col];
+                TwentyFortyEightTile next = board[nextRow][col];
+                TwentyFortyEightTile curTwentyFortyEightTile = board[row][col];
 
                 if (next.isEmpty()) {
-                    board[nextRow][col] = curTile;
-                    board[row][col] = new Tile();
+                    board[nextRow][col] = curTwentyFortyEightTile;
+                    board[row][col] = new TwentyFortyEightTile();
                     row = nextRow;
                     nextRow += -1;
 
-                } else if (next.canMergeWith(curTile)) {
-                    board[nextRow][col].value = curTile.value * 2;
+                } else if (next.canMergeWith(curTwentyFortyEightTile)) {
+                    board[nextRow][col].value = curTwentyFortyEightTile.value * 2;
                     board[nextRow][col].setBackground(next.value);
                     board[nextRow][col].setMerged(true);
-                    board[row][col] = new Tile();
+                    board[row][col] = new TwentyFortyEightTile();
                     break;
                 } else {
                     break;
@@ -158,7 +158,7 @@ public class Board extends GameState implements Iterable<Tile> {
             }
         }
         clearMerged();
-        addTile();
+        addTwentyFortyEightTile();
         setChanged();
         notifyObservers();
     }
@@ -176,10 +176,10 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     private void clearMerged() {
-        for (Tile[] row : board)
-            for (Tile tile : row)
-                if (!tile.isEmpty())
-                    tile.setMerged(false);
+        for (TwentyFortyEightTile[] row : board)
+            for (TwentyFortyEightTile TwentyFortyEightTile : row)
+                if (!TwentyFortyEightTile.isEmpty())
+                    TwentyFortyEightTile.setMerged(false);
     }
 
     //TODO: Make a function to determine if there are any moves available
@@ -214,7 +214,7 @@ public class Board extends GameState implements Iterable<Tile> {
 
     @NonNull
     @Override
-    public Iterator<Tile> iterator() {
+    public Iterator<TwentyFortyEightTile> iterator() {
         return new BoardIterator(board);
     }
 
@@ -222,29 +222,29 @@ public class Board extends GameState implements Iterable<Tile> {
         return numRows;
     }
 
-    public Tile getTile(int row, int col) {
+    public TwentyFortyEightTile getTwentyFortyEightTile(int row, int col) {
         return board[row][col];
     }
 
-    private class BoardIterator implements Iterator<Tile> {
+    private class BoardIterator implements Iterator<TwentyFortyEightTile> {
 
         /**
          * index indicates the position of the board
          */
         private int index;
-        private Tile[][] array2D;
+        private TwentyFortyEightTile[][] array2D;
 
-        private BoardIterator(Tile[][] tiles) {
-            array2D = tiles;
+        private BoardIterator(TwentyFortyEightTile[][] TwentyFortyEightTiles) {
+            array2D = TwentyFortyEightTiles;
         }
 
         @Override
         public boolean hasNext() {
-            return index != numTiles();
+            return index != numTwentyFortyEightTiles();
         }
 
         @Override
-        public Tile next() {
+        public TwentyFortyEightTile next() {
             int col = index % numCols;
             int row = index / numCols;
             index++;

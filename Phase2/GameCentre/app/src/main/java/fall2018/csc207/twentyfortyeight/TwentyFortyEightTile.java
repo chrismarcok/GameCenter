@@ -6,7 +6,7 @@ import java.util.Map;
 import fall2018.csc207.game.GameState;
 import fall2018.csc207.slidingtiles.R;
 
-class Tile extends GameState {
+class TwentyFortyEightTile extends GameState {
 
     private static Map<Integer, Integer> colorMap;
 
@@ -31,13 +31,13 @@ class Tile extends GameState {
     private int background;
     private boolean merged;
 
-    public Tile() {
+    public TwentyFortyEightTile() {
         this.value = 0;
         this.background = colorMap.get(0);
         this.merged = false;
     }
 
-    public Tile(int value) {
+    public TwentyFortyEightTile(int value) {
         this.value = value;
         this.background = colorMap.get(value);
     }
@@ -78,9 +78,16 @@ class Tile extends GameState {
         this.merged = merged;
     }
 
-    public boolean canMergeWith(Tile curr) {
+    public boolean canMergeWith(TwentyFortyEightTile curr) {
         return this.value == curr.value && !this.merged && !curr.merged;
     }
+
+//    public void merge(TwentyFortyEightTile otherTile) {
+//        otherTile.setValue(this.getValue()*2);
+//        this.setValue(0);
+//        this.setMerged(true);
+//        otherTile.setMerged(true);
+//    }
 
     public int getValue() {
         return this.value;

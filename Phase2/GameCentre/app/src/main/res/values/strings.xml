@@ -33,21 +33,21 @@
     <string name="score_0">SCORE: 0</string>
     <string name="zero">0</string>
     <string name="sliding_tiles_info">Sliding Tiles is a game where you must
-        order the tiles numerically using the least number of moves to win!
+        order the twentyFortyEightTiles numerically using the least number of moves to win!
         \n\n Click New Game to select the dimensions of the game and the amount
         of undos you wish to play with. \n\n Click Load Game to load a previously
         saved game. \n\n Click scoreboard to view how well you stack up against
         other players!</string>
-    <string name="minesweeper_info">Minesweeper is a game about clearing a minefield. Each tile is
-    either a bomb or a safe tile. When a tile is clicked, it will reveal
+    <string name="minesweeper_info">Minesweeper is a game about clearing a minefield. Each twentyFortyEightTile is
+    either a bomb or a safe twentyFortyEightTile. When a twentyFortyEightTile is clicked, it will reveal
     how many bombs there are adjacent to it. \n\nClicking a bomb will lose the game.\n\n
-    Hold a tile to mark it with a flag, so you can remember where the bombs are. \n\nReaveal
-    all non bomb tiles to win.</string>
+    Hold a twentyFortyEightTile to mark it with a flag, so you can remember where the bombs are. \n\nReaveal
+    all non bomb twentyFortyEightTiles to win.</string>
     <string name="twentyfortyeight_info">2048 is a game about adding like terms. \n\nSwipe up, down,
-        left and right to combine tiles and amass the largest score you can get! \n\nEach time you
-        swipe, a new tile appears, and a full board constitutes a loss. \n\nEach time you combine
-        two like tiles,
-        they merge and create a tile of with value equal to the sum of the two. \n\nGood Luck!
+        left and right to combine twentyFortyEightTiles and amass the largest score you can get! \n\nEach time you
+        swipe, a new twentyFortyEightTile appears, and a full twentyFortyEightBoard constitutes a loss. \n\nEach time you combine
+        two like twentyFortyEightTiles,
+        they merge and create a twentyFortyEightTile of with value equal to the sum of the two. \n\nGood Luck!
     </string>
     <string name="start_game">Start Game</string>
     <string name="file_name">File Name</string>

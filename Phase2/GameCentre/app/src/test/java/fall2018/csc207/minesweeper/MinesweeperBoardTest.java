@@ -2,6 +2,9 @@ package fall2018.csc207.minesweeper;
 
 import org.junit.Test;
 
+/*
+    Test Class for all public methods in MinesweeperBoard
+ */
 public class MinesweeperBoardTest {
 
 
@@ -23,6 +26,7 @@ public class MinesweeperBoardTest {
         };
     }
 
+    @Test
     public void testGenerateBoard() {
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());
         assert minesweeperBoard.getNumMines() == 1;
@@ -48,6 +52,15 @@ public class MinesweeperBoardTest {
         }
         assert num == 14;
     }
+
+    @Test
+    public void testendGame(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());
+        minesweeperBoard.endGame(4,3);
+        assert minesweeperBoard.getNumRevealedTiles() == 1;
+
+    }
+
     @Test
     public void testisOver(){
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());

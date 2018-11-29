@@ -14,14 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.List;
 
 public class CustomAdapter extends BaseAdapter {
 
     /**
-     * A list of the tile buttons for the slidingTiles game.
+     * A list of tiles for a game.
      */
-    private List<Button> mButtons;
+    private List mTiles;
     private int mColumnWidth, mColumnHeight;
 
     /**
@@ -31,20 +33,20 @@ public class CustomAdapter extends BaseAdapter {
      * @param columnWidth  The width of a column.
      * @param columnHeight The height of a column.
      */
-     public CustomAdapter(List<Button> buttons, int columnWidth, int columnHeight) {
-        mButtons = buttons;
+     public CustomAdapter(List buttons, int columnWidth, int columnHeight) {
+        mTiles = buttons;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;
     }
 
     @Override
     public int getCount() {
-        return mButtons.size();
+        return mTiles.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mButtons.get(position);
+        return mTiles.get(position);
     }
 
     @Override
@@ -54,18 +56,29 @@ public class CustomAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Button button;
+        Object tile;
 
         if (convertView == null) {
-            button = mButtons.get(position);
+            tile = mTiles.get(position);
         } else {
-            button = (Button) convertView;
+            if (convertView instanceof Button)
+                tile = (Button) convertView;
+            else
+                tile = (TextView) convertView;
         }
 
         android.widget.AbsListView.LayoutParams params =
                 new android.widget.AbsListView.LayoutParams(mColumnWidth, mColumnHeight);
-        button.setLayoutParams(params);
+        if (tile instanceof Button){
+            ((Button)tile).setLayoutParams(params);
+            return (Button)tile;
+        }
+        else {
+            ((TextView)tile).setLayoutParams(params);
+            return (TextView)tile;
+        }
 
-        return button;
+
+
     }
 }

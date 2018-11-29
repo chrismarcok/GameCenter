@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * A MinesweeperTile in a sliding tiles puzzle.
  */
-public class Tile implements Comparable<Tile>, Serializable {
+public class SlidingTilesTile implements Comparable<SlidingTilesTile>, Serializable {
     /**
      * Contains integer to respective image
      */
@@ -77,7 +77,7 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @param id         the id
      * @param background the background
      */
-    public Tile(int id, int background) {
+    public SlidingTilesTile(int id, int background) {
         this.id = id;
         this.background = background;
     }
@@ -87,13 +87,13 @@ public class Tile implements Comparable<Tile>, Serializable {
      *
      * @param backgroundId The id of the tile we are setting.
      */
-    public Tile(int backgroundId) {
+    public SlidingTilesTile(int backgroundId) {
         id = backgroundId + 1;
         background = imageMap().get(id);
     }
 
     @Override
-    public int compareTo(@NonNull Tile o) {
+    public int compareTo(@NonNull SlidingTilesTile o) {
         return o.id - this.id;
     }
 }
