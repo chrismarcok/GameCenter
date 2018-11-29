@@ -78,60 +78,47 @@ public class Board extends GameState implements Iterable<Tile> {
         return list;
     }
 
-    /**
-     * Merging tile Function: https://rosettacode.org/wiki/2048#Java
-     */
-    private void move(int countDownFrom, int yIncr, int xIncr) {
-
-        for (int i = 0; i < getDimensions() * getDimensions(); i++) {
-            int startMergeFrom = Math.abs(countDownFrom - i);
-            int row = startMergeFrom / getDimensions();
-            int col = startMergeFrom % getDimensions();
-
-            if (board[row][col].isEmpty()) {
-                continue;
-            }
-            int nextRow = row + yIncr;
-            int nextCol = col + xIncr;
-
-            while (nextRow >= 0 && nextRow < getDimensions() && nextCol >= 0 && nextCol < getDimensions()) {
-
-                Tile next = board[nextRow][nextCol];
-                Tile curTile = board[row][col];
-
-                if (next.isEmpty()) {
-                    board[nextRow][nextCol] = curTile;
-                    board[row][col] = new Tile();
-                    row = nextRow;
-                    col = nextCol;
-                    nextRow += yIncr;
-                    nextCol += xIncr;
-
-                } else if (next.canMergeWith(curTile)) {
-                    board[nextRow][nextCol].value = curTile.value * 2;
-                    board[nextRow][nextCol].setBackground(next.value);
-                    board[nextRow][nextCol].setMerged(true);
-                    board[row][col] = new Tile();
-                    break;
-                } else {
-                    break;
+    public void moveUp() {
+        for (int index = 0; index < board.length; index++) {
+            for (int b = 0; b < board.length; b++) {
+                boolean seen = false;
+                for (int i = b + 1; i != board.length; i++) {
+                    if (board[b][index].value == 0 && board[i][index].value != 0) {
+                        swapWithZero(board[i][index], board[b][index]);
+                    } else {
+                        if (board[b][index].value != board[i][index].value && board[i][index].value != 0) {
+                            seen = true;
+                        }
+                        if (board[i][index].canMergeWith(board[b][index]) && !seen) {
+                            merge(board[b][index], board[i][index]);
+                        }
+                    }
                 }
             }
         }
-        clearMerged();
-        addTile();
-        setChanged();
-        notifyObservers();
-    }
-
-    public void moveUp() {
-        move(0, -1, 0);
-        addTile();
+        afterMoveActions();
     }
 
     public void moveDown() {
-        move(getDimensions() * getDimensions() - 1, 1, 0);
-        addTile();
+        for (int index = 0; index < board.length; index++) {
+            for (int b = board.length - 1; b >= 1; b--) {
+                boolean seen = false;
+                for (int i = b - 1; i >= 0; i--) {
+                    if (board[b][index].value == 0 && board[i][index].value != 0) {
+                        swapWithZero(board[i][index], board[b][index]);
+                    } else {
+                        if (board[b][index].value != board[i][index].value && board[i][index].value != 0) {
+                            seen = true;
+                        }
+                        if (board[i][index].canMergeWith(board[b][index]) && !seen) {
+                            merge(board[b][index], board[i][index]);
+                        }
+                    }
+                }
+            }
+        }
+        afterMoveActions();
+
     }
 
     public void moveLeft() {
@@ -184,22 +171,22 @@ public class Board extends GameState implements Iterable<Tile> {
      * @param root tile with value
      * @param zero tile with no value
      */
-    public void swapWithZero(Tile root, Tile zero){
+    public void swapWithZero(Tile root, Tile zero) {
         zero.value = root.value;
         root.value = 0;
         zero.setBackground(zero.value);
         root.setBackground(root.value);
 
     }
+
     /**
      * Merges the tiles root and merger by takinng merger,
      * adding it to root and setting merger to zero
      *
-     *
-     * @param root The destination of the tile
+     * @param root   The destination of the tile
      * @param merger The merger
      */
-    public void merge(Tile root, Tile merger){
+    public void merge(Tile root, Tile merger) {
         root.value = root.value + merger.value;
         merger.value = 0;
         merger.setMerged(true);
@@ -207,7 +194,11 @@ public class Board extends GameState implements Iterable<Tile> {
         root.setBackground(root.value);
         merger.setBackground(merger.value);
     }
-    private void clearMerged() {
+
+    /**
+     * Clears all merge flgs after a move
+     */
+    public void clearMerged() {
         for (Tile[] row : board)
             for (Tile tile : row)
                 if (!tile.isEmpty())
@@ -247,7 +238,7 @@ public class Board extends GameState implements Iterable<Tile> {
 
     @Override
     public String getGameName() {
-        return null;
+        return "2048";
     }
 
     @NonNull
