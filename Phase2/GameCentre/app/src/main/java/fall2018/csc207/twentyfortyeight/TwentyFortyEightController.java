@@ -21,15 +21,19 @@ public class TwentyFortyEightController extends BoardController<Board> implement
 
     public void moveRight() {
         gameState.moveRight();
+        gameState.afterMoveActions(true);
     }
     public void moveLeft() {
         gameState.moveLeft();
+        gameState.afterMoveActions(true);
     }
     public void moveUp() {
         gameState.moveUp();
+        gameState.afterMoveActions(true);
     }
     public void moveDown() {
         gameState.moveDown();
+        gameState.afterMoveActions(true);
     }
 
     @Override

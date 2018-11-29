@@ -3,6 +3,7 @@ package fall2018.csc207.twentyfortyeight;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,7 +40,6 @@ public class Board extends GameState implements Iterable<Tile> {
                 this.board[row][col] = x;
             }
         }
-
     }
 
     /**
@@ -80,7 +80,6 @@ public class Board extends GameState implements Iterable<Tile> {
                     list.add(tile);
                 }
             }
-
         }
         return list;
     }
@@ -105,7 +104,7 @@ public class Board extends GameState implements Iterable<Tile> {
                 }
             }
         }
-        afterMoveActions();
+
     }
     /**
      * Shifts all tiles down and merges simliar tiles in sequence
@@ -128,7 +127,7 @@ public class Board extends GameState implements Iterable<Tile> {
                 }
             }
         }
-        afterMoveActions();
+
 
     }
     /**
@@ -153,7 +152,7 @@ public class Board extends GameState implements Iterable<Tile> {
                 }
             }
         }
-        afterMoveActions();
+
     }
 
     /**
@@ -178,7 +177,7 @@ public class Board extends GameState implements Iterable<Tile> {
                 }
             }
         }
-        afterMoveActions();
+
     }
 
     /**
@@ -216,7 +215,7 @@ public class Board extends GameState implements Iterable<Tile> {
         int currentScore = 0;
         int dimension = board.length;
        for (int i = 0; i < dimension; i++){
-           for (int j = 0; j < dimension; j ++){
+           for (int j = 0; j < dimension; j++){
                 currentScore += board[i][j].getValue();
            }
        }
@@ -233,18 +232,17 @@ public class Board extends GameState implements Iterable<Tile> {
                     tile.setMerged(false);
     }
 
-    //TODO: Make a function to determine if there are any moves available
 
-//    boolean movesAvailable() {
-//        return moveUp() || moveDown() || moveLeft() || moveRight();
-//    }
 
-    private void afterMoveActions() {
+    public void afterMoveActions(boolean shouldNotifyObs) {
         clearMerged();
         setChanged();
-        notifyObservers();
+        if (shouldNotifyObs){
+            notifyObservers();
+        }
         addTile();
     }
+
 
     @Override
     public void undo() {
@@ -257,9 +255,39 @@ public class Board extends GameState implements Iterable<Tile> {
         return false;
     }
 
+
+
     @Override
     public boolean isOver() {
-        //TODO: return moves available == 0 or similar
+        if (availableSpace().size() != 0){
+            return false;
+        }
+        else {
+            for (int i = 0; i < numCols; i++) {
+                for (int j = 0; j < numRows; j++) {
+                    if (hasMergableNeighbour(i, j)){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean hasMergableNeighbour(int row, int col){
+        int thisVal = board[row][col].getValue();
+        if (row - 1 >= 0 && board[row - 1][col].getValue() == thisVal){
+            return true;
+        }
+        else if (col - 1 >= 0 && board[row][col - 1].getValue() == thisVal){
+            return true;
+        }
+        else if (row + 1 < numRows && board[row + 1][col].getValue() == thisVal){
+            return true;
+        }
+        else if (col + 1 < numCols && board[row][col + 1].getValue() == thisVal){
+            return true;
+        }
         return false;
     }
 

@@ -88,10 +88,10 @@ public class GestureDetectGridView extends GridView {
                                     SWIPE_VELOCITY_THRESHOLD) {
                                 if (diffX > 0) {
                                     ((TwentyFortyEightController) boardController).moveRight();
-                                    Toast.makeText(context, "Right", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(context, "Right", Toast.LENGTH_SHORT).show();
                                 } else {
                                     ((TwentyFortyEightController)boardController).moveLeft();
-                                    Toast.makeText(context, "Left", Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(context, "Left", Toast.LENGTH_SHORT).show();
                                 }
                                 result = true;
                             }
@@ -99,10 +99,10 @@ public class GestureDetectGridView extends GridView {
                                 SWIPE_VELOCITY_THRESHOLD) {
                             if (diffY > 0) {
                                 ((TwentyFortyEightController)boardController).moveDown();
-                                Toast.makeText(context, "Down", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context, "Down", Toast.LENGTH_SHORT).show();
                             } else {
                                 ((TwentyFortyEightController)boardController).moveUp();
-                                Toast.makeText(context, "Up", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(context, "Up", Toast.LENGTH_SHORT).show();
                             }
                             result = true;
                         }
