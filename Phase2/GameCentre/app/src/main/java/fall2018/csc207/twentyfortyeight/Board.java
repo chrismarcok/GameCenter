@@ -10,7 +10,6 @@ import fall2018.csc207.game.GameState;
 
 public class Board extends GameState implements Iterable<Tile> {
 
-    private static final int COLS = 4;
     static int highest;
     static int score;
     private final Tile[][] board;
@@ -44,6 +43,10 @@ public class Board extends GameState implements Iterable<Tile> {
 
     }
 
+    /**
+     * Returns the number of tiles in this board
+     * @return the numer of tiles
+     */
     private int numTiles() {
         return numRows * numCols;
     }
@@ -64,8 +67,13 @@ public class Board extends GameState implements Iterable<Tile> {
         }
     }
 
+    /**
+     * Initializs a list of empty tiles  that are currently on the board
+     *
+     * @return a list of tiles
+     */
     private List<Tile> availableSpace() {
-        final List<Tile> list = new ArrayList<>(16);
+        final List<Tile> list = new ArrayList<>(getDimensions());
 
         for (Tile[] row : board) {
             for (Tile tile : row) {
@@ -77,7 +85,9 @@ public class Board extends GameState implements Iterable<Tile> {
         }
         return list;
     }
-
+    /**
+     * Shifts all tiles up and merges simliar tiles in sequence
+     */
     public void moveUp() {
         for (int index = 0; index < board.length; index++) {
             for (int b = 0; b < board.length; b++) {
@@ -98,7 +108,9 @@ public class Board extends GameState implements Iterable<Tile> {
         }
         afterMoveActions();
     }
-
+    /**
+     * Shifts all tiles down and merges simliar tiles in sequence
+     */
     public void moveDown() {
         for (int index = 0; index < board.length; index++) {
             for (int b = board.length - 1; b >= 1; b--) {
@@ -120,7 +132,9 @@ public class Board extends GameState implements Iterable<Tile> {
         afterMoveActions();
 
     }
-
+    /**
+     * Shifts all tiles left and merges simliar tiles in sequence
+     */
     public void moveLeft() {
         for (int index = 0; index < board.length; index++) {
             Tile[] row = board[index];
@@ -143,6 +157,9 @@ public class Board extends GameState implements Iterable<Tile> {
         afterMoveActions();
     }
 
+    /**
+     * Shifts all tiles right and merges simliar tiles in sequence
+     */
     public void moveRight() {
         for (int index = 0; index < board.length; index++) {
             Tile[] row = board[index];
@@ -248,7 +265,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     private int getDimensions() {
-        return numRows;
+        return numRows*numCols;
     }
 
     public Tile getTile(int row, int col) {
