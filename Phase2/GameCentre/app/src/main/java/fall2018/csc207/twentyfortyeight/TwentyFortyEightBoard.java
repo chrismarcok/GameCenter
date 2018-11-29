@@ -295,10 +295,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         else if (row + 1 < numRows && board[row + 1][col].getValue() == thisVal){
             return true;
         }
-        else if (col + 1 < numCols && board[row][col + 1].getValue() == thisVal){
-            return true;
-        }
-        return false;
+        return (col + 1 < numCols && board[row][col + 1].getValue() == thisVal);
     }
 
     @Override
