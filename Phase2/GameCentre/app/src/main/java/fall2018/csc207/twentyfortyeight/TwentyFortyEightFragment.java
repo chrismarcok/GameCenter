@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import fall2018.csc207.game.GameFragment;
+import fall2018.csc207.game.CustomAdapter;
 import fall2018.csc207.game.GestureDetectGridView;
 import fall2018.csc207.slidingtiles.R;
 
@@ -43,7 +44,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEig
      */
     private void display() {
         updateTileButtons();
-        gridView.setAdapter(new TileAdapter(tileTextViews, columnWidth, columnHeight));
+        gridView.setAdapter(new CustomAdapter(tileTextViews, columnWidth, columnHeight));
     }
 
     /**
