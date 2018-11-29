@@ -1,12 +1,12 @@
 package fall2018.csc207.slidingtiles;
 
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
 
+import fall2018.csc207.game.CoordinatePair;
 import fall2018.csc207.game.GameState;
 
 /**
@@ -30,7 +30,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      * <p>
      * This is transient because it cannot be serialized by Java (for some reason).
      */
-    private transient Stack<Pair<Integer, Integer>> prevMoves = new Stack<>();
+    private transient Stack<CoordinatePair> prevMoves = new Stack<>();
 
 
     /**
@@ -51,7 +51,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      *
      * @return The coordinate pair of the blank tile. first is row, second is col.
      */
-    public Pair<Integer, Integer> findBlankTile() {
+    public CoordinatePair findBlankTile() {
         int blankId = this.numTiles();
         Iterator<SlidingTilesTile> iter = this.iterator();
 
@@ -68,7 +68,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
                 }
             }
         }
-        return new Pair<>(blankRow, blankCol);
+        return new CoordinatePair(blankRow, blankCol);
     }
 
     /**
@@ -101,32 +101,40 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
     }
 
     /**
-     * Return the tile at (row, col)
+     * Return the tile at coords.
      *
-     * @param row the tile row
-     * @param col the tile column
-     * @return the tile at (row, col)
+     * @param coords The coordinates of the tile to retrieve.
+     * @return The tile at coords.
+     */
+    public SlidingTilesTile getTile(CoordinatePair coords) {
+        return getTile(coords.getRow(), coords.getCol());
+    }
+
+    /**
+     * Return the tile at (row, col).
+     *
+     * @param row The row of the tile to retrieve.
+     * @param col The column of the tile to retrieve.
+     * @return The tile at (row, col).
      */
     public SlidingTilesTile getTile(int row, int col) {
         return tiles.get(row).get(col);
     }
 
     /**
-     * Swap the tiles at (row1, col1) and (row2, col2)
+     * Swap first and second.
      *
-     * @param row1           the first tile row
-     * @param col1           the first tile col
-     * @param row2           the second tile row
-     * @param col2           the second tile col
+     * @param f              The first tile to swap.
+     * @param s              The tile to swap first with.
      * @param addToPrevMoves If we should add this canMove onto the stack holding previous moves.
      */
-    public void swapTiles(int row1, int col1, int row2, int col2, boolean addToPrevMoves) {
+    public void swapTiles(CoordinatePair f, CoordinatePair s, boolean addToPrevMoves) {
 
         this.score -= 1;
-        SlidingTilesTile first = tiles.get(row1).get(col1);
-        SlidingTilesTile second = tiles.get(row2).get(col2);
-        tiles.get(row1).set(col1, new SlidingTilesTile(second.getId(), second.getBackground()));
-        tiles.get(row2).set(col2, new SlidingTilesTile(first.getId(), first.getBackground()));
+        SlidingTilesTile first = getTile(f);
+        SlidingTilesTile second = getTile(s);
+        tiles.get(f.getRow()).set(f.getCol(), new SlidingTilesTile(second.getId(), second.getBackground()));
+        tiles.get(s.getRow()).set(s.getCol(), new SlidingTilesTile(first.getId(), first.getBackground()));
 
         // We may not want this canMove to be recorded.
         if (addToPrevMoves) {
@@ -136,8 +144,8 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
                 prevMoves = new Stack<>();
 
             // We want to add the non-blank tile to the stack.
-            if (first.getId() == numTiles()) prevMoves.add(new Pair<>(row1, col1));
-            else prevMoves.add(new Pair<>(row2, col2));
+            if (first.getId() == numTiles()) prevMoves.add(f);
+            else prevMoves.add(s);
 
             // We made another canMove, so we can continue undoing.
             if (allowedUndos < getMaxUndos() && 0 <= allowedUndos) {
@@ -178,18 +186,14 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      */
     @Override
     public void undo() {
-        // If allowedUndos is less than 0, then we might be allowing infinite undos.
+        // If allowedUndos is less than 0, then we are allowing infinite undos.
         if (allowedUndos > 0)
             allowedUndos--;
 
-        Pair<Integer, Integer> prevMove = prevMoves.pop();
-        if (prevMove.first != null && prevMove.second != null) {
-            int row = prevMove.first;
-            int col = prevMove.second;
-            Pair<Integer, Integer> blankLocation = findBlankTile();
-            if (blankLocation.first != null && blankLocation.second != null)
-                swapTiles(row, col, blankLocation.first, blankLocation.second, false);
-        }
+        CoordinatePair prevMove = prevMoves.pop();
+        CoordinatePair blankLocation = findBlankTile();
+        if (blankLocation != null)
+            swapTiles(prevMove, blankLocation, false);
     }
 
     /**
@@ -245,7 +249,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
             int row = index / getDimensions();
             index++;
 
-            return getTile(row, col);
+            return getTile(new CoordinatePair(row, col));
         }
     }
 }
