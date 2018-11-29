@@ -30,7 +30,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      * <p>
      * This is transient because it cannot be serialized by Java (for some reason).
      */
-    private transient Stack<CoordinatePair> prevMoves = new Stack<>();
+    private Stack<CoordinatePair> prevMoves = new Stack<>();
 
 
     /**
@@ -138,11 +138,6 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
 
         // We may not want this canMove to be recorded.
         if (addToPrevMoves) {
-            // prevMoves may be null if we load a game.
-            //TODO: Fix
-            if (prevMoves == null)
-                prevMoves = new Stack<>();
-
             // We want to add the non-blank tile to the stack.
             if (first.getId() == numTiles()) prevMoves.add(f);
             else prevMoves.add(s);
