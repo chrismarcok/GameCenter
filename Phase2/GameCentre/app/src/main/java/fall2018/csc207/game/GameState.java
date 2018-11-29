@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Observable;
 
 /**
- * Represents a single insatnce of a game.
+ * Represents a single instance of a game.
  */
 public abstract class GameState extends Observable implements Serializable {
 
