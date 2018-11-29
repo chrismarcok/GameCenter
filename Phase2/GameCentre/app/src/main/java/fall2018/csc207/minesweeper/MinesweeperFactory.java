@@ -12,7 +12,7 @@ public class MinesweeperFactory extends GameFactory {
      */
     public MinesweeperFactory() {
         addToSettings(new Setting(
-                "TwentyFortyEightBoard Size",
+                "Minesweeper Size",
                 Arrays.asList("5x5", "8x8", "13x13", "20x20"),
                 "5x5"
         ));

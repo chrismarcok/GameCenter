@@ -17,7 +17,7 @@ public class SlidingTilesFactory extends GameFactory {
      */
     public SlidingTilesFactory() {
         addToSettings(new Setting(
-                "TwentyFortyEightBoard Size",
+                "Sliding Tiles Size",
                 Arrays.asList("3x3", "4x4", "5x5"),
                 "3x3"));
     }
