@@ -13,7 +13,7 @@ public class Board extends GameState implements Iterable<Tile> {
     private final Tile[][] board;
     private int numRows;
     private int numCols;
-    private int numTiles;
+    private int numActiveTiles;
 
     Board(int dimensions) {
         numCols = dimensions;
@@ -52,6 +52,13 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
+     * Returns the number of non-empty tiles in this board
+     * @return the number of non-empty tiles
+     */
+    public int getNumActiveTiles(){
+        return numActiveTiles;
+    }
+    /**
      * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
      *
@@ -64,7 +71,7 @@ public class Board extends GameState implements Iterable<Tile> {
             Tile emptyTile = list.get(index);
             emptyTile.setValue(Math.random() < 0.9 ? 2 : 4);
             emptyTile.setBackground(emptyTile.value);
-            numTiles++;
+            numActiveTiles++;
         }
     }
 
@@ -212,7 +219,7 @@ public class Board extends GameState implements Iterable<Tile> {
         root.setBackground(root.value);
         merger.setBackground(merger.value);
         determineScore();
-        numTiles--;
+        numActiveTiles--;
     }
 
     private void determineScore(){
