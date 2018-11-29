@@ -18,6 +18,7 @@ import java.util.TimerTask;
 
 import fall2018.csc207.game.CustomAdapter;
 import fall2018.csc207.game.GameFragment;
+import fall2018.csc207.game.GestureDetectGridView;
 import fall2018.csc207.slidingtiles.R;
 
 public class MinesweeperFragment extends GameFragment<MinesweeperBoard, MinesweeperController> {
@@ -59,7 +60,7 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
         // Add View to activity
         gridView = thisView.findViewById(R.id.grid);
         gridView.setNumColumns(dimensions);
-        gridView.setBoardManager(gameManager);
+        gridView.setBoardController(gameManager);
 
 
         // Observer sets up desired dimensions as well as calls our display function

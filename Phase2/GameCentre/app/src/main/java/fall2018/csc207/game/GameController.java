@@ -30,4 +30,5 @@ public abstract class GameController<T extends GameState> {
     public T getGameState() {
         return this.gameState;
     }
+
 }
