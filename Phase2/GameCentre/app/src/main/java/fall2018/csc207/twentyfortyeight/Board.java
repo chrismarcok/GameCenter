@@ -10,8 +10,6 @@ import fall2018.csc207.game.GameState;
 
 public class Board extends GameState implements Iterable<Tile> {
 
-    static int highest;
-    static int score;
     private final Tile[][] board;
     private int numRows;
     private int numCols;
@@ -54,7 +52,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
-     * 
+     *
      * Add a new tile at an available spot
      */
     private void addTile() {
@@ -210,6 +208,18 @@ public class Board extends GameState implements Iterable<Tile> {
         root.setMerged(true);
         root.setBackground(root.value);
         merger.setBackground(merger.value);
+        determineScore();
+    }
+
+    private void determineScore(){
+        int currentScore = 0;
+        int dimension = board.length;
+       for (int i = 0; i < dimension; i++){
+           for (int j = 0; j < dimension; j ++){
+                currentScore += board[i][j].getValue();
+           }
+       }
+       this.score = currentScore;
     }
 
     /**
