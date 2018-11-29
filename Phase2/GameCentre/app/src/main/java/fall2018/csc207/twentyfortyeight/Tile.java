@@ -80,4 +80,12 @@ class Tile extends GameState {
     public void setMerged(boolean merged) {
         this.merged = merged;
     }
+
+    public boolean canMergeWith(Tile curr) {
+        return this.value == curr.value;
+    }
+
+    public void mergeWith(Tile curr) {
+
+    }
 }

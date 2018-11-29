@@ -13,6 +13,8 @@ public class Board extends GameState implements Iterable<Tile> {
     private final Tile[][] board;
     private int numRows;
     private int numCols;
+    static int highest;
+    static int score;
     private static final int COLS = 4;
 
     Board(int dimensions) {
@@ -79,7 +81,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * Merging tile Function: https://rosettacode.org/wiki/2048#Java
      */
-    private boolean move(int countDownFrom, int yIncr, int xIncr) {
+    private void move(int countDownFrom, int yIncr, int xIncr) {
         for (int i = 0; i < getDimensions() * getDimensions(); i++) {
             int j = Math.abs(countDownFrom - i);
             int r = j / getDimensions();
@@ -97,7 +99,6 @@ public class Board extends GameState implements Iterable<Tile> {
                 Tile curr = board[r][c];
 
                 if (next.isEmpty()) {
-
                     board[nextR][nextC] = curr;
                     board[r][c] = new Tile();
                     r = nextR;
@@ -112,23 +113,22 @@ public class Board extends GameState implements Iterable<Tile> {
         }
         setChanged();
         notifyObservers();
-        return true;
     }
 
-    boolean moveUp() {
-        return move(0, -1, 0);
+    private void moveUp() {
+        move(0, -1, 0);
     }
 
-    boolean moveDown() {
-        return move(getDimensions() * getDimensions() - 1, 1, 0);
+    private void moveDown() {
+        move(getDimensions() * getDimensions() - 1, 1, 0);
     }
 
-    boolean moveLeft() {
-        return move(0, 0, -1);
+    private void moveLeft() {
+        move(0, 0, -1);
     }
 
-    boolean moveRight() {
-        return move(getDimensions() * getDimensions() - 1, 0, 1);
+    private void moveRight() {
+        move(getDimensions() * getDimensions() - 1, 0, 1);
     }
 
     void clearMerged() {
@@ -138,23 +138,28 @@ public class Board extends GameState implements Iterable<Tile> {
                     tile.setMerged(false);
     }
 
-    boolean movesAvailable() {
-        return moveUp() || moveDown() || moveLeft() || moveRight();
-    }
+    //TODO: Make a function to determine if there are any moves available
+    //TODO: Make merge work
+
+//    boolean movesAvailable() {
+//        return moveUp() || moveDown() || moveLeft() || moveRight();
+//    }
 
     @Override
     public void undo() {
-
+        //TODO: Make undo function
     }
 
     @Override
     public boolean canUndo() {
+        //TODO: Determine if can undo
         return false;
     }
 
     @Override
     public boolean isOver() {
-        return false;
+        //TODO: return moves available == 0 or similar
+        return true;
     }
 
     @Override
@@ -174,10 +179,6 @@ public class Board extends GameState implements Iterable<Tile> {
 
     public Tile getTile(int row, int col) {
         return board[row][col];
-    }
-
-    public void move() {
-
     }
 
     private class BoardIterator implements Iterator<Tile> {
