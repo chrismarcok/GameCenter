@@ -74,7 +74,7 @@ to build the UI/use XML.
 ## November 19, 2018
 
 * Decided that Minesweeper should be implemented instead of Sudoku.
-* Minesweeper will generate board prior to user clicking the first tile.
+* Minesweeper will generate twentyFortyEightBoard prior to user clicking the first tile.
 * Discussed and Implemented some UI changes.
 * Discussed division of work and JUnit tests for Sliding Tiles game.
 * Brainstormed implementation of minesweeper game.
@@ -91,7 +91,7 @@ to build the UI/use XML.
 
 * Need to create JUnit tests for classes, excluding fragments or activities
 * Right click run > analyze > Inspect Code, fix issues
-* Minesweeper multiple board sizes add to scoreboard
+* Minesweeper multiple twentyFortyEightBoard sizes add to scoreboard
 * 2048 will have one size for now, can change later.
 * GameCardItem needs to load the highscore from variant games of the primary game type (max of sliding tiles 3,4,5 is highscore for sliding tiles)
 * Losing Minesweeper needs to display you lose dialog and NOT add entry to scoreboard.
