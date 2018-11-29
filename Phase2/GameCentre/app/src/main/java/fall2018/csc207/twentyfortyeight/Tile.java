@@ -34,6 +34,7 @@ class Tile extends GameState {
     public Tile() {
         this.value = 0;
         this.background = colorMap.get(0);
+        this.merged = false;
     }
 
     public Tile(int value) {
@@ -82,10 +83,22 @@ class Tile extends GameState {
     }
 
     public boolean canMergeWith(Tile curr) {
-        return this.value == curr.value;
+        return this.value == curr.value && !this.merged && !curr.merged;
     }
 
-    public void mergeWith(Tile curr) {
+//    public void merge(Tile otherTile) {
+//        otherTile.setValue(this.getValue()*2);
+//        this.setValue(0);
+//        this.setMerged(true);
+//        otherTile.setMerged(true);
+//    }
 
+    public int getValue() {
+        return this.value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+        this.background = colorMap.get(value);
     }
 }

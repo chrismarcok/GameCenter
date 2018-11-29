@@ -59,7 +59,7 @@ public class Board extends GameState implements Iterable<Tile> {
         if (!availableSpace().isEmpty()) {
             int index = (int) (Math.random() * list.size()) % list.size();
             Tile emptyTile = list.get(index);
-            emptyTile.value = Math.random() < 0.9 ? 2 : 4;
+            emptyTile.setValue(Math.random() < 0.9 ? 2 : 4);
             emptyTile.setBackground(emptyTile.value);
         }
     }
@@ -84,34 +84,42 @@ public class Board extends GameState implements Iterable<Tile> {
     private void move(int countDownFrom, int yIncr, int xIncr) {
 
         for (int i = 0; i < getDimensions() * getDimensions(); i++) {
-            int j = Math.abs(countDownFrom - i);
-            int r = j / getDimensions();
-            int c = j % getDimensions();
+            int startMergeFrom = Math.abs(countDownFrom - i);
+            int row = startMergeFrom / getDimensions();
+            int col = startMergeFrom % getDimensions();
 
-            if (board[r][c].isEmpty()) {
+            if (board[row][col].isEmpty()) {
                 continue;
             }
-            int nextR = r + yIncr;
-            int nextC = c + xIncr;
+            int nextRow = row + yIncr;
+            int nextCol = col + xIncr;
 
-            while(nextR >= 0 && nextR < getDimensions() && nextC >= 0 && nextC < getDimensions()) {
+            while(nextRow >= 0 && nextRow < getDimensions() && nextCol >= 0 && nextCol < getDimensions()) {
 
-                Tile next = board[nextR][nextC];
-                Tile curr = board[r][c];
+                Tile next = board[nextRow][nextCol];
+                Tile curTile = board[row][col];
 
                 if (next.isEmpty()) {
-                    board[nextR][nextC] = curr;
-                    board[r][c] = new Tile();
-                    r = nextR;
-                    c = nextC;
-                    nextR += yIncr;
-                    nextC += xIncr;
+                    board[nextRow][nextCol] = curTile;
+                    board[row][col] = new Tile();
+                    row = nextRow;
+                    col = nextCol;
+                    nextRow += yIncr;
+                    nextCol += xIncr;
 
+                } else if (next.canMergeWith(curTile)) {
+                    board[nextRow][nextCol].value = curTile.value * 2;
+                    board[nextRow][nextCol].setBackground(next.value);
+                    board[nextRow][nextCol].setMerged(true);
+                    board[row][col] = new Tile();
+                    break;
                 } else {
                     break;
                 }
             }
         }
+        clearMerged();
+        addTile();
         setChanged();
         notifyObservers();
     }
@@ -132,10 +140,10 @@ public class Board extends GameState implements Iterable<Tile> {
         move(getDimensions() * getDimensions() - 1, 0, 1);
     }
 
-    void clearMerged() {
+    private void clearMerged() {
         for (Tile[] row : board)
             for (Tile tile : row)
-                if (tile != null)
+                if (!tile.isEmpty())
                     tile.setMerged(false);
     }
 
@@ -161,7 +169,7 @@ public class Board extends GameState implements Iterable<Tile> {
     @Override
     public boolean isOver() {
         //TODO: return moves available == 0 or similar
-        return true;
+        return false;
     }
 
     @Override

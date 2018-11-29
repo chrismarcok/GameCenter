@@ -130,7 +130,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEig
 
     private void setTiles(TextView tmp, Tile tile) {
         tmp.setBackgroundColor(getResources().getColor(tile.getBackground(), null));
-        String text = tile.value == 0 ? "" : Integer.toString(tile.value);
+        String text = tile.getValue() == 0 ? "" : Integer.toString(tile.getValue());
         tmp.setText(text);
         tmp.setTextColor(getResources().getColor(R.color.textDark, null));
         tmp.setTextSize(36);
