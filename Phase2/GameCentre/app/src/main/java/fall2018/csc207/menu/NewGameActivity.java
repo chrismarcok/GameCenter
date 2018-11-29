@@ -94,6 +94,12 @@ public class NewGameActivity extends AppCompatActivity {
     private void setupUndoOptions() {
         undoSeekbar = findViewById(R.id.seekBar);
         infUndoSwitch = findViewById(R.id.infiniteUndo);
+        LinearLayout undoLinearLayout = findViewById(R.id.undoLinearLayout);
+
+        //Minesweeper has no undo function, we dont want to see undo options.
+        if (gameName.equals("Minesweeper")){
+            undoLinearLayout.setVisibility(View.GONE);
+        }
 
         setSeekbarState(!infUndoSwitch.isChecked());
         infUndoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
