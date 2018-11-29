@@ -16,6 +16,7 @@ import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import fall2018.csc207.game.CustomAdapter;
 import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.slidingtiles.R;
 

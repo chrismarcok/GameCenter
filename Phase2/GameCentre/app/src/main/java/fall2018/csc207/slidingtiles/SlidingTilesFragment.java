@@ -10,10 +10,12 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 
+
 import java.util.ArrayList;
 import java.util.Observable;
 
 import fall2018.csc207.game.GameFragment;
+import fall2018.csc207.game.CustomAdapter;
 
 /**
  * The fragment used for displaying Sliding Tiles.

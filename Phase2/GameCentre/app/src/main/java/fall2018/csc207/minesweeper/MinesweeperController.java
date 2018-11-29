@@ -20,7 +20,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
      *
      * @param minesweeperBoard the minesweeperBoard
      */
-    public MinesweeperController(MinesweeperBoard minesweeperBoard) {
+    MinesweeperController(MinesweeperBoard minesweeperBoard) {
         super(minesweeperBoard);
         this.dimensions = gameState.getDimensions();
     }
@@ -36,6 +36,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
         int col = position % dimensions;
 
         MinesweeperTile currTile = gameState.getTile(row, col);
+
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
         if (currTile.getId() == MinesweeperTile.BOMB && gameState.getNumRevealedTiles() == 0){
             gameState.deleteBomb(row,col);
@@ -52,14 +53,14 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
         if (!currTile.isFlagged()) {
             gameState.revealTile(row, col);
         }
-
     }
 
     /**
-     * Return whether any of the four surrounding tiles is the blank tile.
+     * Return whether the position tapped is a valid move. In minesweeper, the user
+     * may tap any square.
      *
      * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
+     * @return Whether or not the position tapped is valid.
      */
     @Override
     protected boolean isValidTap(int position) {
@@ -67,7 +68,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
     }
 
     /**
-     * Flags a MinesweeperTile
+     * Flags a MinesweeperTile.
      *
      * @param position the position
      */
