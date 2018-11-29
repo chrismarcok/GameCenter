@@ -135,8 +135,25 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     public void moveLeft() {
-        addTile();
-
+        for (int index = 0; index < board.length; index++) {
+            Tile[] row = board[index];
+            for (int b = 0; b < board.length; b++) {
+                boolean seen = false;
+                for (int i = b + 1; i != board.length; i++) {
+                    if (row[b].value == 0 && row[i].value != 0) {
+                        swapWithZero(row[i], row[b]);
+                    } else {
+                        if (row[b].value != row[i].value && row[i].value != 0) {
+                            seen = true;
+                        }
+                        if (row[i].canMergeWith(row[b]) && !seen) {
+                            merge(row[b], row[i]);
+                        }
+                    }
+                }
+            }
+        }
+        afterMoveActions();
     }
 
     public void moveRight() {
@@ -145,45 +162,51 @@ public class Board extends GameState implements Iterable<Tile> {
             for (int b = board.length - 1; b >= 1; b--) {
                 boolean seen = false;
                 for (int i = b - 1; i >= 0; i--) {
-                    if (row[b].value == 0) {
-                        if (row[i].value != 0) {
-                            row[b].value = row[i].value;
-                            row[b].setBackground(row[b].value);
-                            row[i].value = 0;
-                            row[i].setBackground(row[i].value);
-                        }
-
-                    }
-                    else {
-                        if (row[b].value != row[i].value && row[i].value != 0){
+                    if (row[b].value == 0 && row[i].value != 0) {
+                        swapWithZero(row[i], row[b]);
+                    } else {
+                        if (row[b].value != row[i].value && row[i].value != 0) {
                             seen = true;
                         }
                         if (row[i].canMergeWith(row[b]) && !seen) {
-                            row[b].value = row[b].value + row[i].value;
-                            row[i].value = 0;
-                            row[i].setMerged(true);
-                            row[b].setMerged(true);
-                            row[b].setBackground(row[b].value);
-                            row[i].setBackground(row[i].value);
+                            merge(row[b], row[i]);
                         }
-
                     }
-
                 }
             }
         }
-        clearMerged();
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                System.out.print(board[i][j] + "  ");
-            }
-            System.out.println();
-        }
-        setChanged();
-        notifyObservers();
+        afterMoveActions();
     }
 
+    /**
+     * Swaps the zero tile with the root tile
+     *
+     * @param root tile with value
+     * @param zero tile with no value
+     */
+    public void swapWithZero(Tile root, Tile zero){
+        zero.value = root.value;
+        root.value = 0;
+        zero.setBackground(zero.value);
+        root.setBackground(root.value);
 
+    }
+    /**
+     * Merges the tiles root and merger by takinng merger,
+     * adding it to root and setting merger to zero
+     *
+     *
+     * @param root The destination of the tile
+     * @param merger The merger
+     */
+    public void merge(Tile root, Tile merger){
+        root.value = root.value + merger.value;
+        merger.value = 0;
+        merger.setMerged(true);
+        root.setMerged(true);
+        root.setBackground(root.value);
+        merger.setBackground(merger.value);
+    }
     private void clearMerged() {
         for (Tile[] row : board)
             for (Tile tile : row)
@@ -198,6 +221,12 @@ public class Board extends GameState implements Iterable<Tile> {
 //        return moveUp() || moveDown() || moveLeft() || moveRight();
 //    }
 
+    public void afterMoveActions() {
+        clearMerged();
+        setChanged();
+        notifyObservers();
+        addTile();
+    }
 
     @Override
     public void undo() {
