@@ -15,6 +15,7 @@ public class Board extends GameState implements Iterable<Tile> {
     private int numCols;
     static int highest;
     static int score;
+    boolean isSearchingForMove;
     private static final int COLS = 4;
 
     Board(int dimensions) {
@@ -81,7 +82,7 @@ public class Board extends GameState implements Iterable<Tile> {
     /**
      * Merging tile Function: https://rosettacode.org/wiki/2048#Java
      */
-    private void move(int countDownFrom, int yIncr, int xIncr) {
+    public void move(int countDownFrom, int yIncr, int xIncr) {
 
         for (int i = 0; i < getDimensions() * getDimensions(); i++) {
             int startMergeFrom = Math.abs(countDownFrom - i);
@@ -113,6 +114,7 @@ public class Board extends GameState implements Iterable<Tile> {
                     board[nextRow][nextCol].setMerged(true);
                     board[row][col] = new Tile();
                     break;
+
                 } else {
                     break;
                 }
@@ -125,7 +127,40 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     public void moveUp() {
-        move(0, -1, 0);
+//        move(0, -1, 0);
+        for (int i = 0; i < getDimensions() * getDimensions(); i++) {
+            int row = i / getDimensions();
+            int col = i % getDimensions();
+            if (board[row][col].isEmpty()) {
+                continue;
+            }
+            int nextRow = row - 1;
+            while((nextRow >= 0) && (nextRow < getDimensions()) && (col < getDimensions())) {
+
+                Tile next = board[nextRow][col];
+                Tile curTile = board[row][col];
+
+                if (next.isEmpty()) {
+                    board[nextRow][col] = curTile;
+                    board[row][col] = new Tile();
+                    row = nextRow;
+                    nextRow += -1;
+
+                } else if (next.canMergeWith(curTile)) {
+                    board[nextRow][col].value = curTile.value * 2;
+                    board[nextRow][col].setBackground(next.value);
+                    board[nextRow][col].setMerged(true);
+                    board[row][col] = new Tile();
+                    break;
+                } else {
+                    break;
+                }
+            }
+        }
+        clearMerged();
+        addTile();
+        setChanged();
+        notifyObservers();
     }
 
     public void moveDown() {
@@ -150,7 +185,7 @@ public class Board extends GameState implements Iterable<Tile> {
     //TODO: Make a function to determine if there are any moves available
     //TODO: Make merge work
 
-//    boolean movesAvailable() {
+//    boolean canMakeMove() {
 //        return moveUp() || moveDown() || moveLeft() || moveRight();
 //    }
 
