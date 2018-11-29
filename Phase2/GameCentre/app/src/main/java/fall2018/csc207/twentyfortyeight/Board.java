@@ -10,12 +10,12 @@ import fall2018.csc207.game.GameState;
 
 public class Board extends GameState implements Iterable<Tile> {
 
+    private static final int COLS = 4;
+    static int highest;
+    static int score;
     private final Tile[][] board;
     private int numRows;
     private int numCols;
-    static int highest;
-    static int score;
-    private static final int COLS = 4;
 
     Board(int dimensions) {
         numCols = dimensions;
@@ -94,7 +94,7 @@ public class Board extends GameState implements Iterable<Tile> {
             int nextRow = row + yIncr;
             int nextCol = col + xIncr;
 
-            while(nextRow >= 0 && nextRow < getDimensions() && nextCol >= 0 && nextCol < getDimensions()) {
+            while (nextRow >= 0 && nextRow < getDimensions() && nextCol >= 0 && nextCol < getDimensions()) {
 
                 Tile next = board[nextRow][nextCol];
                 Tile curTile = board[row][col];
@@ -126,19 +126,63 @@ public class Board extends GameState implements Iterable<Tile> {
 
     public void moveUp() {
         move(0, -1, 0);
+        addTile();
     }
 
     public void moveDown() {
         move(getDimensions() * getDimensions() - 1, 1, 0);
+        addTile();
     }
 
     public void moveLeft() {
-        move(0, 0, -1);
+        addTile();
+
     }
 
     public void moveRight() {
-        move(getDimensions() * getDimensions() - 1, 0, 1);
+        for (int index = 0; index < board.length; index++) {
+            Tile[] row = board[index];
+            for (int b = board.length - 1; b >= 1; b--) {
+                boolean seen = false;
+                for (int i = b - 1; i >= 0; i--) {
+                    if (row[b].value == 0) {
+                        if (row[i].value != 0) {
+                            row[b].value = row[i].value;
+                            row[b].setBackground(row[b].value);
+                            row[i].value = 0;
+                            row[i].setBackground(row[i].value);
+                        }
+
+                    }
+                    else {
+                        if (row[b].value != row[i].value && row[i].value != 0){
+                            seen = true;
+                        }
+                        if (row[i].canMergeWith(row[b]) && !seen) {
+                            row[b].value = row[b].value + row[i].value;
+                            row[i].value = 0;
+                            row[i].setMerged(true);
+                            row[b].setMerged(true);
+                            row[b].setBackground(row[b].value);
+                            row[i].setBackground(row[i].value);
+                        }
+
+                    }
+
+                }
+            }
+        }
+        clearMerged();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                System.out.print(board[i][j] + "  ");
+            }
+            System.out.println();
+        }
+        setChanged();
+        notifyObservers();
     }
+
 
     private void clearMerged() {
         for (Tile[] row : board)
