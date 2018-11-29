@@ -123,15 +123,7 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 Button tmp = new Button(context);
-                if (minesweeperBoard.getTile(row,col).isFlagged()){
-                    tmp.setBackgroundResource(R.drawable.flag);
-                }
-                else if (!minesweeperBoard.getTile(row, col).isRevealed()) {
-                    tmp.setBackgroundResource(R.drawable.btile);
-                }
-                else {
-                    tmp.setBackgroundResource(minesweeperBoard.getTile(row, col).getBackground());
-                }
+                tmp.setBackgroundResource(minesweeperBoard.getTile(row, col).getBackground());
                 this.tileButtons.add(tmp);
             }
         }
@@ -146,15 +138,7 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
         for (Button b : tileButtons) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            if (minesweeperBoard.getTile(row,col).isFlagged()){
-                b.setBackgroundResource(R.drawable.flag);
-            }
-            else if (!minesweeperBoard.getTile(row, col).isRevealed()) {
-                b.setBackgroundResource(R.drawable.btile);
-            }
-            else {
-                b.setBackgroundResource(minesweeperBoard.getTile(row, col).getBackground());
-            }
+            b.setBackgroundResource(minesweeperBoard.getTile(row, col).getBackground());
             nextPos++;
         }
     }

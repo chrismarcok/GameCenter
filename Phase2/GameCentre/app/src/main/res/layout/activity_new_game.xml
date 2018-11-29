@@ -24,48 +24,56 @@
         android:hint="@string/file_name"
         android:inputType="textNoSuggestions|textPersonName" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:text="@string/number_of_undos"
-        android:textSize="30sp" />
-
-    <Switch
-        android:id="@+id/infiniteUndo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:checked="false"
-        android:padding="8dp"
-        android:switchPadding="8dp"
-        android:text="@string/allow_unlimited_undos"
-        android:textAlignment="textEnd" />
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:orientation="vertical"
+        android:id="@+id/undoLinearLayout">
         <TextView
-            android:id="@+id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dp"
-            android:gravity="center_horizontal|center"
-            android:text="@string/zero"
-            android:textSize="20sp" />
-
-        <SeekBar
-            android:id="@+id/seekBar"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:id="@+id/numberUndosTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:max="10"
-            android:progress="0" />
-    </TableRow>
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:text="@string/number_of_undos"
+            android:textSize="30sp" />
+
+        <Switch
+            android:id="@+id/infiniteUndo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:padding="8dp"
+            android:switchPadding="8dp"
+            android:text="@string/allow_unlimited_undos"
+            android:textAlignment="textEnd" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="center_horizontal|center"
+                android:text="@string/zero"
+                android:textSize="20sp" />
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:max="10"
+                android:progress="0" />
+        </TableRow>
+    </LinearLayout>
+
+
 
     <TextView
         android:layout_width="match_parent"

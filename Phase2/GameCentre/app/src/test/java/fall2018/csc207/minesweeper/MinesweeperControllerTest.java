@@ -30,9 +30,13 @@ public class MinesweeperControllerTest {
         MinesweeperBoard minesweeperBoard2 = new MinesweeperBoard(generateBoard());
         MinesweeperController minesweeperController2 = new MinesweeperController(minesweeperBoard);
 
+        assert minesweeperController2.isValidTap(3) == true;
         //Hit tile[2][1]
         minesweeperController2.updateGame(8);
         assert  minesweeperBoard.getNumRevealedTiles() == 7;
+
+
+        minesweeperController2.flagTile(3);
 
     }
 }

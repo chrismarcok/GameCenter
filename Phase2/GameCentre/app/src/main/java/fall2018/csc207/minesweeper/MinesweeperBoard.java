@@ -13,7 +13,7 @@ public class MinesweeperBoard extends GameState {
      * The size of the board
      */
     private int dimensions;
-    private int numrevealedTiles;
+    private int numRevealedTiles;
     private int numMines;
 
     /**
@@ -26,7 +26,7 @@ public class MinesweeperBoard extends GameState {
     public MinesweeperBoard(int dimensions, double difficulty) {
         setScore(100000);
         this.dimensions = dimensions;
-        this.numrevealedTiles = 0;
+        this.numRevealedTiles = 0;
         mineField = generateBoard(dimensions, difficulty);
     }
 
@@ -47,7 +47,7 @@ public class MinesweeperBoard extends GameState {
             }
         }
         this.dimensions = mineField.length;
-        this.numrevealedTiles = 0;
+        this.numRevealedTiles = 0;
 
     }
 
@@ -75,7 +75,7 @@ public class MinesweeperBoard extends GameState {
      *
      * @return Returns the number of mines on the board
      */
-    public int getNumRevealedTiles(){return numrevealedTiles;}
+    public int getNumRevealedTiles(){return numRevealedTiles;}
 
 
     @Override
@@ -116,7 +116,7 @@ public class MinesweeperBoard extends GameState {
 
             }
         }
-        return !(numrevealedTiles + getNumMines() <= mineField.length * mineField.length - 1);
+        return !(numRevealedTiles + getNumMines() <= mineField.length * mineField.length - 1);
     }
 
     /**
@@ -173,8 +173,9 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * @param rowgit
-     * @param col
+     * Get the tile at row, col.
+     * @param row The row of this tile
+     * @param col The col of this tile
      * @return Returns the time at row and col in the mineField
      */
     public MinesweeperTile getTile(int row, int col) {
@@ -190,7 +191,7 @@ public class MinesweeperBoard extends GameState {
     public void revealTile(int row, int col) {
         mineField[row][col].setRevealed(true);
         mineField[row][col].setFlagged(false);
-        numrevealedTiles++;
+        numRevealedTiles++;
         setChanged();
         notifyObservers();
     }
@@ -309,7 +310,7 @@ public class MinesweeperBoard extends GameState {
      */
     public void deleteBomb(int row, int col){
         //Delete the bomb.
-        mineField[row][col] = new MinesweeperTile(0);
+        mineField[row][col] = new MinesweeperTile(getNumAdjacentBombs(row, col));
         if (canDecrementTile(row + 1, col)){
             decrementTile(row + 1, col);
         }
@@ -335,6 +336,19 @@ public class MinesweeperBoard extends GameState {
             decrementTile(row + 1, col - 1);
         }
         numMines--;
+    }
+
+    private int getNumAdjacentBombs(int row, int col){
+        int count = 0;
+        if (mineField[row + 1][col].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row - 1][col].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row][col - 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row + 1][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row + 1][col - 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row - 1][col - 1].getId() == MinesweeperTile.BOMB) count++;
+        if (mineField[row - 1][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        return count;
     }
 
     /**
