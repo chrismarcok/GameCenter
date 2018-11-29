@@ -2,7 +2,8 @@ package fall2018.csc207.twentyfortyeight;
 
 /*
 Taken from:
-https://github.com/DaveNOTDavid/sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/CustomAdapter.java
+https://github.com/DaveNOTDavid/
+sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/CustomAdapter.java
 
 This Class is an overwrite of the Base Adapter class
 It is designed to aid setting the button sizes and positions in the GridView
@@ -12,17 +13,15 @@ It is designed to aid setting the button sizes and positions in the GridView
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.TextView;
+import java.util.List;
 
-import java.util.ArrayList;
-
-public class TileAdapter extends BaseAdapter {
+class TileAdapter extends BaseAdapter {
 
     /**
      * A list of the tile buttons for the slidingTiles game.
      */
-    private ArrayList<TextView> textViews = null;
+    private List<TextView> textViews;
     private int mColumnWidth, mColumnHeight;
 
     /**
@@ -32,7 +31,7 @@ public class TileAdapter extends BaseAdapter {
      * @param columnWidth  The width of a column.
      * @param columnHeight The height of a column.
      */
-    public TileAdapter(ArrayList<TextView> textViews, int columnWidth, int columnHeight) {
+    TileAdapter(List<TextView> textViews, int columnWidth, int columnHeight) {
         this.textViews = textViews;
         mColumnWidth = columnWidth;
         mColumnHeight = columnHeight;

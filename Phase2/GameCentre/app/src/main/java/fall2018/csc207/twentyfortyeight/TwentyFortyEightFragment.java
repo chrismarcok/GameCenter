@@ -15,13 +15,14 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 import fall2018.csc207.game.GameFragment;
+import fall2018.csc207.game.GestureDetectGridView;
 import fall2018.csc207.slidingtiles.R;
 
 
 /**
  * Fragment class made to display the game in the GameMainActivity
  */
-public class TwentyFortyEightFragment extends GameFragment<Board, BoardController> {
+public class TwentyFortyEightFragment extends GameFragment<Board, TwentyFortyEightController> {
 
 
     /**
@@ -40,7 +41,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardControlle
      * Set up the background image for each button based on the master list
      * of positions, and then call the adapter to set the view.
      */
-    public void display() {
+    private void display() {
         updateTileButtons();
         gridView.setAdapter(new TileAdapter(tileTextViews, columnWidth, columnHeight));
     }
@@ -62,7 +63,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardControlle
         // Add View to activity
         gridView = thisView.findViewById(R.id.grid);
         gridView.setNumColumns(dimensions);
-        gridView.setBoardManager(gameManager);
+        gridView.setBoardController(gameManager);
 
 
         // Observer sets up desired dimensions as well as calls our display function
@@ -95,7 +96,7 @@ public class TwentyFortyEightFragment extends GameFragment<Board, BoardControlle
         super.onCreate(savedInstanceState);
 
         //Pulls the type of SlidingTileController to be initialized
-        gameManager = new BoardController(this.state);
+        gameManager = new TwentyFortyEightController(this.state);
         //dimensions = state.getDimensions();
         state = gameManager.getGameState();
         state.addObserver(this);

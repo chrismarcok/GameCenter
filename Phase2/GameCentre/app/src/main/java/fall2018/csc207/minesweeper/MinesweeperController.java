@@ -7,7 +7,8 @@ import fall2018.csc207.game.BoardController;
 /**
  * Controller for Minesweeper.
  */
-public class MinesweeperController extends BoardController<Board> implements Serializable {
+public class MinesweeperController extends BoardController<MinesweeperBoard>
+        implements Serializable {
 
     /**
      * The dimension of the board
@@ -15,12 +16,12 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     private int dimensions;
 
     /**
-     * Manage a board that has been pre-populated.
+     * Manage a minesweeperBoard that has been pre-populated.
      *
-     * @param board the board
+     * @param minesweeperBoard the minesweeperBoard
      */
-    public MinesweeperController(Board board) {
-        super(board);
+    MinesweeperController(MinesweeperBoard minesweeperBoard) {
+        super(minesweeperBoard);
         this.dimensions = gameState.getDimensions();
     }
 
@@ -33,24 +34,33 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     public void updateGame(int position) {
         int row = position / dimensions;
         int col = position % dimensions;
-        Tile curr_tile = gameState.getTile(row, col);
-        if (!curr_tile.isFlagged()) {
-            gameState.revealTile(row, col);
-        }
+
+        MinesweeperTile currTile = gameState.getTile(row, col);
+
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
-        if (curr_tile.getId() == Tile.BOMB) {
+        if (currTile.getId() == MinesweeperTile.BOMB && gameState.getNumRevealedTiles() == 0){
+            gameState.deleteBomb(row,col);
+            gameState.revealSurroundingBlanks(row, col);
+        }
+        else if (currTile.getId() == MinesweeperTile.BOMB) {
+            gameState.setGameLost(true);
             gameState.endGame(row, col);
-        } else if (curr_tile.getId() == Tile.BLANK_TILE && !curr_tile.isFlagged()) {
+        }
+        else if (currTile.getId() == MinesweeperTile.BLANK_TILE && !currTile.isFlagged()) {
             gameState.revealSurroundingBlanks(row, col);
         }
 
+        if (!currTile.isFlagged()) {
+            gameState.revealTile(row, col);
+        }
     }
 
     /**
-     * Return whether any of the four surrounding tiles is the blank tile.
+     * Return whether the position tapped is a valid move. In minesweeper, the user
+     * may tap any square.
      *
      * @param position the tile to check
-     * @return whether the tile at position is surrounded by a blank tile
+     * @return Whether or not the position tapped is valid.
      */
     @Override
     protected boolean isValidTap(int position) {
@@ -58,7 +68,7 @@ public class MinesweeperController extends BoardController<Board> implements Ser
     }
 
     /**
-     * Flags a Tile
+     * Flags a MinesweeperTile.
      *
      * @param position the position
      */

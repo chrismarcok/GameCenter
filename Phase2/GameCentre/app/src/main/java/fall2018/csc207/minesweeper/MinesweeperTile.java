@@ -9,14 +9,14 @@ import java.util.Map;
 import fall2018.csc207.slidingtiles.R;
 
 /**
- * A Tile in minesweeper
+ * A MinesweeperTile in minesweeper
  */
-public class Tile implements Serializable {
+public class MinesweeperTile implements Serializable {
     /**
      * Contains integer to respective image
      */
     private static Map<Integer, Integer> imageMap(){
-        @SuppressLint("UseSparseArrays") Map<Integer,Integer> map = new HashMap<Integer, Integer>();
+        @SuppressLint("UseSparseArrays") Map<Integer,Integer> map = new HashMap<>();
         map.put(BOMB, R.drawable.bomb);
         map.put(BLANK_TILE, R.drawable.blanktile);
         map.put(1, R.drawable.tile_1);
@@ -48,7 +48,8 @@ public class Tile implements Serializable {
     /**
      * The state of the tile (revealed or not revealed)
      */
-    private boolean revealed = false;
+    private boolean revealed;
+    private int underBackground;
 
     /**
      *  Returns whether if tile is flagged
@@ -59,30 +60,43 @@ public class Tile implements Serializable {
     }
 
     /**
-     * Set whether if Tile is flagged
-     * @param flagged
+     * Set whether if MinesweeperTile is flagged
+     * @param flagged The value we want to set flagged to.
      */
     public void setFlagged(boolean flagged) {
+        if (flagged){
+            this.background = R.drawable.flag;
+        }
+        else{
+            if(isRevealed()){
+                this.background = underBackground;
+            }
+            else{
+                this.background = R.drawable.btile;
+            }
+
+        }
         this.flagged = flagged;
     }
 
     /**
      * The state of whether the tile is flagged
      */
-    private boolean flagged = false;
+    private boolean flagged;
     /**
      * A tile with an id
-     * @param id
+     * @param id The id of this Tile.
      */
-    public Tile(int id){
+    public MinesweeperTile(int id){
         this.id = id;
-        this.background = imageMap().get(id);
+        this.background = R.drawable.btile;
+        this.underBackground = imageMap().get(id);
 
     }
     /**
      * Return the tile id.
      *
-     * @return the type of Tile
+     * @return the type of MinesweeperTile
      */
     public int getId() {
         return id;
@@ -90,7 +104,7 @@ public class Tile implements Serializable {
 
     /**
      * Return the background
-     * @return
+     * @return The background of this Tile.
      */
     public int getBackground() {
         return background;
@@ -100,11 +114,14 @@ public class Tile implements Serializable {
         return String.valueOf(this.getId());
     }
 
-    public boolean getrevealed(){
+    public boolean isRevealed(){
         return revealed;
     }
 
-    public void setrevealed(boolean reveal){
-        revealed = reveal;
+    public void setRevealed(boolean reveal){
+        if (!isFlagged()) {
+            this.background = this.underBackground;
+            revealed = reveal;
+        }
     }
 }

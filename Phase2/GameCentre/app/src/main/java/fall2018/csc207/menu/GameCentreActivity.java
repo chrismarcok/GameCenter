@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import fall2018.csc207.database.ScoreboardDBHandler;
 import fall2018.csc207.menu.gameCard.GameCardAdapter;
@@ -23,11 +24,11 @@ import fall2018.csc207.twentyfortyeight.TwentyFortyEightFactory;
  * The Game Centre Activity class
  */
 public class GameCentreActivity extends AppCompatActivity {
-    public static final String USERNAME = "USERNAME";
+    private static final String USERNAME = "USERNAME";
     /*
      * A map from the name of the game to the game's factory class.
      */
-    private static final HashMap<String, Class> gameLibrary = new HashMap<>();
+    private static final Map<String, Class> GAME_LIBRARY = new HashMap<>();
 
     /**
      * Retrieves the factory class for a particular game.
@@ -36,28 +37,28 @@ public class GameCentreActivity extends AppCompatActivity {
      * @return The GameFactory corresponding to the particular game.
      */
     public static Class getFactoryClass(String gameName) {
-        return gameLibrary.get(gameName);
+        return GAME_LIBRARY.get(gameName);
     }
 
     /*
       This static constructor is called when GameCentreActivity is first used.
-      We add elements to gameLibrary through this constructor (as there is no way to initialize
+      We add elements to GAME_LIBRARY through this constructor (as there is no way to initialize
       a HashMap inline).
     */
     static {
-        gameLibrary.put("Sliding Tiles", SlidingTilesFactory.class);
-        gameLibrary.put("Minesweeper", MinesweeperFactory.class);
-        gameLibrary.put("2048", TwentyFortyEightFactory.class);
+        GAME_LIBRARY.put("Sliding Tiles", SlidingTilesFactory.class);
+        GAME_LIBRARY.put("Minesweeper", MinesweeperFactory.class);
+        GAME_LIBRARY.put("2048", TwentyFortyEightFactory.class);
     }
 
     /**
      * The user's username.
      */
-    public String username;
+    private String username;
     /**
      * Game Card's adapter that will notify the recyclerview if any item is added
      */
-    protected GameCardAdapter gameCardAdapter;
+    private GameCardAdapter gameCardAdapter;
     /**
      * List of all the games in a GameCardItem format
      */
@@ -87,30 +88,33 @@ public class GameCentreActivity extends AppCompatActivity {
      * Create the GameCardItems.
      */
     private void createGameCards() {
-        HashMap<String, Drawable> pictureMap = getCardDrawables();
-        HashMap<String, Integer> userHighScores = new HashMap<>();
+        Map<String, Drawable> pictureMap = getCardDrawables();
+        Map<String, Integer> userHighScores = new HashMap<>();
 
         //Set the default highscores to 0.
-        for (HashMap.Entry<String, Class> entry : gameLibrary.entrySet()) {
+        for (HashMap.Entry<String, Class> entry : GAME_LIBRARY.entrySet()) {
             userHighScores.put(entry.getKey(), 0);
         }
 
         //Get a reference to the Database, load the highscores.
         ScoreboardDBHandler db = new ScoreboardDBHandler(this, null);
-        ArrayList<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
+        List<ScoreboardEntry> userHighScoreList = db.fetchUserHighScores(username);
 
         //Fill the highscores of the different games
         for (ScoreboardEntry entry : userHighScoreList) {
             // If the name is Sliding Tiles 3x3, 4z4 etc change it to just SlidingTiles.
             if (entry.getGame().contains("Sliding Tiles"))
                 entry.setGame("Sliding Tiles");
+            else if (entry.getGame().contains("Minesweeper"))
+                entry.setGame("Minesweeper");
             userHighScores.put(entry.getGame(), entry.getScore());
         }
 
         // For each game in the game library make a new GameCardItem
-        for (HashMap.Entry<String, Class> entry : gameLibrary.entrySet()) {
+        for (HashMap.Entry<String, Class> entry : GAME_LIBRARY.entrySet()) {
             String gameName = entry.getKey();
-            GameCardItem newGame = new GameCardItem(gameName, userHighScores.get(gameName), pictureMap.get(gameName));
+            GameCardItem newGame = new GameCardItem(gameName, userHighScores.get(gameName),
+                    pictureMap.get(gameName));
             gameCardItemList.add(newGame);
         }
 
@@ -123,11 +127,11 @@ public class GameCentreActivity extends AppCompatActivity {
      *
      * @return The hashmap of the game's names and their corresponding pictures.
      */
-    private HashMap<String, Drawable> getCardDrawables() {
-        HashMap<String, Drawable> pictureMap = new HashMap<>();
-        Drawable slidingTiles = getDrawable(R.drawable.sliding_tiles);
-        Drawable twentyFortyEight = getDrawable(R.drawable.twentyfortyeight);
-        Drawable minesweeper = getDrawable(R.drawable.minesweeper);
+    private Map<String, Drawable> getCardDrawables() {
+        Map<String, Drawable> pictureMap = new HashMap<>();
+        Drawable slidingTiles = getDrawable(R.drawable.slidingtiles);
+        Drawable twentyFortyEight = getDrawable(R.drawable.tilelogo);
+        Drawable minesweeper = getDrawable(R.drawable.mine);
         pictureMap.put("Sliding Tiles", slidingTiles);
         pictureMap.put("2048", twentyFortyEight);
         pictureMap.put("Minesweeper", minesweeper);

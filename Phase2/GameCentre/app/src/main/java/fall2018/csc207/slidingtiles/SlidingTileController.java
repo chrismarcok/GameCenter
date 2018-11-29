@@ -9,7 +9,7 @@ import fall2018.csc207.game.BoardController;
 /**
  * Manage the board state by processing taps.
  */
-public class SlidingTileController extends BoardController<Board> implements Serializable {
+public class SlidingTileController extends BoardController<SlidingTilesBoard> implements Serializable {
 
     /**
      * The dimension of the board
@@ -17,12 +17,12 @@ public class SlidingTileController extends BoardController<Board> implements Ser
     private int dimensions;
 
     /**
-     * Manage a board that has been pre-populated.
+     * Manage a slidingTilesBoard that has been pre-populated.
      *
-     * @param board the board
+     * @param slidingTilesBoard the slidingTilesBoard
      */
-    public SlidingTileController(Board board) {
-        super(board);
+    public SlidingTileController(SlidingTilesBoard slidingTilesBoard) {
+        super(slidingTilesBoard);
         dimensions = (int)Math.sqrt(this.gameState.numTiles());
     }
 
@@ -50,7 +50,9 @@ public class SlidingTileController extends BoardController<Board> implements Ser
     }
 
     private boolean isTileAdjacent(int row, int col, Pair<Integer, Integer> tile) {
-        return Math.abs(tile.first - row + tile.second - col) == 1;
+        return tile.first != null && tile.second != null &&
+                Math.abs(tile.first - row + tile.second - col) == 1;
+
     }
 
     /**
@@ -62,11 +64,12 @@ public class SlidingTileController extends BoardController<Board> implements Ser
         int row = position / dimensions;
         int col = position % dimensions;
 
-        // tiles is the blank tile, swap by calling Board's swap method.
+        // tiles is the blank tile, swap by calling MinesweeperBoard's swap method.
         Pair<Integer, Integer> blankCoord = gameState.findBlankTile();
 
         // We are precisely 1 tile away from the blank tile, which means we're adjacent to it
-        if (isTileAdjacent(row, col, blankCoord))
+        if (isTileAdjacent(row, col, blankCoord) &&
+                blankCoord.first != null && blankCoord.second != null)
             gameState.swapTiles(blankCoord.first, blankCoord.second, row, col, true);
     }
 }

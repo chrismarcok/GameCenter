@@ -4,9 +4,9 @@
     android:id="@+id/gamemain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="..GameMainFragment">
+    tools:context="fall2018.csc207.game.GameMainActivity">
 
-    <fall2018.csc207.slidingtiles.GestureDetectGridView
+    <fall2018.csc207.game.GestureDetectGridView
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

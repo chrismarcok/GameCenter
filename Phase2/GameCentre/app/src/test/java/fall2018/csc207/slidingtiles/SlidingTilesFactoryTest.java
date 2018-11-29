@@ -27,7 +27,8 @@ public class SlidingTilesFactoryTest {
     @Test
     public void testGameNames() {
         List<String> gameNames = stFactory.getGameNames();
-        List<String> expectedNames = Arrays.asList("Sliding Tiles 3x3", "Sliding Tiles 4x4", "Sliding Tiles 5x5");
+        List<String> expectedNames = Arrays.asList("Sliding Tiles 3x3", "Sliding Tiles 4x4",
+                "Sliding Tiles 5x5");
         assert gameNames.equals(expectedNames);
     }
 
@@ -38,10 +39,10 @@ public class SlidingTilesFactoryTest {
 
         GameFactory.Setting boardSize = settings.get(0);
         List<String> possibleValues = boardSize.getPossibleValues();
-        List<String> expectedPossibleValues = Arrays.asList("3x3", "4x4", "5x5");
+        List<String> expectedPossibleVals = Arrays.asList("3x3", "4x4", "5x5");
 
-        assert boardSize.getName().equals("Board Size");
-        assert possibleValues.equals(expectedPossibleValues);
+        assert boardSize.getName().equals("MinesweeperBoard Size");
+        assert possibleValues.equals(expectedPossibleVals);
 
         assert boardSize.getCurrentValue().equals("3x3");
         assert boardSize.getCurrentValueIndex() == 0;
@@ -98,7 +99,7 @@ public class SlidingTilesFactoryTest {
     public void testGet3x3(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
         boardSize.setCurrentValue(0);
-        Board state = stFactory.getGameState(1);
+        SlidingTilesBoard state = stFactory.getGameState(1);
         assert state.numTiles() == 3*3;
         assert state.getMaxUndos() == 1;
 
@@ -112,7 +113,7 @@ public class SlidingTilesFactoryTest {
     public void testGet4x4(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
         boardSize.setCurrentValue(1);
-        Board state = stFactory.getGameState(1);
+        SlidingTilesBoard state = stFactory.getGameState(1);
         assert state.numTiles() == 4*4;
         assert state.getMaxUndos() == 1;
 
@@ -125,7 +126,7 @@ public class SlidingTilesFactoryTest {
     public void testGet5x5(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
         boardSize.setCurrentValue(2);
-        Board state = stFactory.getGameState(1);
+        SlidingTilesBoard state = stFactory.getGameState(1);
         assert state.numTiles() == 5*5;
         assert state.getMaxUndos() == 1;
 

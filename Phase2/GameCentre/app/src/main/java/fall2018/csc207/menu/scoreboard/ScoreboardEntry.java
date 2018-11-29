@@ -29,7 +29,7 @@ public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> 
      *
      * @return The name of the entry.
      */
-    public String getName() {
+    public CharSequence getName() {
         return name;
     }
 

@@ -4,23 +4,40 @@ import java.io.Serializable;
 import java.util.Observable;
 
 /**
- * Created by Steven on 2018-10-30.
- */
-
-/**
- * Represents a single insatnce of a game.
+ * Represents a single instance of a game.
  */
 public abstract class GameState extends Observable implements Serializable {
 
     /**
      * The score of this game state.
      */
-    protected int score = 0;
+    protected int score;
 
     /**
      * The maximum number of undos the player can have.
      */
-    private int maxUndos = 0;
+    private int maxUndos;
+
+    /**
+     * Whether the game is in a lost state.
+     */
+    private boolean isGameLost;
+
+    /**
+     * Return whether the game is lost.
+     * @return whether the game is lost.
+     */
+    public boolean isGameLost() {
+        return isGameLost;
+    }
+
+    /**
+     * Sets whether the game is lost.
+     * @param gameLost the state we are setting the game's lost state to.
+     */
+    public void setGameLost(boolean gameLost) {
+        isGameLost = gameLost;
+    }
 
     /**
      * Sets the maximum number of undos.
@@ -58,8 +75,8 @@ public abstract class GameState extends Observable implements Serializable {
     }
 
     /**
-     * Revert to a past game state. This call always undos a move. To check if we're allowed to
-     * undo that move, call canUndo().
+     * Revert to a past game state. This call always undos a canMove. To check if we're allowed to
+     * undo that canMove, call canUndo().
      */
     public abstract void undo();
 

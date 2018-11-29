@@ -9,8 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.HashMap;
+import java.util.Map;
 
 import fall2018.csc207.database.UserDBHandler;
 import fall2018.csc207.game.GameMainActivity;
@@ -23,13 +22,13 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Dialog Boxes for Sign-up, and instructions for signup.
      */
-    Dialog signupDialog;
-    Dialog infoDialog;
+    private Dialog signupDialog;
+    private Dialog infoDialog;
 
     /**
      * Get a reference to the username Database.
      */
-    final UserDBHandler userDB = new UserDBHandler(this, UserDBHandler.DATABASE_NAME,
+    private final UserDBHandler userDB = new UserDBHandler(this, UserDBHandler.DATABASE_NAME,
             null, UserDBHandler.DATABASE_VERSION);
 
     /**
@@ -76,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param passwordEditText The field which holds the user's password.
      */
     private void loginUser(EditText usernameEditText, EditText passwordEditText) {
-        HashMap<String, String> userMap = userDB.fetchDatabaseEntries();
+        Map<String, String> userMap = userDB.fetchDatabaseEntries();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
@@ -84,12 +83,15 @@ public class LoginActivity extends AppCompatActivity {
 
         //Check if mapPass is null first! dont want to compare null to password.
         if (mapPass != null && mapPass.equals(password)) {
-            Toast.makeText(getApplicationContext(), "Welcome, " + username, Toast.LENGTH_SHORT).show();
-            Intent changeToStartingActivityIntent = new Intent(LoginActivity.this, GameCentreActivity.class);
-            changeToStartingActivityIntent.putExtra(GameMainActivity.USERNAME, username);
-            startActivity(changeToStartingActivityIntent);
+            Toast.makeText(getApplicationContext(), "Welcome, " + username,
+                    Toast.LENGTH_SHORT).show();
+            Intent startingActivityInt = new Intent(LoginActivity.this,
+                    GameCentreActivity.class);
+            startingActivityInt.putExtra(GameMainActivity.USERNAME, username);
+            startActivity(startingActivityInt);
         } else {
-            Toast.makeText(getApplicationContext(), "Could not log in.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Could not log in.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -99,25 +101,26 @@ public class LoginActivity extends AppCompatActivity {
     private void showSignupDialogue(){
         TextView txtClose;
         CardView submitButton;
-        final EditText usernameSignupEditText;
-        final EditText passwordSignupEditText;
+        final EditText usernameSignupET;
+        final EditText passwordSignupET;
 
-        signupDialog.setContentView(R.layout.dialogue_signup);
+        signupDialog.setContentView(R.layout.dialog_signup);
 
         txtClose = signupDialog.findViewById(R.id.txtclose);
         submitButton = signupDialog.findViewById(R.id.submitButton);
-        usernameSignupEditText = signupDialog.findViewById(R.id.usernameSignupEditText);
-        passwordSignupEditText = signupDialog.findViewById(R.id.passwordSignupEditText);
+        usernameSignupET = signupDialog.findViewById(R.id.usernameSignupEditText);
+        passwordSignupET = signupDialog.findViewById(R.id.passwordSignupEditText);
         infoDialog = new Dialog(this);
 
         /*
-         * When the signup button is clicked, check to see if the username is already in the database.
+         * When the signup button is clicked, check to see if the username is already in the
+         * database.
          * If not, add the username/password combo to the database. If so, reject the username.
          */
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createUser(usernameSignupEditText, passwordSignupEditText);
+                createUser(usernameSignupET, passwordSignupET);
             }
         });
 
@@ -133,31 +136,35 @@ public class LoginActivity extends AppCompatActivity {
     /**
      * Attempt to create the user.
      *
-     * @param usernameSignupEditText The field which holds the user's username.
-     * @param passwordSignupEditText The field which holds the user's password.
+     * @param usernameSignupET The field which holds the user's username.
+     * @param passwordSignupET The field which holds the user's password.
      */
-    private void createUser(EditText usernameSignupEditText, EditText passwordSignupEditText) {
-        HashMap<String, String> userMap = userDB.fetchDatabaseEntries();
-        String username = usernameSignupEditText.getText().toString();
-        String password = passwordSignupEditText.getText().toString();
+    private void createUser(EditText usernameSignupET, EditText passwordSignupET) {
+        Map<String, String> userMap = userDB.fetchDatabaseEntries();
+        String username = usernameSignupET.getText().toString();
+        String password = passwordSignupET.getText().toString();
 
         String mapPass = userMap.get(username);
 
         // Don't want empty username or pass
         if (username.equals("") || password.equals("")){
-            Toast.makeText(getApplicationContext(), "One or more fields are empty!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "One or more fields are empty!",
+                    Toast.LENGTH_SHORT).show();
         }
         else if (password.length() <= 5){
-            Toast.makeText(getApplicationContext(), "Passwords must be at least 6 characters.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Passwords must be at least 6 characters.",
+                    Toast.LENGTH_SHORT).show();
         }
         //mapPass is null if the username is not a valid key in the hashmap!
         else if (mapPass == null){
             userDB.addUser(username, password);
-            Toast.makeText(getApplicationContext(), "Created user " + username, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Created user " + username,
+                    Toast.LENGTH_SHORT).show();
             signupDialog.dismiss();
         }
         else{
-            Toast.makeText(getApplicationContext(), "username taken.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "username taken.",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -167,7 +174,7 @@ public class LoginActivity extends AppCompatActivity {
      * @param v The View.
      */
     public void showInfo(View v){
-        infoDialog.setContentView(R.layout.dialogue_info);
+        infoDialog.setContentView(R.layout.dialog_info);
         TextView infoTxtClose;
         infoTxtClose = infoDialog.findViewById(R.id.infoTxtClose);
         infoTxtClose.setOnClickListener(new View.OnClickListener() {

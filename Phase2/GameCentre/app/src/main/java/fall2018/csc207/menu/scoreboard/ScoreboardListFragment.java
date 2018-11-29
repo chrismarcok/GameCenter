@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fall2018.csc207.slidingtiles.R;
 
@@ -45,13 +46,15 @@ public class ScoreboardListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        ArrayList<ScoreboardEntry> scores = getArguments().getParcelableArrayList(SCORES_BUNDLE_KEY);
+        List<ScoreboardEntry> scores = new ArrayList<>();
+        if (getArguments() != null)
+            scores = getArguments().getParcelableArrayList(SCORES_BUNDLE_KEY);
 
         if (scores != null && scores.size() > 0)
-            SetupFirstView(view, scores.get(0));
+            setupFirstView(view, scores.get(0));
 
         RecyclerView recyclerView = view.findViewById(R.id.list);
-        SetupRecyclerView(recyclerView, scores);
+        setupRecyclerView(recyclerView, scores);
         return view;
     }
 
@@ -61,7 +64,7 @@ public class ScoreboardListFragment extends Fragment {
      * @param view   The RecyclerView to populate.
      * @param scores The array of scores to display.
      */
-    private void SetupRecyclerView(RecyclerView view, ArrayList<ScoreboardEntry> scores) {
+    private void setupRecyclerView(RecyclerView view, List<ScoreboardEntry> scores) {
         Context context = view.getContext();
 
         view.setLayoutManager(new LinearLayoutManager(context));
@@ -74,7 +77,7 @@ public class ScoreboardListFragment extends Fragment {
      * @param parent   The parent view that contains the first place TextViews.
      * @param topScore The entry containing the top score.
      */
-    private void SetupFirstView(View parent, ScoreboardEntry topScore) {
+    private void setupFirstView(View parent, ScoreboardEntry topScore) {
         TextView topScoreNameView = parent.findViewById(R.id.topScoreName);
         TextView topScoreNumView = parent.findViewById(R.id.topScoreNum);
 

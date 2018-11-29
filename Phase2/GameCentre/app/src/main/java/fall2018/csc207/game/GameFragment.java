@@ -40,8 +40,8 @@ public abstract class GameFragment<S extends GameState, M extends GameController
      * @return The created View.
      */
     @Override
-    public abstract View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState);
+    public abstract View onCreateView(@NonNull LayoutInflater inflater, @Nullable
+            ViewGroup container, @Nullable Bundle savedInstanceState);
 
     /**
      * Called by Android when this fragment is created. This is called before onCreateView,
@@ -51,9 +51,11 @@ public abstract class GameFragment<S extends GameState, M extends GameController
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        state = (S) getArguments().getSerializable(GAME_STATE);
-        if (state != null)
-            state.addObserver(this);
+        if (getArguments() != null) {
+            state = (S) getArguments().getSerializable(GAME_STATE);
+            if (state != null)
+                state.addObserver(this);
+        }
     }
 
     /**

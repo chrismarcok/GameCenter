@@ -30,7 +30,7 @@ public class Board extends GameState implements Iterable<Tile> {
         addTile();
     }
 
-    Board(List<Tile> tiles, int dimensions) {
+    Board(Iterable<Tile> tiles, int dimensions) {
         this.board = new Tile[dimensions][dimensions];
         Iterator<Tile> iter = tiles.iterator();
         numCols = dimensions;
@@ -49,7 +49,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     /**
-     * 2048 Tile logic: https://github.com/bulenkov/2048
+     * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
      * <p>
      * Add a new tile at an available spot
@@ -65,7 +65,7 @@ public class Board extends GameState implements Iterable<Tile> {
     }
 
     private List<Tile> availableSpace() {
-        final List<Tile> list = new ArrayList<Tile>(16);
+        final List<Tile> list = new ArrayList<>(16);
 
         for (Tile[] row : board) {
             for (Tile tile : row) {
@@ -82,6 +82,7 @@ public class Board extends GameState implements Iterable<Tile> {
      * Merging tile Function: https://rosettacode.org/wiki/2048#Java
      */
     private void move(int countDownFrom, int yIncr, int xIncr) {
+
         for (int i = 0; i < getDimensions() * getDimensions(); i++) {
             int j = Math.abs(countDownFrom - i);
             int r = j / getDimensions();
@@ -115,19 +116,19 @@ public class Board extends GameState implements Iterable<Tile> {
         notifyObservers();
     }
 
-    private void moveUp() {
+    public void moveUp() {
         move(0, -1, 0);
     }
 
-    private void moveDown() {
+    public void moveDown() {
         move(getDimensions() * getDimensions() - 1, 1, 0);
     }
 
-    private void moveLeft() {
+    public void moveLeft() {
         move(0, 0, -1);
     }
 
-    private void moveRight() {
+    public void moveRight() {
         move(getDimensions() * getDimensions() - 1, 0, 1);
     }
 
@@ -144,6 +145,7 @@ public class Board extends GameState implements Iterable<Tile> {
 //    boolean movesAvailable() {
 //        return moveUp() || moveDown() || moveLeft() || moveRight();
 //    }
+
 
     @Override
     public void undo() {
@@ -173,7 +175,7 @@ public class Board extends GameState implements Iterable<Tile> {
         return new BoardIterator(board);
     }
 
-    public int getDimensions() {
+    private int getDimensions() {
         return numRows;
     }
 
@@ -186,7 +188,7 @@ public class Board extends GameState implements Iterable<Tile> {
         /**
          * index indicates the position of the board
          */
-        private int index = 0;
+        private int index;
         private Tile[][] array2D;
 
         private BoardIterator(Tile[][] tiles) {

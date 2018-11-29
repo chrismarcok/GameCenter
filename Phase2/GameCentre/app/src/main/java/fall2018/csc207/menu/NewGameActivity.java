@@ -2,6 +2,7 @@ package fall2018.csc207.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -9,14 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.Switch;
+import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import fall2018.csc207.game.GameFactory;
 import fall2018.csc207.game.GameMainActivity;
@@ -52,7 +52,7 @@ public class NewGameActivity extends AppCompatActivity {
     /**
      * The Seekbar for the user choosing the value of undos.
      */
-    private SeekBar undoSeekbar;
+    private EditText undoPicker;
 
     private TextView fileName;
 
@@ -91,10 +91,11 @@ public class NewGameActivity extends AppCompatActivity {
     /**
      * Create the seek bar and update it as its value changes.
      */
-    public void setupUndoOptions() {
-        undoSeekbar = findViewById(R.id.seekBar);
+    private void setupUndoOptions() {
+        undoPicker = findViewById(R.id.undoPicker);
         infUndoSwitch = findViewById(R.id.infiniteUndo);
 
+        undoPicker.setText("0", TextView.BufferType.EDITABLE);
         setSeekbarState(!infUndoSwitch.isChecked());
         infUndoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -104,39 +105,12 @@ public class NewGameActivity extends AppCompatActivity {
             }
         });
 
-        undoSeekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            /**
-             * Called when we make a change to the seekBar's value.
-             * @param seekBar The seekbar whose progress has changed.
-             * @param progress The value of the SeekBar.
-             * @param fromUser True if the change was initiated from the user.
-             */
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                TextView text = findViewById(R.id.progress);
-                text.setText(String.valueOf(progress));
-            }
-
-            /**
-             * Called when we touch the seekbar.
-             * @param seekBar The seekbar whose progress has been touched.
-             */
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            /**
-             * Called when we stop touching the seekbar.
-             * @param seekBar The seekbar who is no longer being touched.
-             */
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-
+        //Minesweeper has no undo function, we dont want to see undo options.
+        //TODO: Some refactoring here?
+        if (gameName.equals("Minesweeper")){
+            findViewById(R.id.infUndoRow).setVisibility(View.GONE);
+            findViewById(R.id.allowedUndosRow).setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -144,9 +118,9 @@ public class NewGameActivity extends AppCompatActivity {
      *
      * @param state The state we change the seekbar to. Enabled = true.
      */
-    public void setSeekbarState(boolean state) {
-        final SeekBar seekbar = findViewById(R.id.seekBar);
-        seekbar.setEnabled(state);
+    private void setSeekbarState(boolean state) {
+        final TableRow seekbar = findViewById(R.id.allowedUndosRow);
+        seekbar.setVisibility(state ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -155,43 +129,55 @@ public class NewGameActivity extends AppCompatActivity {
     private void setupSettings() {
         LinearLayout screenView = findViewById(R.id.settings);
         for (final GameFactory.Setting setting : gameFactory.getSettings()) {
-            Spinner dropdown = new Spinner(this);
-            SpinnerAdapter dropdownAdapter = new ArrayAdapter<>(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    setting.getPossibleValues());
-
-            dropdown.setAdapter(dropdownAdapter);
-            dropdown.setSelection(setting.getCurrentValueIndex());
-
-
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            lp.setMargins(10, 20, 10, 0);
-
-            screenView.addView(dropdown, lp);
-
-            dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                /**
-                 * Called when a spinner item is selected.
-                 * @param parentView The view where the selection happened
-                 * @param selectedItemView The view within the adapter that was selected
-                 * @param position The position of the selected view in the adapter
-                 * @param id The row id of the selected item
-                 */
-                @Override
-                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                    setting.setCurrentValue(position);
-                }
-
-                /**
-                 * Called when the selection disappears from view.
-                 * @param adapterView The parent that has no selected item.
-                 */
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
+            createItem(setting, screenView);
         }
+    }
+
+    /**
+     * Creates a menu item given a setting.
+     *
+     * @param setting The setting to generate a menu item for.
+     * @param layout  The layout to put the item under.
+     */
+    private void createItem(final GameFactory.Setting setting,
+                            LinearLayout layout) {
+        View.inflate(this, R.layout.new_game_activity_item, layout);
+
+        TextView label = findViewById(R.id.label);
+        Spinner dropdown = findViewById(R.id.spinner);
+
+        label.setText(setting.getName());
+
+        SpinnerAdapter dropdownAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                setting.getPossibleValues());
+
+        dropdown.setAdapter(dropdownAdapter);
+        dropdown.setSelection(setting.getCurrentValueIndex());
+
+        dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * Called when a spinner item is selected.
+             * @param parentView The view where the selection happened
+             * @param selectedItemView The view within the adapter that was selected
+             * @param position The position of the selected view in the adapter
+             * @param id The row id of the selected item
+             */
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView,
+                                       int position, long id) {
+                setting.setCurrentValue(position);
+            }
+
+            /**
+             * Called when the selection disappears from view.
+             * @param adapterView The parent that has no selected item.
+             */
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 
     /**
@@ -199,23 +185,42 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private void startGame() {
         Log.v("Start Game", gameName + " by user " + username);
-        GameState state = gameFactory.getGameState(undoSeekbar.getProgress());
-
-        String userFileName = fileName.getText().toString();
-        GameStateIO io = new GameStateIO(username, state.getGameName(), getFilesDir());
-        //TODO: Determine if the filename has valid chars? eg. / isn't allowed in a filename!
-        if (!isValidFileName(userFileName, io)) {
-            Toast.makeText(this, "File name cannot be empty!", Toast.LENGTH_SHORT).show();
+        String undoPickerVal = undoPicker.getText().toString();
+        String file = fileName.getText().toString();
+        if (!isSettingsValid(undoPickerVal, file)){
+            Snackbar.make(findViewById(R.id.settings),
+                    "Invalid filename or undo value!",
+                    Snackbar.LENGTH_LONG).show();
             return;
         }
+
+        GameState state = gameFactory
+                .getGameState(infUndoSwitch.isChecked() ? -1 : Integer.parseInt(undoPickerVal));
 
         Intent tmp = new Intent(NewGameActivity.this, GameMainActivity.class);
         tmp.putExtra(GameMainActivity.FRAGMENT_CLASS, gameFactory.getGameFragmentClass());
         tmp.putExtra(GameMainActivity.GAME_STATE, state);
         tmp.putExtra(GameMainActivity.USERNAME, username);
-        tmp.putExtra(GameMainActivity.FILE_NAME, userFileName);
+        tmp.putExtra(GameMainActivity.FILE_NAME, file);
 
         startActivity(tmp);
+    }
+
+    /**
+     * Makes sure the filename and undo values are valid.
+     *
+     * @param undoPickerVal The current value of the undoPicker.
+     * @param fileName The current filename
+     */
+    private boolean isSettingsValid(String undoPickerVal, String fileName) {
+        if (!undoPickerVal.matches("^\\d+$") && !infUndoSwitch.isChecked())
+            return false; // The undo value is invalid, and we need it (as we're not allowing inf undos)
+        GameStateIO io = new GameStateIO(username,
+                gameFactory.getGameState(
+                        infUndoSwitch.isChecked() ? -1 : Integer.parseInt(undoPickerVal))
+                        .getGameName(),
+                getFilesDir());
+        return isValidFileName(fileName, io);
     }
 
     private boolean isValidFileName(String fileName, GameStateIO io) {
