@@ -153,18 +153,6 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
     }
 
     /**
-     * Returns a string representation of MinesweeperBoard.
-     *
-     * @return A string representation of MinesweeperBoard.
-     */
-    @Override
-    public String toString() {
-        return "MinesweeperBoard{" +
-                "tiles=" + tiles.toString() +
-                '}';
-    }
-
-    /**
      * Returns a iterator for board.
      *
      * @return An iterator for board.

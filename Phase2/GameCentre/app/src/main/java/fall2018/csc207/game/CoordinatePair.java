@@ -11,9 +11,9 @@ public class CoordinatePair implements Serializable {
     private final int row;
     private final int col;
 
-    public CoordinatePair(int row, int y) {
+    public CoordinatePair(int row, int col) {
         this.row = row;
-        this.col = y;
+        this.col = col;
     }
 
     /**
@@ -32,5 +32,19 @@ public class CoordinatePair implements Serializable {
      */
     public int getCol() {
         return col;
+    }
+
+    /**
+     * Determines if CoordinatePair is equal to o.
+     *
+     * @param o The object to est.
+     * @return Whether this is equal to o.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        CoordinatePair other = (CoordinatePair) o;
+        return row == other.row &&
+                col == other.col;
     }
 }

@@ -14,16 +14,25 @@ import static org.junit.Assert.fail;
 public class SlidingTilesFactoryTest {
     private SlidingTilesFactory stFactory;
 
+    /**
+     * Setups stFactory for each test.
+     */
     @Before
     public void setupBefore() {
         stFactory = new SlidingTilesFactory();
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns the correct class.
+     */
     @Test
     public void testCorrectFragmentClass() {
         assert stFactory.getGameFragmentClass().equals(SlidingTilesFragment.class);
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns the correct game names (for scoreboard + serialization)
+     */
     @Test
     public void testGameNames() {
         List<String> gameNames = stFactory.getGameNames();
@@ -32,6 +41,9 @@ public class SlidingTilesFactoryTest {
         assert gameNames.equals(expectedNames);
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns the correct default settings.
+     */
     @Test
     public void testCorrectDefaultSettings() {
         List<GameFactory.Setting> settings = stFactory.getSettings();
@@ -48,6 +60,9 @@ public class SlidingTilesFactoryTest {
         assert boardSize.getCurrentValueIndex() == 0;
     }
 
+    /**
+     * Tests if SlidingTilesFactory properly changes settings.
+     */
     @Test
     public void testChangeSettings() {
         List<GameFactory.Setting> settings = stFactory.getSettings();
@@ -71,6 +86,9 @@ public class SlidingTilesFactoryTest {
         assert boardSize.getCurrentValueIndex() == 2;
     }
 
+    /**
+     * Tests if SlidingTilesFactory throws exceptions on wrong settings.
+     */
     @Test
     public void testChangeInvalidSettings() {
         List<GameFactory.Setting> settings = stFactory.getSettings();
@@ -90,11 +108,17 @@ public class SlidingTilesFactoryTest {
         }
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns the correct default state.
+     */
     @Test
     public void testDefaultIs3x3(){
         assert stFactory.getGameState(1).numTiles() == 3*3;
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns a 3x3 when we set the setting to "0".
+     */
     @Test
     public void testGet3x3(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
@@ -109,6 +133,9 @@ public class SlidingTilesFactoryTest {
 
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns a 4x4 when we set the setting to "1".
+     */
     @Test
     public void testGet4x4(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
@@ -122,6 +149,9 @@ public class SlidingTilesFactoryTest {
         assert state.getMaxUndos() == 5;
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns a 5x5 when we set the setting to "2".
+     */
     @Test
     public void testGet5x5(){
         GameFactory.Setting boardSize = stFactory.getSettings().get(0);
@@ -135,6 +165,9 @@ public class SlidingTilesFactoryTest {
         assert state.getMaxUndos() == 5;
     }
 
+    /**
+     * Tests if SlidingTilesFactory returns different states on subsequent calls to getGameState.
+     */
     @Test
     public void testGetStateGivesDifferentStates(){
         assert stFactory.getGameState(0) != stFactory.getGameState(0);
