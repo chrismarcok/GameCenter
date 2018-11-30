@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
+
 import fall2018.csc207.minesweeper.MinesweeperController;
 import fall2018.csc207.twentyfortyeight.TwentyFortyEightController;
 
@@ -65,6 +66,7 @@ public class GestureDetectGridView extends GridView {
             public boolean onDown(MotionEvent event) {
                 return true;
             }
+
             @Override
             public void onLongPress(MotionEvent e) {
                 if (boardController instanceof MinesweeperController){

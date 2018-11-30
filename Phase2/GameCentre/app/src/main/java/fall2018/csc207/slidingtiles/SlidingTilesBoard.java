@@ -16,7 +16,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
     /**
      * The tiles on the board in row-major order.
      */
-    private List<List<SlidingTilesTile>> tiles;
+    private final List<List<SlidingTilesTile>> tiles;
 
     /**
      * The current maximum allowed undos. This is decremented when we undo, and incremented when we
@@ -30,7 +30,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      * <p>
      * This is transient because it cannot be serialized by Java (for some reason).
      */
-    private Stack<CoordinatePair> prevMoves = new Stack<>();
+    private final Stack<CoordinatePair> prevMoves = new Stack<>();
 
 
     /**

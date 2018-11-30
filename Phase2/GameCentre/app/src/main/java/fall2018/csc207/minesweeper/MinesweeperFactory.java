@@ -13,8 +13,13 @@ public class MinesweeperFactory extends GameFactory {
     public MinesweeperFactory() {
         addToSettings(new Setting(
                 "Minesweeper Size",
-                Arrays.asList("5x5", "8x8", "13x13", "20x20"),
+                Arrays.asList("5x5", "8x8", "15x15"),
                 "5x5"
+        ));
+        addToSettings(new Setting(
+                "Mine Probability",
+                Arrays.asList("0.1", "0.2", "0.3", "0.4", "0.45"),
+                "0.2"
         ));
     }
 
@@ -26,18 +31,16 @@ public class MinesweeperFactory extends GameFactory {
     @Override
     public GameState getGameState(int numUndos) {
         MinesweeperBoard minesweeperBoard;
+        double mineProbability = Double.valueOf(settings.get(1).getCurrentValue());
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
             case "5x5":
-                minesweeperBoard = new MinesweeperBoard(5, .2);
+                minesweeperBoard = new MinesweeperBoard(5, mineProbability);
                 break;
             case "8x8":
-                minesweeperBoard = new MinesweeperBoard(8, .2);
+                minesweeperBoard = new MinesweeperBoard(8, mineProbability);
                 break;
-            case "13x13":
-                minesweeperBoard = new MinesweeperBoard(13, .2);
-                break;
-            case "20x20":
-                minesweeperBoard = new MinesweeperBoard(20, .4);
+            case "15x15":
+                minesweeperBoard = new MinesweeperBoard(15, mineProbability);
                 break;
             default:
                 throw new IllegalStateException("This factory's settings is in an illegal state!");
@@ -53,7 +56,6 @@ public class MinesweeperFactory extends GameFactory {
 
     @Override
     public List<String> getGameNames() {
-        return Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8","Minesweeper 13x13",
-                "Minesweeper 20x20");
+        return Arrays.asList("Minesweeper 5x5", "Minesweeper 8x8", "Minesweeper 15x15");
     }
 }

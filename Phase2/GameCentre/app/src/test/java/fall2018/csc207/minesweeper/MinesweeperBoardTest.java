@@ -56,7 +56,7 @@ public class MinesweeperBoardTest {
     @Test
     public void testendGame(){
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());
-        minesweeperBoard.endGame(3,3);
+        minesweeperBoard.endGame(3, 2);
         assert minesweeperBoard.getNumRevealedTiles() == 1;
 
     }

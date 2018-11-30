@@ -3,6 +3,7 @@ package fall2018.csc207.twentyfortyeight;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+
 import fall2018.csc207.slidingtiles.R;
 
 /**
@@ -12,21 +13,21 @@ class TwentyFortyEightTile implements Serializable {
     /**
      * Contains integer to respective image
      */
-    private static Map<Integer, Integer> colorMap;
+    private static Map<Integer, Integer> COLOUR_MAP;
     static {
-        colorMap = new HashMap<>();
-        colorMap.put(2, R.color.two);
-        colorMap.put(4, R.color.four);
-        colorMap.put(8, R.color.eight);
-        colorMap.put(16, R.color.sixteen);
-        colorMap.put(32, R.color.thirtyTwo);
-        colorMap.put(64, R.color.sixtyFour);
-        colorMap.put(128, R.color.oneTwentyEight);
-        colorMap.put(256, R.color.twoFiftySix);
-        colorMap.put(512, R.color.fiveTwelve);
-        colorMap.put(1024, R.color.tenTwentyFour);
-        colorMap.put(2048, R.color.twentyFourtyEight);
-        colorMap.put(0, R.color.gridColor);
+        COLOUR_MAP = new HashMap<>();
+        COLOUR_MAP.put(2, R.color.two);
+        COLOUR_MAP.put(4, R.color.four);
+        COLOUR_MAP.put(8, R.color.eight);
+        COLOUR_MAP.put(16, R.color.sixteen);
+        COLOUR_MAP.put(32, R.color.thirtyTwo);
+        COLOUR_MAP.put(64, R.color.sixtyFour);
+        COLOUR_MAP.put(128, R.color.oneTwentyEight);
+        COLOUR_MAP.put(256, R.color.twoFiftySix);
+        COLOUR_MAP.put(512, R.color.fiveTwelve);
+        COLOUR_MAP.put(1024, R.color.tenTwentyFour);
+        COLOUR_MAP.put(2048, R.color.twentyFourtyEight);
+        COLOUR_MAP.put(0, R.color.gridColor);
     }
 
     /**
@@ -48,7 +49,7 @@ class TwentyFortyEightTile implements Serializable {
      */
     TwentyFortyEightTile(int value) {
         this.value = value;
-        this.background = colorMap.get(value);
+        this.background = COLOUR_MAP.get(value);
     }
 
     /**
@@ -72,7 +73,7 @@ class TwentyFortyEightTile implements Serializable {
      * @param value the image
      */
     public void setBackground(int value) {
-        this.background = colorMap.get(value);
+        this.background = COLOUR_MAP.get(value);
     }
 
     /**
@@ -115,6 +116,6 @@ class TwentyFortyEightTile implements Serializable {
      */
     public void setValue(int value) {
         this.value = value;
-        this.background = colorMap.get(value);
+        this.background = COLOUR_MAP.get(value);
     }
 }

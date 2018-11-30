@@ -1,19 +1,16 @@
 package fall2018.csc207.minesweeper;
 
-import java.io.Serializable;
-
 import fall2018.csc207.game.BoardController;
 
 /**
  * Controller for Minesweeper.
  */
-public class MinesweeperController extends BoardController<MinesweeperBoard>
-        implements Serializable {
+public class MinesweeperController extends BoardController<MinesweeperBoard> {
 
     /**
      * The dimension of the board
      */
-    private int dimensions;
+    private final int dimensions;
 
     /**
      * Manage a minesweeperBoard that has been pre-populated.
@@ -40,7 +37,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
         //Check for cases where the selected tile is a BOMB or BLANK_TILE
         if (currTile.getId() == MinesweeperTile.BOMB && gameState.getNumRevealedTiles() == 0){
             gameState.deleteBomb(row,col);
-            gameState.revealSurroundingBlanks(row, col);
+            updateGame(position);
         }
         else if (currTile.getId() == MinesweeperTile.BOMB) {
             gameState.setGameLost(true);

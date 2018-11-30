@@ -15,9 +15,9 @@ import fall2018.csc207.database.ScoreboardDBHandler;
 import fall2018.csc207.menu.gameCard.GameCardAdapter;
 import fall2018.csc207.menu.gameCard.GameCardItem;
 import fall2018.csc207.menu.scoreboard.ScoreboardEntry;
+import fall2018.csc207.minesweeper.MinesweeperFactory;
 import fall2018.csc207.slidingtiles.R;
 import fall2018.csc207.slidingtiles.SlidingTilesFactory;
-import fall2018.csc207.minesweeper.MinesweeperFactory;
 import fall2018.csc207.twentyfortyeight.TwentyFortyEightFactory;
 
 /**
@@ -63,7 +63,7 @@ public class GameCentreActivity extends AppCompatActivity {
     /**
      * List of all the games in a GameCardItem format
      */
-    private List<GameCardItem> gameCardItemList = new ArrayList<>();
+    private final List<GameCardItem> gameCardItemList = new ArrayList<>();
 
     /**
      * Called when we create a GameCentreActivity.

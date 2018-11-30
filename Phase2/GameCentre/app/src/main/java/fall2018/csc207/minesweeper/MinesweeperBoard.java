@@ -8,11 +8,11 @@ public class MinesweeperBoard extends GameState {
     /**
      * The Tiles on the board
      */
-    private MinesweeperTile[][] mineField;
+    private final MinesweeperTile[][] mineField;
     /**
      * The size of the board
      */
-    private int dimensions;
+    private final int dimensions;
     private int numRevealedTiles;
     private int numMines;
 
@@ -74,7 +74,9 @@ public class MinesweeperBoard extends GameState {
      *
      * @return Returns the number of mines on the board
      */
-    public int getNumRevealedTiles(){return numRevealedTiles;}
+    public int getNumRevealedTiles() {
+        return numRevealedTiles;
+    }
 
     @Override
     public void undo() {
@@ -102,7 +104,7 @@ public class MinesweeperBoard extends GameState {
         for (MinesweeperTile[] first : mineField) {
             for (MinesweeperTile minesweeperTile : first) {
                 if (minesweeperTile.getId() == MinesweeperTile.BOMB &&
-                        minesweeperTile.isRevealed()){
+                        minesweeperTile.isRevealed()) {
                     return true;
                 }
                 if (minesweeperTile.getId() == MinesweeperTile.BOMB &&
@@ -171,6 +173,7 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Get the tile at row, col.
+     *
      * @param row The row of this tile
      * @param col The col of this tile
      * @return Returns the time at row and col in the mineField
@@ -207,35 +210,36 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Reveals the tiles that are connected to this tile, connected diagonally.
+     *
      * @param row The row of this tile.
      * @param col The column of this tile.
      */
     private void revealDiagonalAdjacent(int row, int col) {
         //TwentyFortyEightTile below-right
-        if (canRevealTile(row + 1, col + 1)){
+        if (canRevealTile(row + 1, col + 1)) {
             revealTile(row + 1, col + 1);
-            if (isBlankTile(row + 1, col + 1)){
+            if (isBlankTile(row + 1, col + 1)) {
                 revealSurroundingBlanks(row + 1, col + 1);
             }
         }
         //TwentyFortyEightTile above-left
-        if (canRevealTile(row - 1, col - 1)){
+        if (canRevealTile(row - 1, col - 1)) {
             revealTile(row - 1, col - 1);
-            if (isBlankTile(row - 1, col - 1)){
+            if (isBlankTile(row - 1, col - 1)) {
                 revealSurroundingBlanks(row - 1, col - 1);
             }
         }
         //TwentyFortyEightTile above-right
-        if (canRevealTile(row - 1, col + 1)){
+        if (canRevealTile(row - 1, col + 1)) {
             revealTile(row - 1, col + 1);
-            if (isBlankTile(row - 1, col + 1)){
+            if (isBlankTile(row - 1, col + 1)) {
                 revealSurroundingBlanks(row - 1, col + 1);
             }
         }
         //TwentyFortyEightTile below-left
-        if (canRevealTile(row + 1, col - 1)){
+        if (canRevealTile(row + 1, col - 1)) {
             revealTile(row + 1, col - 1);
-            if (isBlankTile(row + 1, col - 1)){
+            if (isBlankTile(row + 1, col - 1)) {
                 revealSurroundingBlanks(row + 1, col - 1);
             }
         }
@@ -243,6 +247,7 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Reveals the tiles that are connected to this tile, connected by edge.
+     *
      * @param row The row of this tile.
      * @param col The column of this tile.
      */
@@ -279,11 +284,12 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Return if tile at row, col can be revealed.
+     *
      * @param row The row of the tile.
      * @param col The column of the tile.
      * @return Whether the tile can be revealed.
      */
-    private boolean canRevealTile(int row, int col){
+    private boolean canRevealTile(int row, int col) {
         return col < dimensions && col >= 0 && row < dimensions && row >= 0 &&
                 mineField[row][col].getId() != MinesweeperTile.BOMB &&
                 !mineField[row][col].isRevealed();
@@ -291,45 +297,47 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Return whether tile at row, col is blank.
+     *
      * @param row The row of the tile.
      * @param col The column of the tile.
      * @return Whether the tile is blank.
      */
-    private boolean isBlankTile(int row, int col){
+    private boolean isBlankTile(int row, int col) {
         return mineField[row][col].getId() == MinesweeperTile.BLANK_TILE;
     }
 
     /**
      * Removes the BOMB at given position to change the tile to a null tile.
      * Updates the values of the surronding tiles accordingly.
+     *
      * @param row The row of this tile.
      * @param col The column of this tile.
      */
-    public void deleteBomb(int row, int col){
+    public void deleteBomb(int row, int col) {
         //Delete the bomb.
         mineField[row][col] = new MinesweeperTile(getNumAdjacentBombs(row, col));
-        if (canDecrementTile(row + 1, col)){
+        if (canDecrementTile(row + 1, col)) {
             decrementTile(row + 1, col);
         }
-        if (canDecrementTile(row, col + 1)){
+        if (canDecrementTile(row, col + 1)) {
             decrementTile(row, col + 1);
         }
-        if (canDecrementTile(row - 1, col)){
+        if (canDecrementTile(row - 1, col)) {
             decrementTile(row - 1, col);
         }
-        if (canDecrementTile(row, col - 1)){
+        if (canDecrementTile(row, col - 1)) {
             decrementTile(row, col - 1);
         }
-        if (canDecrementTile(row + 1, col + 1)){
+        if (canDecrementTile(row + 1, col + 1)) {
             decrementTile(row + 1, col + 1);
         }
-        if (canDecrementTile(row - 1, col - 1)){
+        if (canDecrementTile(row - 1, col - 1)) {
             decrementTile(row - 1, col - 1);
         }
-        if (canDecrementTile(row - 1, col + 1)){
+        if (canDecrementTile(row - 1, col + 1)) {
             decrementTile(row - 1, col + 1);
         }
-        if (canDecrementTile(row + 1, col - 1)){
+        if (canDecrementTile(row + 1, col - 1)) {
             decrementTile(row + 1, col - 1);
         }
         numMines--;
@@ -337,41 +345,63 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Return the number of adjacent bombs to this tile.
+     *
      * @param row The row of this tile.
      * @param col The column of this tile.
      * @return The number of adjacent bombs.
      */
-    private int getNumAdjacentBombs(int row, int col){
+    private int getNumAdjacentBombs(int row, int col) {
         int count = 0;
-        if (mineField[row + 1][col].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row][col + 1].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row - 1][col].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row][col - 1].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row + 1][col + 1].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row + 1][col - 1].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row - 1][col - 1].getId() == MinesweeperTile.BOMB) count++;
-        if (mineField[row - 1][col + 1].getId() == MinesweeperTile.BOMB) count++;
+        if (isInBounds(row + 1, col) && mineField[row + 1][col].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row, col + 1) && mineField[row][col + 1].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row - 1, col) && mineField[row - 1][col].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row, col - 1) && mineField[row][col - 1].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row + 1, col + 1) && mineField[row + 1][col + 1].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row + 1, col - 1) && mineField[row + 1][col - 1].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row - 1, col - 1) && mineField[row - 1][col - 1].getId() == MinesweeperTile.BOMB)
+            count++;
+        if (isInBounds(row - 1, col + 1) && mineField[row - 1][col + 1].getId() == MinesweeperTile.BOMB)
+            count++;
         return count;
     }
 
     /**
      * Replace the TwentyFortyEightTile at row, col with a new tile with 1 less adjacent bombs.
+     *
      * @param row The row of this tile.
      * @param col The column of this tile.
      */
-    private void decrementTile(int row, int col){
+    private void decrementTile(int row, int col) {
         mineField[row][col] = new MinesweeperTile(mineField[row][col].getId() - 1);
     }
 
     /**
      * Return whether the given tile represents a valid tile to decrement. Cant decrement a bomb.
+     *
      * @param row The row of this tile.
      * @param col The column of this tile.
      * @return Whether the tile represents a valid tile (one that is in bounds)
      */
-    private boolean canDecrementTile(int row, int col){
-        return row < dimensions && col < dimensions && row >= 0 && col >= 0 &&
+    private boolean canDecrementTile(int row, int col) {
+        return isInBounds(row, col) &&
                 mineField[row][col].getId() != MinesweeperTile.BOMB;
+    }
+
+    /**
+     * Determines if a given coordinate is in bounds.
+     *
+     * @param row The row of tile.
+     * @param col The column of the tile.
+     * @return Whether the coordinate is in bounds.
+     */
+    private boolean isInBounds(int row, int col) {
+        return row < dimensions && col < dimensions && row >= 0 && col >= 0;
     }
 
     /**

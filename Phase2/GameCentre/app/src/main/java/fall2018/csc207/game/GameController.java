@@ -11,7 +11,7 @@ public abstract class GameController<T extends GameState> {
     /**
      * The model for the game.
      */
-    protected T gameState;
+    protected final T gameState;
 
     GameController(){
     }

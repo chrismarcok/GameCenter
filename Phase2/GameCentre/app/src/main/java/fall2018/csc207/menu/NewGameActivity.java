@@ -100,7 +100,6 @@ public class NewGameActivity extends AppCompatActivity {
         infUndoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 setSeekbarState(!infUndoSwitch.isChecked());
             }
         });
@@ -141,10 +140,15 @@ public class NewGameActivity extends AppCompatActivity {
      */
     private void createItem(final GameFactory.Setting setting,
                             LinearLayout layout) {
-        View.inflate(this, R.layout.new_game_activity_item, layout);
+        View v = View.inflate(this, R.layout.new_game_activity_item, layout);
 
-        TextView label = findViewById(R.id.label);
-        Spinner dropdown = findViewById(R.id.spinner);
+        TextView label = v.findViewById(R.id.label);
+        Spinner dropdown = v.findViewById(R.id.spinner);
+
+        // We change the IDs so that we don't retrieve the same ones for the next
+        // call to createItem
+        label.setId(R.id.label + 1);
+        dropdown.setId(R.id.spinner + 1);
 
         label.setText(setting.getName());
 

@@ -8,8 +8,8 @@ import java.io.Serializable;
  * We use this class instead of a Pair<Integer, Integer> because Pair isn't serializable.
  */
 public class CoordinatePair implements Serializable {
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
 
     public CoordinatePair(int row, int y) {
         this.row = row;
