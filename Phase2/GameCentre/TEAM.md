@@ -62,19 +62,19 @@ to build the UI/use XML.
 
 ## November 12, 2018
 
-* Want to make 2048 game, Snake game. Other options are sudoku, solitaire, piano tiles, bejewelled, checkers.
+* Want to make 2048 game, Snake game. Other options are sudoku, solitaire, piano twentyFortyEightTiles, bejewelled, checkers.
 * 2048 Can have undo and a meaningful autosave.
 * Snake will not have undo. Could have saving functionality.
 * Sudoku will have autosave and undo.
 * Can make "Threes" game instead of 2048.
-* Snake and 2048 use swiping gesture to control. Sudoku has the user tap and select (possibly each tile is a edittext).
+* Snake and 2048 use swiping gesture to control. Sudoku has the user tap and select (possibly each minesweeperTile is a edittext).
 * Presentation will be discussed later.
 * Sliding Tiles solvable boards will be done via random moves from a solved state, can be refactored to check if the state is valid later.
 
 ## November 19, 2018
 
 * Decided that Minesweeper should be implemented instead of Sudoku.
-* Minesweeper will generate board prior to user clicking the first tile.
+* Minesweeper will generate minesweeperBoard prior to user clicking the first minesweeperTile.
 * Discussed and Implemented some UI changes.
 * Discussed division of work and JUnit tests for Sliding Tiles game.
 * Brainstormed implementation of minesweeper game.
@@ -91,7 +91,7 @@ to build the UI/use XML.
 
 * Need to create JUnit tests for classes, excluding fragments or activities
 * Right click run > analyze > Inspect Code, fix issues
-* Minesweeper multiple board sizes add to scoreboard
+* Minesweeper multiple minesweeperBoard sizes add to scoreboard
 * 2048 will have one size for now, can change later.
-* GameCardItem needs to load the highscore from variant games of the primary game type (max of sliding tiles 3,4,5 is highscore for sliding tiles)
+* GameCardItem needs to load the highscore from variant games of the primary game type (max of sliding twentyFortyEightTiles 3,4,5 is highscore for sliding twentyFortyEightTiles)
 * Losing Minesweeper needs to display you lose dialog and NOT add entry to scoreboard.
