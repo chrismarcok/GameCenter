@@ -1,6 +1,6 @@
 package fall2018.csc207.twentyfortyeight;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc207.game.GameFactory;
@@ -26,6 +26,6 @@ public class TwentyFortyEightFactory extends GameFactory{
 
     @Override
     public List<String> getGameNames() {
-        return Arrays.asList("2048");
+        return Collections.singletonList("2048");
     }
 }

@@ -31,11 +31,12 @@ public class MinesweeperControllerTest {
 
     }
 
+    @Test
     public void updateGameTestNullTile(){
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generateBoard());
         MinesweeperController minesweeperController = new MinesweeperController(minesweeperBoard);
 
-        assert minesweeperController.isValidTap(3) == true;
+        assert minesweeperController.isValidTap(3);
         //Hit tile[2][1]
         minesweeperController.updateGame(8);
         assert  minesweeperBoard.getNumRevealedTiles() == 7;

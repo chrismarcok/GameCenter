@@ -41,7 +41,7 @@ public class SlidingTilesFactoryTest {
         List<String> possibleValues = boardSize.getPossibleValues();
         List<String> expectedPossibleVals = Arrays.asList("3x3", "4x4", "5x5");
 
-        assert boardSize.getName().equals("Board Size");
+        assert boardSize.getName().equals("Sliding Tiles Size");
         assert possibleValues.equals(expectedPossibleVals);
 
         assert boardSize.getCurrentValue().equals("3x3");
