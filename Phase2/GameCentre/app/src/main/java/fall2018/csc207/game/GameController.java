@@ -13,8 +13,6 @@ public abstract class GameController<T extends GameState> {
      */
     protected final T gameState;
 
-    GameController(){
-    }
 
     /**
      * The GameController.
