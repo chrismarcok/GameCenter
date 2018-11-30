@@ -95,3 +95,9 @@ to build the UI/use XML.
 * 2048 will have one size for now, can change later.
 * GameCardItem needs to load the highscore from variant games of the primary game type (max of sliding twentyFortyEightTiles 3,4,5 is highscore for sliding twentyFortyEightTiles)
 * Losing Minesweeper needs to display you lose dialog and NOT add entry to scoreboard.
+
+## November 29, 028
+
+* Made JUnit tests. 
+* Made UI design changes
+* Creation of Walkthrough.pdf
