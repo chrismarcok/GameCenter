@@ -138,16 +138,16 @@ public class Board extends GameState implements Iterable<TwentyFortyEightTile> {
             while((nextRow >= 0) && (nextRow < getDimensions()) && (col < getDimensions())) {
 
                 TwentyFortyEightTile next = board[nextRow][col];
-                TwentyFortyEightTile curTwentyFortyEightTile = board[row][col];
+                TwentyFortyEightTile tile = board[row][col];
 
                 if (next.isEmpty()) {
-                    board[nextRow][col] = curTwentyFortyEightTile;
+                    board[nextRow][col] = tile;
                     board[row][col] = new TwentyFortyEightTile();
                     row = nextRow;
                     nextRow += -1;
 
-                } else if (next.canMergeWith(curTwentyFortyEightTile)) {
-                    board[nextRow][col].value = curTwentyFortyEightTile.value * 2;
+                } else if (next.canMergeWith(tile)) {
+                    board[nextRow][col].value = tile.value * 2;
                     board[nextRow][col].setBackground(next.value);
                     board[nextRow][col].setMerged(true);
                     board[row][col] = new TwentyFortyEightTile();
@@ -177,9 +177,9 @@ public class Board extends GameState implements Iterable<TwentyFortyEightTile> {
 
     private void clearMerged() {
         for (TwentyFortyEightTile[] row : board)
-            for (TwentyFortyEightTile TwentyFortyEightTile : row)
-                if (!TwentyFortyEightTile.isEmpty())
-                    TwentyFortyEightTile.setMerged(false);
+            for (TwentyFortyEightTile tile : row)
+                if (!tile.isEmpty())
+                    tile.setMerged(false);
     }
 
     //TODO: Make a function to determine if there are any moves available

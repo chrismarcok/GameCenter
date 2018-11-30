@@ -3,7 +3,7 @@ package fall2018.csc207.twentyfortyeight;
 public class TwentyFortyEightBoardTest {
 
     public void contructorTest(){
-        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(6);
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
 
     }
 
