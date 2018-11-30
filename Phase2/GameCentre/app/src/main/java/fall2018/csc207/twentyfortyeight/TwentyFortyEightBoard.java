@@ -41,7 +41,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
             for (int col = 0; col != dimensions; col++) {
                 TwentyFortyEightTile x = iter.next();
                 this.board[row][col] = x;
-                if(x.value > 2){
+                if(x.value > 0){
                     numActiveTiles++;
                 }
             }
