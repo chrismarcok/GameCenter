@@ -57,6 +57,7 @@
     <string name="save">Save</string>
     <string name="quit">Quit</string>
     <string name="info_title">Info</string>
+    <string name="max_undos">Maximum Undos</string>
     <string name="create_new_acc">Create A New Account</string>
 
 </resources>

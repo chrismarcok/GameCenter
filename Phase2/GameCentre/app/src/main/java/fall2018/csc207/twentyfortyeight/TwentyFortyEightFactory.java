@@ -19,7 +19,7 @@ public class TwentyFortyEightFactory extends GameFactory{
     @Override
     public GameState getGameState(int numUndos) {
         TwentyFortyEightBoard board = null;
-        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
+        switch (settings.get(0).getCurrentValue()) {
             case "3x3":
                 board = new TwentyFortyEightBoard(3);
                 break;
@@ -33,7 +33,9 @@ public class TwentyFortyEightFactory extends GameFactory{
                 board = new TwentyFortyEightBoard(6);
                 break;
         }
-        board.setMaxUndos(numUndos);
+        if (board != null){
+            board.setMaxUndos(numUndos);
+        }
         return board;
     }
 

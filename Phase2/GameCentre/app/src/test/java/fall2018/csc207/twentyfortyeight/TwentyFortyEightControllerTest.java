@@ -1,8 +1,6 @@
 package fall2018.csc207.twentyfortyeight;
 
-import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
