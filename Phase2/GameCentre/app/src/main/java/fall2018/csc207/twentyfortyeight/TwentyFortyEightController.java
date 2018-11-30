@@ -3,19 +3,30 @@ package fall2018.csc207.twentyfortyeight;
 import java.io.Serializable;
 
 import fall2018.csc207.game.BoardController;
+import fall2018.csc207.game.GameController;
 
 /**
  * Manage the board state by processing swipes.
  */
-public class TwentyFortyEightController extends BoardController<TwentyFortyEightBoard> implements Serializable {
+public class TwentyFortyEightController extends BoardController<TwentyFortyEightBoard> {
 
     /**
      * Manage a twentyFortyEightBoard that has been pre-populated.
      *
      * @param board the twentyFortyEightBoard
      */
-    public TwentyFortyEightController(TwentyFortyEightBoard board) {
+    TwentyFortyEightController(TwentyFortyEightBoard board) {
         super(board);
+    }
+
+    @Override
+    protected boolean isValidTap(int position) {
+        return false;
+    }
+
+    @Override
+    protected void updateGame(int position) {
+
     }
 
     /**
@@ -48,26 +59,5 @@ public class TwentyFortyEightController extends BoardController<TwentyFortyEight
     public void moveDown() {
         gameState.moveDown();
         gameState.afterMoveActions(true);
-    }
-
-    /**
-     * Gesture not used in 2048
-     *
-     * @param position The position on the grid.
-     */
-    @Override
-    protected void updateGame(int position) {
-
-    }
-
-    /**
-     * Gesture not used in 2048
-     *
-     * @param position of the tap
-     * @return false
-     */
-    @Override
-    protected boolean isValidTap(int position) {
-        return false;
     }
 }

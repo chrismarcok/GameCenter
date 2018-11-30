@@ -115,12 +115,12 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
      * @param context the context
      */
     private void createTile(Context context) {
-        TwentyFortyEightBoard twentyFortyEightBoard = gameManager.getGameState();
+        TwentyFortyEightBoard board = gameManager.getGameState();
         tileTextViews = new ArrayList<>();
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 TextView tmp = new TextView(context);
-                TwentyFortyEightTile twentyFortyEightTile = twentyFortyEightBoard.getTile(row, col);
+                TwentyFortyEightTile twentyFortyEightTile = board.getTile(row, col);
                 setTiles(tmp, twentyFortyEightTile);
 
                 this.tileTextViews.add(tmp);
@@ -142,12 +142,12 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
      * Update the backgrounds on the buttons to match the tiles.
      */
     private void updateTileButtons() {
-        TwentyFortyEightBoard twentyFortyEightBoard = gameManager.getGameState();
+        TwentyFortyEightBoard board = gameManager.getGameState();
         int nextPos = 0;
         for (TextView tile : tileTextViews) {
             int row = nextPos / dimensions;
             int col = nextPos % dimensions;
-            TwentyFortyEightTile cur = twentyFortyEightBoard.getTile(row, col);
+            TwentyFortyEightTile cur = board.getTile(row, col);
             setTiles(tile, cur);
 
             nextPos++;

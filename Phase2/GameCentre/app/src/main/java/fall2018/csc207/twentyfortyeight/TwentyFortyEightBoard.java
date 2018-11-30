@@ -157,8 +157,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      */
     public void moveLeft() {
         states.push(getStateInt());
-        for (int index = 0; index < board.length; index++) {
-            TwentyFortyEightTile[] row = board[index];
+        for (TwentyFortyEightTile[] row : board) {
             for (int b = 0; b < board.length; b++) {
                 boolean seen = false;
                 for (int i = b + 1; i != board.length; i++) {
@@ -183,8 +182,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      */
     public void moveRight() {
         states.push(getStateInt());
-        for (int index = 0; index < board.length; index++) {
-            TwentyFortyEightTile[] row = board[index];
+        for (TwentyFortyEightTile[] row : board) {
             for (int b = board.length - 1; b >= 1; b--) {
                 boolean seen = false;
                 for (int i = b - 1; i >= 0; i--) {
@@ -243,9 +241,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     private void determineScore() {
         int currentScore = 0;
         int dimension = board.length;
-        for (int i = 0; i < dimension; i++) {
+        for (TwentyFortyEightTile[] aBoard : board) {
             for (int j = 0; j < dimension; j++) {
-                currentScore += board[i][j].getValue();
+                currentScore += aBoard[j].getValue();
             }
         }
         this.score = currentScore;
@@ -274,7 +272,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         addTile();
     }
 
-    public int[][] getStateInt() {
+    private int[][] getStateInt() {
         int[][] rep = new int[numRows][numCols];
         for (int i = 0; i < board.length; i++) {
             for (int b = 0; b < board.length; b++) {

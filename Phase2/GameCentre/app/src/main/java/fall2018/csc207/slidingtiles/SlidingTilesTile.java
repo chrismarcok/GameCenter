@@ -77,7 +77,7 @@ public class SlidingTilesTile implements Comparable<SlidingTilesTile>, Serializa
      * @param id         the id
      * @param background the background
      */
-    public SlidingTilesTile(int id, int background) {
+    SlidingTilesTile(int id, int background) {
         this.id = id;
         this.background = background;
     }
@@ -87,7 +87,7 @@ public class SlidingTilesTile implements Comparable<SlidingTilesTile>, Serializa
      *
      * @param backgroundId The id of the tile we are setting.
      */
-    public SlidingTilesTile(int backgroundId) {
+    SlidingTilesTile(int backgroundId) {
         id = backgroundId + 1;
         background = imageMap().get(id);
     }

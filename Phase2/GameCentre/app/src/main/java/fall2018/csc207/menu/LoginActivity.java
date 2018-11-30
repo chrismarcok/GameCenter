@@ -40,19 +40,16 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        /*
-         * The EditTexts and Buttons that are within the activity.
-         */
         final EditText usernameEditText = findViewById(R.id.usernameEditText);
         final EditText passwordEditText = findViewById(R.id.passwordEditText);
         CardView loginButton = findViewById(R.id.loginButton);
         CardView signupButton = findViewById(R.id.signupButton);
         signupDialog = new Dialog(this);
 
-        /*
-         * When Login button is clicked, check to see if the username/password match that which
-         * is in the database. If so, login and start the next activity. If not, reject the login.
-         */
+
+//      When Login button is clicked, check to see if the username/password match that which
+//      is in the database. If so, login and start the next activity. If not, reject the login.
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,11 +109,6 @@ public class LoginActivity extends AppCompatActivity {
         passwordSignupET = signupDialog.findViewById(R.id.passwordSignupEditText);
         infoDialog = new Dialog(this);
 
-        /*
-         * When the signup button is clicked, check to see if the username is already in the
-         * database.
-         * If not, add the username/password combo to the database. If so, reject the username.
-         */
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

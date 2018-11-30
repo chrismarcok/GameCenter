@@ -20,7 +20,7 @@ public class SlidingTilesController extends BoardController<SlidingTilesBoard> i
      *
      * @param slidingTilesBoard the slidingTilesBoard
      */
-    public SlidingTilesController(SlidingTilesBoard slidingTilesBoard) {
+    SlidingTilesController(SlidingTilesBoard slidingTilesBoard) {
         super(slidingTilesBoard);
         dimensions = (int)Math.sqrt(this.gameState.numTiles());
     }
