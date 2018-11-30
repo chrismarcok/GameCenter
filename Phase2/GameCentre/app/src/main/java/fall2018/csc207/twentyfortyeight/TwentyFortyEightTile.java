@@ -51,6 +51,11 @@ class TwentyFortyEightTile implements Serializable {
         this.background = colorMap.get(value);
     }
 
+    public TwentyFortyEightTile() {
+        this.value = 0;
+        this.background = colorMap.get(value);
+    }
+
     /**
      * Checks if the value is 0
      * @return true if value is 0, false otherwise

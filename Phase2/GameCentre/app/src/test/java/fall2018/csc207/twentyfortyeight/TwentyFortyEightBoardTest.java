@@ -6,7 +6,7 @@ import org.junit.Test;
 public class TwentyFortyEightBoardTest {
 
 
-    private ArrayList<TwentyFortyEightTile> populateEmptyBoard(int dimensions){
+    private ArrayList<TwentyFortyEightTile> populateEmptyBoard(int dimensions) {
         ArrayList<TwentyFortyEightTile> tiles = new ArrayList<TwentyFortyEightTile>(16);
 
         for (int row = 0; row != dimensions; row++) {
@@ -19,104 +19,104 @@ public class TwentyFortyEightBoardTest {
     }
 
     @Test
-    public void contructorTest(){
+    public void contructorTest() {
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
         assert twentyFortyEightBoard.getNumActiveTiles() == 2;
     }
 
     @Test
-    public void getGameNameTest(){
+    public void getGameNameTest() {
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
         assert twentyFortyEightBoard.getGameName() == "2048";
     }
 
     @Test
-    public void contructorGivenTilesTest(){
+    public void contructorGivenTilesTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
         assert twentyFortyEightBoard.getNumActiveTiles() == 0;
     }
 
     @Test
-    public void moveLeftTest(){
+    public void moveLeftTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
-        tiles.set(0,new TwentyFortyEightTile(2));
-        tiles.set(1,new TwentyFortyEightTile(2));
-        tiles.set(7,new TwentyFortyEightTile(2));
+        tiles.set(0, new TwentyFortyEightTile(2));
+        tiles.set(1, new TwentyFortyEightTile(2));
+        tiles.set(7, new TwentyFortyEightTile(2));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 3;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 3;
         twentyFortyEightBoard.moveLeft();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 2;
     }
 
     @Test
-    public void moveRightTest(){
+    public void moveRightTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
-        tiles.set(0,new TwentyFortyEightTile(4));
-        tiles.set(3,new TwentyFortyEightTile(4));
+        tiles.set(0, new TwentyFortyEightTile(4));
+        tiles.set(3, new TwentyFortyEightTile(4));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 2;
         twentyFortyEightBoard.moveRight();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 1;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 1;
     }
 
     @Test
-    public void moveUpTest(){
+    public void moveUpTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
-        tiles.set(0,new TwentyFortyEightTile(8));
-        tiles.set(4,new TwentyFortyEightTile(8));
+        tiles.set(0, new TwentyFortyEightTile(8));
+        tiles.set(4, new TwentyFortyEightTile(8));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 2;
         twentyFortyEightBoard.moveUp();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 1;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 1;
     }
 
     @Test
-    public void moveDownTest(){
+    public void moveDownTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
-        tiles.set(0,new TwentyFortyEightTile(64));
-        tiles.set(12,new TwentyFortyEightTile(64));
+        tiles.set(0, new TwentyFortyEightTile(64));
+        tiles.set(12, new TwentyFortyEightTile(64));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 2;
         twentyFortyEightBoard.moveDown();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 1;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 1;
     }
 
     @Test
-    public void isOverTest(){
+    public void isOverTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(2);
-        tiles.set(0,new TwentyFortyEightTile(4));
-        tiles.set(1,new TwentyFortyEightTile(16));
-        tiles.set(2,new TwentyFortyEightTile(32));
-        tiles.set(3,new TwentyFortyEightTile(64));
+        tiles.set(0, new TwentyFortyEightTile(4));
+        tiles.set(1, new TwentyFortyEightTile(16));
+        tiles.set(2, new TwentyFortyEightTile(32));
+        tiles.set(3, new TwentyFortyEightTile(64));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 2);
 
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 4;
-        assert  twentyFortyEightBoard.isOver();
+        assert twentyFortyEightBoard.getNumActiveTiles() == 4;
+        assert twentyFortyEightBoard.isOver();
     }
 
     @Test
-    public void afterMoveActionsTest(){
+    public void afterMoveActionsTest() {
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
         twentyFortyEightBoard.moveLeft();
         twentyFortyEightBoard.afterMoveActions(true);
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 3;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 3;
     }
 
     @Test
-    public void undoTest(){
+    public void undoTest() {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
-        tiles.set(0,new TwentyFortyEightTile(64));
-        tiles.set(12,new TwentyFortyEightTile(64));
+        tiles.set(0, new TwentyFortyEightTile(64));
+        tiles.set(12, new TwentyFortyEightTile(64));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
         twentyFortyEightBoard.moveDown();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 1;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 1;
         twentyFortyEightBoard.undo();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+        assert twentyFortyEightBoard.getNumActiveTiles() == 2;
     }
 
     @Test
-    public void canundoTest(){
+    public void canundoTest() {
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
         twentyFortyEightBoard.moveLeft();
         assert twentyFortyEightBoard.canUndo();
