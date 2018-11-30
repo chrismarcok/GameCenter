@@ -13,34 +13,50 @@ public class MinesweeperControllerTest {
         };
     }
 
+    private int [][] bombBoard(){
+        return new int[][]{
+                {3, -1, -1, -1},
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1}
+        };
+    }
+
     @Test
     public void updateGameTestBomb(){
-
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generateBoard());
         MinesweeperController controller = new MinesweeperController(minesweeperBoard);
-
         //Want to hit tile[2][2]
         controller.updateGame(10);
-        assert minesweeperBoard.getNumRevealedTiles() == 14;
-
-        //Hit Bomb at tile[0][1]
-        controller.updateGame(1);
-        assert minesweeperBoard.getNumRevealedTiles() == 15;
-
-
-
+        assert minesweeperBoard.getNumRevealedTiles() == 17;
     }
 
     @Test
     public void updateGameTestNullTile(){
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generateBoard());
         MinesweeperController controller = new MinesweeperController(minesweeperBoard);
-
         assert controller.isValidTap(4);
         //Hit tile[2][1]
         controller.updateGame(4);
-        assert  minesweeperBoard.getNumRevealedTiles() == 7;
+        assert  minesweeperBoard.getNumRevealedTiles() == 8;
+    }
 
-        controller.flagTile(3);
+    @Test
+    public void flagTileTest(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generateBoard());
+        MinesweeperController controller = new MinesweeperController(minesweeperBoard);
+        controller.flagTile(0);
+        MinesweeperTile tile = minesweeperBoard.getTile(0,0);
+        assert tile.isFlagged();
+    }
+
+    @Test
+    public void loseGameTest(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(bombBoard());
+        MinesweeperController controller = new MinesweeperController(minesweeperBoard);
+        assert minesweeperBoard.getTile(1,1).getId() == MinesweeperTile.BOMB;
+        controller.updateGame(0);
+        controller.updateGame(1);
+        assert minesweeperBoard.isGameLost();
     }
 }

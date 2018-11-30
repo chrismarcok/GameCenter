@@ -26,6 +26,32 @@ public class MinesweeperBoardTest {
         };
     }
 
+    private int [][] bombBoard(){
+        return new int[][]{
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1},
+                {-1, -1, -1, -1}
+        };
+    }
+
+    private int [][] emptyBoard(){
+        return new int[][]{
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+        };
+    }
+    private int [][] diagBoard(){
+        return new int[][]{
+                {0, -1, 0, 0},
+                {-1, 0, -1, 0},
+                {0, -1, 0, 0},
+                {0, 0, 0, 0},
+        };
+    }
+
     @Test
     public void testGenerateBoard() {
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board());
@@ -91,12 +117,34 @@ public class MinesweeperBoardTest {
 
     @Test
     public void testdeleteBomb(){
-        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generate4x4Board2());
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(bombBoard());
         minesweeperBoard.deleteBomb(2, 2);
-
-        assert minesweeperBoard.getNumMines() == 0;
-
+        assert minesweeperBoard.getNumMines() == 15;
     }
+
+    @Test
+    public void canUndoTest(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(bombBoard());
+        minesweeperBoard.undo();
+        assert !minesweeperBoard.canUndo();
+    }
+
+    @Test
+    public void revealSurroundingTest(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(emptyBoard());
+        minesweeperBoard.revealTile(1,1);
+        minesweeperBoard.revealSurroundingBlanks(1,1);
+        assert minesweeperBoard.getTile(0,0).isRevealed();
+    }
+
+    @Test
+    public void revealSurroundingDiagTest(){
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(diagBoard());
+        minesweeperBoard.revealTile(1,1);
+        minesweeperBoard.revealSurroundingBlanks(1,1);
+        assert minesweeperBoard.getTile(0,0).isRevealed();
+    }
+
 
 
 }

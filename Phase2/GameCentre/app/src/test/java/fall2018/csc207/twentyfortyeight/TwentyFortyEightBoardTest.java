@@ -43,11 +43,10 @@ public class TwentyFortyEightBoardTest {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
         tiles.set(0, new TwentyFortyEightTile(2));
         tiles.set(1, new TwentyFortyEightTile(2));
-        tiles.set(7, new TwentyFortyEightTile(2));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
-        assert twentyFortyEightBoard.getNumActiveTiles() == 3;
-        twentyFortyEightBoard.moveLeft();
         assert twentyFortyEightBoard.getNumActiveTiles() == 2;
+        twentyFortyEightBoard.moveLeft();
+        assert twentyFortyEightBoard.getNumActiveTiles() == 1;
     }
 
     @Test
@@ -117,10 +116,9 @@ public class TwentyFortyEightBoardTest {
     }
 
     @Test
-    public void canundoTest() {
+    public void canUndoTest() {
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
-        twentyFortyEightBoard.moveLeft();
-        assert twentyFortyEightBoard.canUndo();
+        assert !twentyFortyEightBoard.canUndo();
     }
 
 }

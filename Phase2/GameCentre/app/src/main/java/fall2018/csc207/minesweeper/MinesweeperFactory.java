@@ -32,19 +32,17 @@ public class MinesweeperFactory extends GameFactory {
     public GameState getGameState(int numUndos) {
         MinesweeperBoard minesweeperBoard;
         double mineProbability = Double.valueOf(settings.get(1).getCurrentValue());
-        switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
-            case "5x5":
-                minesweeperBoard = new MinesweeperBoard(5, mineProbability);
-                break;
-            case "8x8":
-                minesweeperBoard = new MinesweeperBoard(8, mineProbability);
-                break;
-            case "15x15":
-                minesweeperBoard = new MinesweeperBoard(15, mineProbability);
-                break;
-            default:
-                throw new IllegalStateException("This factory's settings is in an illegal state!");
+        String val = settings.get(0).getCurrentValue();
+
+        if (val.equals("5x5")){
+            minesweeperBoard = new MinesweeperBoard(5, mineProbability);
+        } else if (val.equals("8x8")){
+            minesweeperBoard = new MinesweeperBoard(8, mineProbability);
         }
+        else {
+            minesweeperBoard = new MinesweeperBoard(15, mineProbability);
+        }
+
         minesweeperBoard.setMaxUndos(numUndos);
         return minesweeperBoard;
     }
