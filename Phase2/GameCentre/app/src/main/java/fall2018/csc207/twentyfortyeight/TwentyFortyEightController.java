@@ -12,10 +12,10 @@ public class TwentyFortyEightController extends BoardController<TwentyFortyEight
     /**
      * Manage a twentyFortyEightBoard that has been pre-populated.
      *
-     * @param twentyFortyEightBoard the twentyFortyEightBoard
+     * @param board the twentyFortyEightBoard
      */
-    public TwentyFortyEightController(TwentyFortyEightBoard twentyFortyEightBoard) {
-        super(twentyFortyEightBoard);
+    public TwentyFortyEightController(TwentyFortyEightBoard board) {
+        super(board);
     }
 
     /**

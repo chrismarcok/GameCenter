@@ -96,7 +96,7 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of SlidingTileController to be initialized
+        //Pulls the type of SlidingTilesController to be initialized
         gameManager = new TwentyFortyEightController(this.state);
         dimensions = (int) Math.sqrt(state.getDimensions());
         state = gameManager.getGameState();

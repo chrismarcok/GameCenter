@@ -22,7 +22,7 @@ import fall2018.csc207.game.GestureDetectGridView;
  * The fragment used for displaying Sliding Tiles.
  * This helps setup the game given GAME_STATE as a parcel.
  */
-public class SlidingTilesFragment extends GameFragment<SlidingTilesBoard, SlidingTileController> {
+public class SlidingTilesFragment extends GameFragment<SlidingTilesBoard, SlidingTilesController> {
 
     /**
      * The buttons (tiles) that can be clicked on to be moved.
@@ -95,8 +95,8 @@ public class SlidingTilesFragment extends GameFragment<SlidingTilesBoard, Slidin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of SlidingTileController to be initialized
-        gameManager = new SlidingTileController(this.state);
+        //Pulls the type of SlidingTilesController to be initialized
+        gameManager = new SlidingTilesController(this.state);
         dimensions = (int) Math.sqrt(this.state.numTiles());
         this.state.addObserver(this);
     }

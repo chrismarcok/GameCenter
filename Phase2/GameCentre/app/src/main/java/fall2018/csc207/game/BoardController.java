@@ -6,7 +6,7 @@ package fall2018.csc207.game;
 public abstract class BoardController<T extends GameState> extends GameController<T> {
 
     /**
-     * Constructs SlidingTileController.
+     * Constructs controller.
      *
      * @param gameState The gameState of this game.
      */
