@@ -122,4 +122,5 @@ public class TwentyFortyEightBoardTest {
         twentyFortyEightBoard.moveLeft();
         assert twentyFortyEightBoard.canUndo();
     }
+
 }
