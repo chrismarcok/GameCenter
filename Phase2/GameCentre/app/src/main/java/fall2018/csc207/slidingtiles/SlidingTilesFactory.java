@@ -61,10 +61,6 @@ public class SlidingTilesFactory extends GameFactory {
             int ind1 = rng.nextInt(numTiles - 1);
             int ind2 = rng.nextInt(numTiles - 1);
 
-            if (ind1 == numTiles - 1) // We shouldn't swap the last tile
-                ind1--;
-            if (ind2 == numTiles - 1) // We shouldn't swap the last tile
-                ind2--;
             if (ind1 == ind2) // Ensures we never swap the same 2 slidingTilesTiles
                 ind1 += ind1 > 0 ? -1 : 1;
 
@@ -96,7 +92,7 @@ public class SlidingTilesFactory extends GameFactory {
      * @return The new GameState.
      */
     public SlidingTilesBoard getGameState(int numUndos) {
-        SlidingTilesBoard slidingTilesBoard;
+        SlidingTilesBoard slidingTilesBoard = null;
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
 
             case "3x3":
@@ -108,8 +104,6 @@ public class SlidingTilesFactory extends GameFactory {
             case "5x5":
                 slidingTilesBoard = new SlidingTilesBoard(generateBoard(5));
                 break;
-            default:
-                throw new IllegalStateException("This factory's settings is in an illegal state!");
         }
         slidingTilesBoard.setMaxUndos(numUndos);
         return slidingTilesBoard;
