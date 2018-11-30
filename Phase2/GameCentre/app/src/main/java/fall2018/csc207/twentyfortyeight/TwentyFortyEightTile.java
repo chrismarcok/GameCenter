@@ -46,13 +46,8 @@ class TwentyFortyEightTile implements Serializable {
      * Represetnts a tile on the 2048 board
      * @param value the numerical value
      */
-    public TwentyFortyEightTile(int value) {
+    TwentyFortyEightTile(int value) {
         this.value = value;
-        this.background = colorMap.get(value);
-    }
-
-    public TwentyFortyEightTile() {
-        this.value = 0;
         this.background = colorMap.get(value);
     }
 

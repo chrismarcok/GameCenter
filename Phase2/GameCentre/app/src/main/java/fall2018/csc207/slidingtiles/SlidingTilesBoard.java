@@ -106,7 +106,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      * @param coords The coordinates of the tile to retrieve.
      * @return The tile at coords.
      */
-    public SlidingTilesTile getTile(CoordinatePair coords) {
+    private SlidingTilesTile getTile(CoordinatePair coords) {
         return getTile(coords.getRow(), coords.getCol());
     }
 

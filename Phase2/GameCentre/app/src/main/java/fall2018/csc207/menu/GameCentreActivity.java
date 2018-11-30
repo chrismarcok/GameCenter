@@ -24,8 +24,9 @@ import fall2018.csc207.twentyfortyeight.TwentyFortyEightFactory;
  * The Game Centre Activity class
  */
 public class GameCentreActivity extends AppCompatActivity {
+
     private static final String USERNAME = "USERNAME";
-    /*
+    /**
      * A map from the name of the game to the game's factory class.
      */
     private static final Map<String, Class> GAME_LIBRARY = new HashMap<>();
@@ -40,11 +41,11 @@ public class GameCentreActivity extends AppCompatActivity {
         return GAME_LIBRARY.get(gameName);
     }
 
-    /*
-      This static constructor is called when GameCentreActivity is first used.
-      We add elements to GAME_LIBRARY through this constructor (as there is no way to initialize
-      a HashMap inline).
-    */
+
+//  This static constructor is called when GameCentreActivity is first used.
+//  We add elements to GAME_LIBRARY through this constructor (as there is no way to initialize
+//  a HashMap inline).
+
     static {
         GAME_LIBRARY.put("Sliding Tiles", SlidingTilesFactory.class);
         GAME_LIBRARY.put("Minesweeper", MinesweeperFactory.class);
@@ -66,6 +67,7 @@ public class GameCentreActivity extends AppCompatActivity {
 
     /**
      * Called when we create a GameCentreActivity.
+     *
      * @param savedInstanceState The activity's previously saved state, contained in a bundle.
      */
     @Override

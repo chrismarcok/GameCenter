@@ -17,14 +17,14 @@ public class MinesweeperControllerTest {
     public void updateGameTestBomb(){
 
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generateBoard());
-        MinesweeperController minesweeperController = new MinesweeperController(minesweeperBoard);
+        MinesweeperController controller = new MinesweeperController(minesweeperBoard);
 
         //Want to hit tile[2][2]
-        minesweeperController.updateGame(10);
+        controller.updateGame(10);
         assert minesweeperBoard.getNumRevealedTiles() == 14;
 
         //Hit Bomb at tile[0][1]
-        minesweeperController.updateGame(1);
+        controller.updateGame(1);
         assert minesweeperBoard.getNumRevealedTiles() == 15;
 
 
@@ -34,13 +34,13 @@ public class MinesweeperControllerTest {
     @Test
     public void updateGameTestNullTile(){
         MinesweeperBoard minesweeperBoard = new MinesweeperBoard(generateBoard());
-        MinesweeperController minesweeperController = new MinesweeperController(minesweeperBoard);
+        MinesweeperController controller = new MinesweeperController(minesweeperBoard);
 
-        assert minesweeperController.isValidTap(4);
+        assert controller.isValidTap(4);
         //Hit tile[2][1]
-        minesweeperController.updateGame(4);
+        controller.updateGame(4);
         assert  minesweeperBoard.getNumRevealedTiles() == 7;
 
-        minesweeperController.flagTile(3);
+        controller.flagTile(3);
     }
 }
