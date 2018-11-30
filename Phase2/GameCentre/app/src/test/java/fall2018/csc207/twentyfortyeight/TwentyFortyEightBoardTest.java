@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class TwentyFortyEightBoardTest {
 
-
     private ArrayList<TwentyFortyEightTile> populateEmptyBoard(int dimensions) {
         ArrayList<TwentyFortyEightTile> tiles = new ArrayList<>(16);
 
@@ -121,4 +120,19 @@ public class TwentyFortyEightBoardTest {
         assert !twentyFortyEightBoard.canUndo();
     }
 
+    @Test
+    public void iteratorTest() {
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
+        int row = 0, col = 0;
+
+        for (TwentyFortyEightTile tile : twentyFortyEightBoard) {
+            assert tile == twentyFortyEightBoard.getTile(row, col);
+            if (col > 2) {
+                col = 0;
+                row++;
+            } else {
+                col++;
+            }
+        }
+    }
 }

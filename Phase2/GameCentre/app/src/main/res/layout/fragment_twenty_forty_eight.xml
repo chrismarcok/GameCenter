@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="fall2018.csc207.game.GameMainActivity">
 
-    <fall2018.csc207.game.GestureDetectGridView
+    <fall2018.csc207.twentyfortyeight.GestureDetectGridView2048
         android:id="@+id/grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

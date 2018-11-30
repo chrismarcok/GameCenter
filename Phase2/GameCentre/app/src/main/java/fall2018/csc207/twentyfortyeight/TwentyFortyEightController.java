@@ -1,14 +1,11 @@
 package fall2018.csc207.twentyfortyeight;
 
-import java.io.Serializable;
-
-import fall2018.csc207.game.BoardController;
 import fall2018.csc207.game.GameController;
 
 /**
  * Manage the board state by processing swipes.
  */
-public class TwentyFortyEightController extends BoardController<TwentyFortyEightBoard> {
+public class TwentyFortyEightController extends GameController<TwentyFortyEightBoard> {
 
     /**
      * Manage a twentyFortyEightBoard that has been pre-populated.
@@ -17,16 +14,6 @@ public class TwentyFortyEightController extends BoardController<TwentyFortyEight
      */
     TwentyFortyEightController(TwentyFortyEightBoard board) {
         super(board);
-    }
-
-    @Override
-    protected boolean isValidTap(int position) {
-        return false;
-    }
-
-    @Override
-    protected void updateGame(int position) {
-
     }
 
     /**

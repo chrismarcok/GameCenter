@@ -19,7 +19,7 @@ public abstract class GameController<T extends GameState> {
      *
      * @param gameState The gameState of this game.
      */
-    GameController(T gameState) {
+    protected GameController(T gameState) {
         this.gameState = gameState;
     }
 

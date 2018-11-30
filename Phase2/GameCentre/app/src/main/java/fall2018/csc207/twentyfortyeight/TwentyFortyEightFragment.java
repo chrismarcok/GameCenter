@@ -14,9 +14,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Observable;
 
-import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.game.CustomAdapter;
-import fall2018.csc207.game.GestureDetectGridView;
+import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.slidingtiles.R;
 
 
@@ -34,7 +33,7 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
     /**
      * Grid View and calculated column height and width based on device size.
      */
-    private GestureDetectGridView gridView;
+    private GestureDetectGridView2048 gridView;
     private static int columnWidth, columnHeight;
     private int dimensions;
 
@@ -64,7 +63,7 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
         // Add View to activity
         gridView = thisView.findViewById(R.id.grid);
         gridView.setNumColumns(dimensions);
-        gridView.setBoardController(gameManager);
+        gridView.setController(gameManager);
 
 
         // Observer sets up desired dimensions as well as calls our display function
@@ -105,7 +104,6 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("CALLEED?");
         display();
     }
 

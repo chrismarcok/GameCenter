@@ -8,21 +8,16 @@ sample-puzzle/blob/master/app/src/main/java/com/davenotdavid/samplepuzzle/Gestur
 This extension of GridView contains built in logic for handling swipes between buttons
  */
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
 import fall2018.csc207.minesweeper.MinesweeperController;
-import fall2018.csc207.twentyfortyeight.TwentyFortyEightController;
 
 public class GestureDetectGridView extends GridView {
     private static final int SWIPE_MIN_DISTANCE = 100;
-    private static final int SWIPE_THRESHOLD = 100;
-    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
     private GestureDetector gDetector;
     private boolean mFlingConfirmed;
     private float mTouchX;
@@ -41,13 +36,6 @@ public class GestureDetectGridView extends GridView {
 
     public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP) // API 21
-    public GestureDetectGridView(Context context, AttributeSet attrs, int defStyleAttr,
-                                 int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 
@@ -75,42 +63,7 @@ public class GestureDetectGridView extends GridView {
                     ((MinesweeperController) boardController).flagTile(position);
                 }
             }
-            @Override
-            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                                   float velocityY) {
-                if(boardController instanceof TwentyFortyEightController) {
-                    boolean result = false;
-                    try {
-                        float diffY = e2.getY() - e1.getY();
-                        float diffX = e2.getX() - e1.getX();
-                        if (Math.abs(diffX) > Math.abs(diffY)) {
-                            if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) >
-                                    SWIPE_VELOCITY_THRESHOLD) {
-                                if (diffX > 0) {
-                                    ((TwentyFortyEightController) boardController).moveRight();
-                                } else {
-                                    ((TwentyFortyEightController)boardController).moveLeft();
-                                }
-                                result = true;
-                            }
-                        } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) >
-                                SWIPE_VELOCITY_THRESHOLD) {
-                            if (diffY > 0) {
-                                ((TwentyFortyEightController)boardController).moveDown();
-                            } else {
-                                ((TwentyFortyEightController)boardController).moveUp();
-                            }
-                            result = true;
-                        }
-                    } catch (Exception exception) {
-                        exception.printStackTrace();
-                    }
-                    return result;
-                }
-                return false;
-            }
         });
-
     }
 
     @Override

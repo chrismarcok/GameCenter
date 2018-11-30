@@ -1,7 +1,6 @@
 package fall2018.csc207.twentyfortyeight;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import fall2018.csc207.game.GameFactory;
@@ -11,7 +10,7 @@ public class TwentyFortyEightFactory extends GameFactory{
 
     public TwentyFortyEightFactory() {
         addToSettings(new Setting(
-                "TwentyFortyEight Size",
+                "Board Size",
                 Arrays.asList("3x3", "4x4", "5x5", "6x6"),
                 "4x4"
         ));
@@ -19,7 +18,7 @@ public class TwentyFortyEightFactory extends GameFactory{
 
     @Override
     public GameState getGameState(int numUndos) {
-        TwentyFortyEightBoard board;
+        TwentyFortyEightBoard board = null;
         switch (settings.get(0).getCurrentValue()) { //There should only be 1 thing in settings
             case "3x3":
                 board = new TwentyFortyEightBoard(3);
@@ -33,10 +32,7 @@ public class TwentyFortyEightFactory extends GameFactory{
             case "6x6":
                 board = new TwentyFortyEightBoard(6);
                 break;
-            default:
-                throw new IllegalStateException("This factory's settings is in an illegal state!");
         }
-
         board.setMaxUndos(numUndos);
         return board;
     }
@@ -48,6 +44,6 @@ public class TwentyFortyEightFactory extends GameFactory{
 
     @Override
     public List<String> getGameNames() {
-        return Collections.singletonList("2048");
+        return Arrays.asList("2048 3x3", "2048 4x4", "2048 5x5", "2048 6x6");
     }
 }
