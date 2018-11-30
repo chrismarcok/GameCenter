@@ -224,6 +224,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         numActiveTiles--;
     }
 
+    /**
+     * Updates the score of the board
+     */
     private void determineScore(){
         int currentScore = 0;
         int dimension = board.length;
@@ -246,7 +249,10 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     }
 
 
-
+    /**
+     *
+     * @param shouldNotifyObs
+     */
     public void afterMoveActions(boolean shouldNotifyObs) {
         clearMerged();
         setChanged();
@@ -269,7 +275,12 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     }
 
 
-
+    /**
+     * Return true if there any avaialable moves left
+     * on the board
+     *
+     * @return true if game is over false otherwise
+     */
     @Override
     public boolean isOver() {
         if (availableSpace().size() != 0){
@@ -287,6 +298,13 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return true;
     }
 
+    /**
+     * Return true if there exists a neighbor the
+     * tile can merge with
+     * @param row position of the board
+     * @param col position of the board
+     * @return whether if position (row, rol) has multiple labor
+     */
     private boolean hasMergableNeighbour(int row, int col){
         int thisVal = board[row][col].getValue();
         if (row - 1 >= 0 && board[row - 1][col].getValue() == thisVal){
@@ -302,6 +320,11 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     }
 
     @Override
+    /**
+     * Return the name of the game which is
+     * 2048
+     * @return the name of the game
+     */
     public String getGameName() {
         return "2048";
     }
@@ -312,10 +335,20 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return new BoardIterator(board);
     }
 
+    /**
+     * Return the dimensions of the board
+     * @return the dimensions of the board
+     */
     private int getDimensions() {
         return numRows*numCols;
     }
 
+    /**
+     * Gets the tile given the position
+     * @param row position
+     * @param col position
+     * @return a Tile from the board
+     */
     public TwentyFortyEightTile getTile(int row, int col) {
         return board[row][col];
     }
