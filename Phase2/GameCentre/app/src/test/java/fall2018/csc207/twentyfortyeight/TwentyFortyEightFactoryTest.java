@@ -60,7 +60,7 @@ public class TwentyFortyEightFactoryTest {
     }
 
     /**
-     * Tests if SlidingTilesFactory throws exceptions on wrong settings.
+     * Tests if TwentyFortyEightFactory throws exceptions on wrong settings.
      */
     @Test
     public void testChangeInvalidSettings() {
@@ -82,7 +82,7 @@ public class TwentyFortyEightFactoryTest {
     }
 
     /**
-     * Tests if SlidingTilesFactory returns a 3x3 when we set the setting to "0".
+     * Tests if TwentyFortyEightFactory returns a 3x3 when we set the setting to "0".
      */
     @Test
     public void testGet3x3() {
@@ -94,7 +94,7 @@ public class TwentyFortyEightFactoryTest {
     }
 
     /**
-     * Tests if SlidingTilesFactory returns a 4x4 when we set the setting to "1".
+     * Tests if TwentyFortyEightFactory returns a 4x4 when we set the setting to "1".
      */
     @Test
     public void testGet4x4() {
@@ -106,7 +106,7 @@ public class TwentyFortyEightFactoryTest {
     }
 
     /**
-     * Tests if SlidingTilesFactory returns a 5x5 when we set the setting to "2".
+     * Tests if TwentyFortyEightFactory returns a 5x5 when we set the setting to "2".
      */
     @Test
     public void testGet5x5() {
@@ -118,7 +118,7 @@ public class TwentyFortyEightFactoryTest {
     }
 
     /**
-     * Tests if SlidingTilesFactory returns a 5x5 when we set the setting to "2".
+     * Tests if TwentyFortyEightFactory returns a 6x6 when we set the setting to "3".
      */
     @Test
     public void testGet6x6() {
@@ -130,7 +130,7 @@ public class TwentyFortyEightFactoryTest {
     }
 
     /**
-     * Tests if SlidingTilesFactory returns different states on subsequent calls to getGameState.
+     * Tests if TwentyFortyEightFactory returns different states on subsequent calls to getGameState.
      */
     @Test
     public void testGetStateGivesDifferentStates() {

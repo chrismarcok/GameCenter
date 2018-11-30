@@ -17,15 +17,6 @@ public class MinesweeperBoardTest {
         };
     }
 
-    private int [][] generate4x4Board2(){
-        return new int[][]{
-                {0, 0, 0, 0},
-                {0, 1, 1, 1},
-                {0, 1, -1, 1},
-                {0, 1, 1, 1}
-        };
-    }
-
     private int [][] bombBoard(){
         return new int[][]{
                 {-1, -1, -1, -1},

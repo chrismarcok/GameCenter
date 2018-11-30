@@ -20,7 +20,7 @@ public class MinesweeperBoard extends GameState {
     private int numRevealedTiles;
 
     /**
-     * The number of mines on a baord.
+     * The number of mines on a board.
      */
     private int numMines;
 
@@ -87,7 +87,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     @Override
-    public void undo()  {
+    public void undo() {
     }
 
     @Override
@@ -106,6 +106,7 @@ public class MinesweeperBoard extends GameState {
 
     /**
      * Determines if a bomb was revealed, or time runs out
+     *
      * @return Whether or not the game is over.
      */
     @Override

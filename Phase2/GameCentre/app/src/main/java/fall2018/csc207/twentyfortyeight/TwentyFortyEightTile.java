@@ -80,7 +80,7 @@ class TwentyFortyEightTile implements Serializable {
      * Checks if Tile is Merged
      * @return true if merged is true, false otherwise
      */
-    public boolean isMerged() {
+    private boolean isMerged() {
         return merged;
     }
 

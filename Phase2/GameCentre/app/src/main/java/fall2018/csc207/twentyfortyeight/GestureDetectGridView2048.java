@@ -42,6 +42,11 @@ public class GestureDetectGridView2048 extends GridView {
         init(context);
     }
 
+    /**
+     * Initializes GestureDetectGridView.
+     *
+     * @param context The context for this grid view.
+     */
     private void init(final Context context) {
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
@@ -85,6 +90,11 @@ public class GestureDetectGridView2048 extends GridView {
 
     }
 
+    /**
+     * Called by Android whenever a touch event occurs.
+     * @param ev The MotionEvent that triggered this function call.
+     * @return Whether we use the event or not.
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -112,6 +122,11 @@ public class GestureDetectGridView2048 extends GridView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Called whenever this GestureGridView is touched.
+     * @param ev The details about this event.
+     * @return Whether we used the event or not.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
@@ -120,11 +135,20 @@ public class GestureDetectGridView2048 extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Called whenever the user clicks.
+     * @return Whether we did anything with the click.
+     */
     @Override
     public boolean performClick() {
         return super.performClick();
     }
 
+    /**
+     * Sets the TwentyFortyEightController.
+     *
+     * @param controller The controller for this grid view to set.
+     */
     public void setController(TwentyFortyEightController controller) {
         this.controller = controller;
     }

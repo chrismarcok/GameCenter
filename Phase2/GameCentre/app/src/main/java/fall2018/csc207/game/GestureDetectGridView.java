@@ -27,6 +27,7 @@ public class GestureDetectGridView extends GridView {
     private float mTouchY;
     private fall2018.csc207.game.BoardController boardController;
 
+
     public GestureDetectGridView(Context context) {
         super(context);
         init(context);
@@ -42,6 +43,11 @@ public class GestureDetectGridView extends GridView {
         init(context);
     }
 
+    /**
+     * Initializes GestureDetectGridView.
+     *
+     * @param context The context for this grid view.
+     */
     private void init(final Context context) {
         gDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
 
@@ -69,6 +75,11 @@ public class GestureDetectGridView extends GridView {
         });
     }
 
+    /**
+     * Called by Android whenever a touch event occurs.
+     * @param ev The MotionEvent that triggered this function call.
+     * @return Whether we use the event or not.
+     */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         int action = ev.getActionMasked();
@@ -96,6 +107,11 @@ public class GestureDetectGridView extends GridView {
         return super.onInterceptTouchEvent(ev);
     }
 
+    /**
+     * Called whenever this GestureGridView is touched.
+     * @param ev The details about this event.
+     * @return Whether we used the event or not.
+     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_UP) {
@@ -104,11 +120,19 @@ public class GestureDetectGridView extends GridView {
         return gDetector.onTouchEvent(ev);
     }
 
+    /**
+     * Called whenever the user clicks.
+     * @return Whether we did anything with the click.
+     */
     @Override
     public boolean performClick() {
         return super.performClick();
     }
 
+    /**
+     * Sets the BoardController for this GridView.
+     * @param boardController The BoardController to use.
+     */
     public void setBoardController(BoardController boardController) {
         this.boardController = boardController;
     }

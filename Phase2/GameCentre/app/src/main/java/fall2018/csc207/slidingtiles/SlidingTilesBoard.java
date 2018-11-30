@@ -186,7 +186,7 @@ public class SlidingTilesBoard extends GameState implements Iterable<SlidingTile
      */
     @Override
     public boolean canUndo() {
-        return prevMoves != null && !prevMoves.isEmpty() && allowedUndos != 0;
+        return !prevMoves.isEmpty() && allowedUndos != 0;
     }
 
     /**
