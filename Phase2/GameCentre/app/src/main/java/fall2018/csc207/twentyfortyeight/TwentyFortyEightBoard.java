@@ -6,15 +6,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 import fall2018.csc207.game.GameState;
 
 public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyFortyEightTile> {
 
-    private final TwentyFortyEightTile[][] board;
+    private TwentyFortyEightTile[][] board;
     private int numRows;
     private int numCols;
+    private int undosUsed = 0;
     private int numActiveTiles;
+    private Stack<int[][]> states = new Stack<>();
 
     TwentyFortyEightBoard(int dimensions) {
         this.numCols = dimensions;
@@ -100,6 +103,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles up and merges simliar tiles in sequence
      */
     public void moveUp() {
+        states.push(getStateInt());
         for (int index = 0; index < board.length; index++) {
             for (int b = 0; b < board.length; b++) {
                 boolean seen = false;
@@ -124,6 +128,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles down and merges simliar tiles in sequence
      */
     public void moveDown() {
+        states.push(getStateInt());
         for (int index = 0; index < board.length; index++) {
             for (int b = board.length - 1; b >= 1; b--) {
                 boolean seen = false;
@@ -149,6 +154,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles left and merges simliar tiles in sequence
      */
     public void moveLeft() {
+        states.push(getStateInt());
         for (int index = 0; index < board.length; index++) {
             TwentyFortyEightTile[] row = board[index];
             for (int b = 0; b < board.length; b++) {
@@ -174,6 +180,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles right and merges simliar tiles in sequence
      */
     public void moveRight() {
+        states.push(getStateInt());
         for (int index = 0; index < board.length; index++) {
             TwentyFortyEightTile[] row = board[index];
             for (int b = board.length - 1; b >= 1; b--) {
@@ -227,12 +234,16 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         numActiveTiles--;
     }
 
+
+    /**
+     * Updates the score of the board
+     */
     private void determineScore() {
         int currentScore = 0;
         int dimension = board.length;
-        for (TwentyFortyEightTile[] aBoard : board) {
+        for (int i = 0; i < dimension; i++) {
             for (int j = 0; j < dimension; j++) {
-                currentScore += aBoard[j].getValue();
+                currentScore += board[i][j].getValue();
             }
         }
         this.score = currentScore;
@@ -261,19 +272,56 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         addTile();
     }
 
+    public int[][] getStateInt() {
+        int[][] rep = new int[numRows][numCols];
+        for (int i = 0; i < board.length; i++) {
+            for (int b = 0; b < board.length; b++) {
+                rep[i][b] = getTile(i, b).value;
+            }
+        }
+        return rep;
+    }
 
     @Override
     public void undo() {
-        //TODO: Make undo function
+        TwentyFortyEightTile[][] newTiles = new TwentyFortyEightTile[numRows][numCols];
+        int[][] numRep = states.pop();
+        for (int i = 0; i < numRep.length; i++) {
+            for (int b = 0; b < numRep[0].length; b++) {
+                TwentyFortyEightTile newTile = new TwentyFortyEightTile(numRep[i][b]);
+                newTiles[i][b] = newTile;
+            }
+        }
+        this.board = newTiles;
+        setChanged();
+        notifyObservers();
+        undosUsed++;
+
+
     }
 
     @Override
     public boolean canUndo() {
-        //TODO: Determine if can undo
+        if (getMaxUndos() == -1 && !states.isEmpty()){
+            return true;
+        }
+        if (undosUsed < getMaxUndos() ) {
+            return true;
+        }
+        else if (states.isEmpty()){
+            return false;
+        }
         return false;
+
     }
 
 
+    /**
+     * Return true if there any avaialable moves left
+     * on the board
+     *
+     * @return true if game is over false otherwise
+     */
     @Override
     public boolean isOver() {
         if (availableSpace().size() != 0) {
@@ -291,10 +339,12 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     }
 
     /**
-     * Determines if the tile has a mergeable neighbour.
-     * @param row row
-     * @param col column
-     * @return Whether tile can merge with a neighbour
+     * Return true if there exists a neighbor the
+     * tile can merge with
+     *
+     * @param row position of the board
+     * @param col position of the board
+     * @return whether if position (row, rol) has multiple labor
      */
     private boolean hasMergableNeighbour(int row, int col) {
         int thisVal = board[row][col].getValue();
@@ -309,6 +359,11 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     }
 
     @Override
+    /**
+     * Return the name of the game which is
+     * 2048
+     * @return the name of the game
+     */
     public String getGameName() {
         return "2048";
     }
@@ -319,10 +374,22 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return new BoardIterator(board);
     }
 
+    /**
+     * Return the dimensions of the board
+     *
+     * @return the dimensions of the board
+     */
     private int getDimensions() {
         return numRows * numCols;
     }
 
+    /**
+     * Gets the tile given the position
+     *
+     * @param row position
+     * @param col position
+     * @return a Tile from the board
+     */
     public TwentyFortyEightTile getTile(int row, int col) {
         return board[row][col];
     }
