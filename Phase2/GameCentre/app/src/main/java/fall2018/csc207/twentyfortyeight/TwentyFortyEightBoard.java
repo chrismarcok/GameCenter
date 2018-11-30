@@ -3,7 +3,6 @@ package fall2018.csc207.twentyfortyeight;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Stack;
@@ -13,11 +12,11 @@ import fall2018.csc207.game.GameState;
 public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyFortyEightTile> {
 
     private TwentyFortyEightTile[][] board;
-    private int numRows;
-    private int numCols;
-    private int undosUsed = 0;
+    private final int numRows;
+    private final int numCols;
+    private final Stack<int[][]> states = new Stack<>();
     private int numActiveTiles;
-    private Stack<int[][]> states = new Stack<>();
+    private int undosUsed;
 
     TwentyFortyEightBoard(int dimensions) {
         this.numCols = dimensions;
@@ -408,7 +407,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
          * index indicates the position of the board
          */
         private int index;
-        private TwentyFortyEightTile[][] array2D;
+        private final TwentyFortyEightTile[][] array2D;
 
         private BoardIterator(TwentyFortyEightTile[][] tiles) {
             array2D = tiles;

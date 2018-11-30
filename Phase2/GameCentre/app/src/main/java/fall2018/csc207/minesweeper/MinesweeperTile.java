@@ -40,7 +40,7 @@ public class MinesweeperTile implements Serializable {
     /**
      * The number of adjacent bombs
      */
-    private int id;
+    private final int id;
     /**
      * The background id to find the tile image
      */
@@ -49,7 +49,7 @@ public class MinesweeperTile implements Serializable {
      * The state of the tile (revealed or not revealed)
      */
     private boolean revealed;
-    private int underBackground;
+    private final int underBackground;
 
     /**
      *  Returns whether if tile is flagged

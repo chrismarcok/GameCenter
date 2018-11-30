@@ -8,11 +8,11 @@ public class MinesweeperBoard extends GameState {
     /**
      * The Tiles on the board
      */
-    private MinesweeperTile[][] mineField;
+    private final MinesweeperTile[][] mineField;
     /**
      * The size of the board
      */
-    private int dimensions;
+    private final int dimensions;
     private int numRevealedTiles;
     private int numMines;
 

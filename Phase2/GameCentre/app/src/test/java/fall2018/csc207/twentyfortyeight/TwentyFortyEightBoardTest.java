@@ -1,13 +1,14 @@
 package fall2018.csc207.twentyfortyeight;
 
-import java.util.ArrayList;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 public class TwentyFortyEightBoardTest {
 
 
     private ArrayList<TwentyFortyEightTile> populateEmptyBoard(int dimensions) {
-        ArrayList<TwentyFortyEightTile> tiles = new ArrayList<TwentyFortyEightTile>(16);
+        ArrayList<TwentyFortyEightTile> tiles = new ArrayList<>(16);
 
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
@@ -27,7 +28,7 @@ public class TwentyFortyEightBoardTest {
     @Test
     public void getGameNameTest() {
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
-        assert twentyFortyEightBoard.getGameName() == "2048";
+        assert twentyFortyEightBoard.getGameName().equals("2048");
     }
 
     @Test

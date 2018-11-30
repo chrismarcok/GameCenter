@@ -86,8 +86,6 @@ public class NewGameActivity extends AppCompatActivity {
                 startGame();
             }
         });
-
-        LinearLayout screenView = findViewById(R.id.settings);
     }
 
     /**

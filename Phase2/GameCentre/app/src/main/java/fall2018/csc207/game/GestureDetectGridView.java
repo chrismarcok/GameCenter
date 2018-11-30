@@ -15,7 +15,6 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import fall2018.csc207.minesweeper.MinesweeperController;
 import fall2018.csc207.twentyfortyeight.TwentyFortyEightController;

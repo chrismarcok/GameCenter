@@ -21,12 +21,12 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
     /**
      * The user's username
      */
-    private String username;
+    private final String username;
 
     /**
      * The Gamecards which will be shown in GameCentreActivity
      */
-    private List<GameCardItem> gameCardItemList;
+    private final List<GameCardItem> gameCardItemList;
 
     /**
      * A GameCardAdapter.
@@ -79,10 +79,10 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView gameScore;
-        TextView gameTitle;
-        ImageView gameImage;
-        private CardView cardView;
+        final TextView gameScore;
+        final TextView gameTitle;
+        final ImageView gameImage;
+        private final CardView cardView;
 
         /**
          * Object we are clicking to change to that game.

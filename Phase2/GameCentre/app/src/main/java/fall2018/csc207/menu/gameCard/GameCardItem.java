@@ -10,17 +10,17 @@ public class GameCardItem {
     /**
      * The Score to be displayed.
      */
-    private int score;
+    private final int score;
 
     /**
      * The title of the game
      */
-    private String gameTitle;
+    private final String gameTitle;
 
     /**
      * The image of the game card.
      */
-    private Drawable gameImage;
+    private final Drawable gameImage;
 
     /**
      * A GameCardItem.

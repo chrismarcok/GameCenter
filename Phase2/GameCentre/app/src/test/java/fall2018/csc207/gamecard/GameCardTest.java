@@ -1,4 +1,5 @@
 package fall2018.csc207.gamecard;
+
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
@@ -7,17 +8,15 @@ import android.support.annotation.Nullable;
 
 import org.junit.Test;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import fall2018.csc207.menu.gameCard.GameCardAdapter;
 import fall2018.csc207.menu.gameCard.GameCardItem;
-import fall2018.csc207.slidingtiles.R;
 
 public class GameCardTest {
     @Test
-    public void TestGameCardItem(){
+    public void testGameCardItem() {
         Drawable draw = new Drawable() {
             @Override
             public void draw(@NonNull Canvas canvas) {
@@ -45,7 +44,7 @@ public class GameCardTest {
         assert game.getGameImage() == draw;
     }
     @Test
-    public void TestGameCardAdapter(){
+    public void testGameCardAdapter() {
         List gameCards = new ArrayList<GameCardItem>();
         Drawable draw = new Drawable() {
             @Override

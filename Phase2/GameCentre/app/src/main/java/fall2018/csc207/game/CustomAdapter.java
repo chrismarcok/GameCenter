@@ -23,8 +23,9 @@ public class CustomAdapter extends BaseAdapter {
     /**
      * A list of tiles for a game.
      */
-    private List mTiles;
-    private int mColumnWidth, mColumnHeight;
+    private final List mTiles;
+    private final int mColumnWidth;
+    private final int mColumnHeight;
 
     /**
      * A CustomAdapter
@@ -62,9 +63,9 @@ public class CustomAdapter extends BaseAdapter {
             tile = mTiles.get(position);
         } else {
             if (convertView instanceof Button)
-                tile = (Button) convertView;
+                tile = convertView;
             else
-                tile = (TextView) convertView;
+                tile = convertView;
         }
 
         android.widget.AbsListView.LayoutParams params =

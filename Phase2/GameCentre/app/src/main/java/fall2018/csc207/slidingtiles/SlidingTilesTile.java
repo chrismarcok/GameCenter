@@ -46,12 +46,12 @@ public class SlidingTilesTile implements Comparable<SlidingTilesTile>, Serializa
     /**
      * The background id to find the tile image.
      */
-    private int background;
+    private final int background;
 
     /**
      * The unique id.
      */
-    private int id;
+    private final int id;
 
     /**
      * Return the background id.

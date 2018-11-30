@@ -8,8 +8,8 @@ import android.support.annotation.NonNull;
  * An entry for the Scoreboard.
  */
 public class ScoreboardEntry implements Parcelable, Comparable<ScoreboardEntry> {
-    private String name;
-    private int score;
+    private final String name;
+    private final int score;
     private String game;
 
     /**

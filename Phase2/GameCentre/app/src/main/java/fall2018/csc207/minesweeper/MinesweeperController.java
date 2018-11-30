@@ -13,7 +13,7 @@ public class MinesweeperController extends BoardController<MinesweeperBoard>
     /**
      * The dimension of the board
      */
-    private int dimensions;
+    private final int dimensions;
 
     /**
      * Manage a minesweeperBoard that has been pre-populated.

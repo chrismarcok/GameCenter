@@ -28,7 +28,7 @@ public class ScoreboardActivity extends AppCompatActivity {
     public static final String GAME_NAMES = "GAME_NAMES";
 
     // The key is the game name, value.first is the username, value.second is the score.
-    private Map<String, ArrayList<ScoreboardEntry>> scores = new HashMap<>();
+    private final Map<String, ArrayList<ScoreboardEntry>> scores = new HashMap<>();
 
     /**
      * Creates the scoreboard given the GAME_NAMES ArrayList<String> intent.

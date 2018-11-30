@@ -13,7 +13,7 @@ public class SlidingTilesController extends BoardController<SlidingTilesBoard> i
     /**
      * The dimension of the board
      */
-    private int dimensions;
+    private final int dimensions;
 
     /**
      * Manage a slidingTilesBoard that has been pre-populated.
