@@ -25,6 +25,12 @@ public class TwentyFortyEightBoardTest {
     }
 
     @Test
+    public void getGameNameTest(){
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
+        assert twentyFortyEightBoard.getGameName() == "2048";
+    }
+
+    @Test
     public void contructorGivenTilesTest(){
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
@@ -36,10 +42,11 @@ public class TwentyFortyEightBoardTest {
         ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
         tiles.set(0,new TwentyFortyEightTile(2));
         tiles.set(1,new TwentyFortyEightTile(2));
+        tiles.set(7,new TwentyFortyEightTile(2));
         TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+        assert  twentyFortyEightBoard.getNumActiveTiles() == 3;
         twentyFortyEightBoard.moveLeft();
-        assert  twentyFortyEightBoard.getNumActiveTiles() == 1;
+        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
     }
 
     @Test
@@ -86,5 +93,32 @@ public class TwentyFortyEightBoardTest {
 
         assert  twentyFortyEightBoard.getNumActiveTiles() == 4;
         assert  twentyFortyEightBoard.isOver();
+    }
+
+    @Test
+    public void afterMoveActionsTest(){
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
+        twentyFortyEightBoard.moveLeft();
+        twentyFortyEightBoard.afterMoveActions(true);
+        assert  twentyFortyEightBoard.getNumActiveTiles() == 3;
+    }
+
+    @Test
+    public void undoTest(){
+        ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(4);
+        tiles.set(0,new TwentyFortyEightTile(64));
+        tiles.set(12,new TwentyFortyEightTile(64));
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 4);
+        twentyFortyEightBoard.moveDown();
+        assert  twentyFortyEightBoard.getNumActiveTiles() == 1;
+        twentyFortyEightBoard.undo();
+        assert  twentyFortyEightBoard.getNumActiveTiles() == 2;
+    }
+
+    @Test
+    public void canundoTest(){
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(4);
+        twentyFortyEightBoard.moveLeft();
+        assert twentyFortyEightBoard.canUndo();
     }
 }

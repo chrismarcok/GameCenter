@@ -288,10 +288,14 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     public void undo() {
         TwentyFortyEightTile[][] newTiles = new TwentyFortyEightTile[numRows][numCols];
         int[][] numRep = states.pop();
+        numActiveTiles = 0;
         for (int i = 0; i < numRep.length; i++) {
             for (int b = 0; b < numRep[0].length; b++) {
                 TwentyFortyEightTile newTile = new TwentyFortyEightTile(numRep[i][b]);
                 newTiles[i][b] = newTile;
+                if (newTile.value > 0){
+                    numActiveTiles++;
+                }
             }
         }
         this.board = newTiles;
@@ -362,12 +366,13 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return (col + 1 < numCols && board[row][col + 1].getValue() == thisVal);
     }
 
-    @Override
+
     /**
      * Return the name of the game which is
      * 2048
      * @return the name of the game
      */
+    @Override
     public String getGameName() {
         return "2048";
     }
