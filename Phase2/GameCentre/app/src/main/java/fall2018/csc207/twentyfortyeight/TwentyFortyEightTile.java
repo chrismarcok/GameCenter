@@ -1,15 +1,18 @@
 package fall2018.csc207.twentyfortyeight;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
-
-import fall2018.csc207.game.GameState;
 import fall2018.csc207.slidingtiles.R;
 
-class TwentyFortyEightTile extends GameState {
-
+/**
+ * A TwentyFortEightTile in 2048
+ */
+class TwentyFortyEightTile implements Serializable {
+    /**
+     * Contains integer to respective image
+     */
     private static Map<Integer, Integer> colorMap;
-
     static {
         colorMap = new HashMap<>();
         colorMap.put(2, R.color.two);
@@ -24,79 +27,92 @@ class TwentyFortyEightTile extends GameState {
         colorMap.put(1024, R.color.tenTwentyFour);
         colorMap.put(2048, R.color.twentyFourtyEight);
         colorMap.put(0, R.color.gridColor);
-
     }
 
+    /**
+     * The numerical value of the tile
+     */
     public int value;
+    /**
+     * The background of the tile
+     */
     private int background;
+    /**
+     * If the tile has been merged
+     */
     private boolean merged;
 
-    public TwentyFortyEightTile() {
-        this.value = 0;
-        this.background = colorMap.get(0);
-        this.merged = false;
-    }
-
+    /**
+     * Represetnts a tile on the 2048 board
+     * @param value the numerical value
+     */
     public TwentyFortyEightTile(int value) {
         this.value = value;
         this.background = colorMap.get(value);
     }
 
+    /**
+     * Checks if the value is 0
+     * @return true if value is 0, false otherwise
+     */
     public boolean isEmpty() {
         return value == 0;
     }
 
+    /**
+     * Gets the background image of the Tile
+     * @return the background image
+     */
     public int getBackground() {
         return this.background;
     }
 
-    @Override
-    public void undo() {
-
-    }
-
-    @Override
-    public boolean canUndo() {
-        return false;
-    }
-
-    @Override
-    public boolean isOver() {
-        return false;
-    }
-
-    @Override
-    public String getGameName() {
-        return null;
-    }
-
+    /**
+     * Changed the background to the value
+     * @param value the image
+     */
     public void setBackground(int value) {
         this.background = colorMap.get(value);
     }
 
+    /**
+     * Checks if Tile is Merged
+     * @return true if merged is true, false otherwise
+     */
     public boolean isMerged() {
         return merged;
     }
 
+    /**
+     * Sets the value of merged
+     * @param merged merged true or false
+     */
     public void setMerged(boolean merged) {
         this.merged = merged;
     }
 
+    /**
+     * Checks if Tile can merge with another tile
+     * @param curr another tile
+     * @return true if it can merge, false otherwise
+     */
+
     public boolean canMergeWith(TwentyFortyEightTile curr) {
-        return this.value == curr.value && !this.merged && !curr.merged;
+        return this.value == curr.value && !this.isMerged() && !curr.isMerged();
     }
 
-//    public void merge(TwentyFortyEightTile otherTile) {
-//        otherTile.setValue(this.getValue()*2);
-//        this.setValue(0);
-//        this.setMerged(true);
-//        otherTile.setMerged(true);
-//    }
-
+    /**
+     * Returs the value of the Board
+     * @return the value
+     */
     public int getValue() {
         return this.value;
     }
 
+    /**
+     * Sets the value of the Tile
+     * @param value the desired value
+     */
     public void setValue(int value) {
         this.value = value;
         this.background = colorMap.get(value);
