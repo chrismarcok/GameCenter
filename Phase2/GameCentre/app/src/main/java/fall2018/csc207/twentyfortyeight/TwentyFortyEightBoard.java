@@ -225,13 +225,16 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      */
     private void merge(TwentyFortyEightTile root, TwentyFortyEightTile merger) {
         root.value = root.value + merger.value;
+        if (merger.value != 0){
+            numActiveTiles--;
+        }
         merger.value = 0;
         merger.setMerged(true);
         root.setMerged(true);
         root.setBackground(root.value);
         merger.setBackground(merger.value);
         determineScore();
-        numActiveTiles--;
+
     }
 
 
