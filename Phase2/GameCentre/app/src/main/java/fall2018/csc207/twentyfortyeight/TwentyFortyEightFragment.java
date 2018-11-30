@@ -36,7 +36,7 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
      */
     private GestureDetectGridView gridView;
     private static int columnWidth, columnHeight;
-    private int dimensions = 4;
+    private int dimensions;
 
     /**
      * Set up the background image for each button based on the master list
@@ -96,9 +96,9 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of SlidingTileController to be initialized
+        //Pulls the type of SlidingTilesController to be initialized
         gameManager = new TwentyFortyEightController(this.state);
-        //dimensions = state.getDimensions();
+        dimensions = (int) Math.sqrt(state.getDimensions());
         state = gameManager.getGameState();
         state.addObserver(this);
     }

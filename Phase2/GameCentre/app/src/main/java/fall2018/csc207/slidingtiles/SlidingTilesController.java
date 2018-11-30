@@ -8,7 +8,7 @@ import fall2018.csc207.game.CoordinatePair;
 /**
  * Manage the board state by processing taps.
  */
-public class SlidingTileController extends BoardController<SlidingTilesBoard> implements Serializable {
+public class SlidingTilesController extends BoardController<SlidingTilesBoard> implements Serializable {
 
     /**
      * The dimension of the board
@@ -20,7 +20,7 @@ public class SlidingTileController extends BoardController<SlidingTilesBoard> im
      *
      * @param slidingTilesBoard the slidingTilesBoard
      */
-    public SlidingTileController(SlidingTilesBoard slidingTilesBoard) {
+    public SlidingTilesController(SlidingTilesBoard slidingTilesBoard) {
         super(slidingTilesBoard);
         dimensions = (int)Math.sqrt(this.gameState.numTiles());
     }

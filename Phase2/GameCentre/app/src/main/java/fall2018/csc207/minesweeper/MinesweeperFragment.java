@@ -93,7 +93,6 @@ public class MinesweeperFragment extends GameFragment<MinesweeperBoard, Mineswee
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //Pulls the type of SlidingTileController to be initialized
         gameManager = new MinesweeperController(this.state);
         dimensions = state.getDimensions();
         state = gameManager.getGameState();

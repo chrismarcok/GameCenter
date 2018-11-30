@@ -12,10 +12,10 @@ public class TwentyFortyEightController extends BoardController<TwentyFortyEight
     /**
      * Manage a twentyFortyEightBoard that has been pre-populated.
      *
-     * @param twentyFortyEightBoard the twentyFortyEightBoard
+     * @param board the twentyFortyEightBoard
      */
-    public TwentyFortyEightController(TwentyFortyEightBoard twentyFortyEightBoard) {
-        super(twentyFortyEightBoard);
+    public TwentyFortyEightController(TwentyFortyEightBoard board) {
+        super(board);
     }
 
     /**
@@ -52,6 +52,7 @@ public class TwentyFortyEightController extends BoardController<TwentyFortyEight
 
     /**
      * Gesture not used in 2048
+     *
      * @param position The position on the grid.
      */
     @Override
@@ -61,6 +62,7 @@ public class TwentyFortyEightController extends BoardController<TwentyFortyEight
 
     /**
      * Gesture not used in 2048
+     *
      * @param position of the tap
      * @return false
      */

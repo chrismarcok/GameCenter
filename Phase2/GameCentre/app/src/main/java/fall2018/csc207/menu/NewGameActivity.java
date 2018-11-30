@@ -86,6 +86,8 @@ public class NewGameActivity extends AppCompatActivity {
                 startGame();
             }
         });
+
+        LinearLayout screenView = findViewById(R.id.settings);
     }
 
     /**
@@ -100,7 +102,6 @@ public class NewGameActivity extends AppCompatActivity {
         infUndoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
                 setSeekbarState(!infUndoSwitch.isChecked());
             }
         });

@@ -21,6 +21,7 @@ import fall2018.csc207.minesweeper.MinesweeperController;
 import fall2018.csc207.twentyfortyeight.TwentyFortyEightController;
 
 public class GestureDetectGridView extends GridView {
+
     private static final int SWIPE_MIN_DISTANCE = 100;
     private static final int SWIPE_THRESHOLD = 100;
     private static final int SWIPE_VELOCITY_THRESHOLD = 100;
@@ -67,18 +68,20 @@ public class GestureDetectGridView extends GridView {
             public boolean onDown(MotionEvent event) {
                 return true;
             }
+
             @Override
             public void onLongPress(MotionEvent e) {
-                if (boardController instanceof MinesweeperController){
+                if (boardController instanceof MinesweeperController) {
                     int position = GestureDetectGridView.this.pointToPosition
                             (Math.round(e.getX()), Math.round(e.getY()));
                     ((MinesweeperController) boardController).flagTile(position);
                 }
             }
+
             @Override
             public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
                                    float velocityY) {
-                if(boardController instanceof TwentyFortyEightController) {
+                if (boardController instanceof TwentyFortyEightController) {
                     boolean result = false;
                     try {
                         float diffY = e2.getY() - e1.getY();
@@ -88,21 +91,17 @@ public class GestureDetectGridView extends GridView {
                                     SWIPE_VELOCITY_THRESHOLD) {
                                 if (diffX > 0) {
                                     ((TwentyFortyEightController) boardController).moveRight();
-                                    //Toast.makeText(context, "Right", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    ((TwentyFortyEightController)boardController).moveLeft();
-                                    //Toast.makeText(context, "Left", Toast.LENGTH_SHORT).show();
+                                    ((TwentyFortyEightController) boardController).moveLeft();
                                 }
                                 result = true;
                             }
                         } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) >
                                 SWIPE_VELOCITY_THRESHOLD) {
                             if (diffY > 0) {
-                                ((TwentyFortyEightController)boardController).moveDown();
-                                //Toast.makeText(context, "Down", Toast.LENGTH_SHORT).show();
+                                ((TwentyFortyEightController) boardController).moveDown();
                             } else {
-                                ((TwentyFortyEightController)boardController).moveUp();
-                                //Toast.makeText(context, "Up", Toast.LENGTH_SHORT).show();
+                                ((TwentyFortyEightController) boardController).moveUp();
                             }
                             result = true;
                         }
@@ -114,7 +113,6 @@ public class GestureDetectGridView extends GridView {
                 return false;
             }
         });
-
     }
 
     @Override

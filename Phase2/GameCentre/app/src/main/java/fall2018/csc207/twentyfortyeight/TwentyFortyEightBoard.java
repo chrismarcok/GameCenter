@@ -20,9 +20,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     private Stack<int[][]> states = new Stack<>();
 
     TwentyFortyEightBoard(int dimensions) {
-        numCols = dimensions;
-        numRows = dimensions;
-        this.board = new TwentyFortyEightTile[dimensions][dimensions];
+        this.numCols = dimensions;
+        this.numRows = dimensions;
+        this.board = new TwentyFortyEightTile[numRows][numCols];
         for (int row = 0; row != dimensions; row++) {
             for (int col = 0; col != dimensions; col++) {
                 this.board[row][col] = new TwentyFortyEightTile(0);
@@ -42,6 +42,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
             for (int col = 0; col != dimensions; col++) {
                 TwentyFortyEightTile x = iter.next();
                 this.board[row][col] = x;
+                if(x.value > 2){
+                    numActiveTiles++;
+                }
             }
         }
     }
@@ -234,6 +237,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         numActiveTiles--;
     }
 
+
     /**
      * Updates the score of the board
      */
@@ -249,7 +253,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     }
 
     /**
-     * Clears all merge flgs after a move
+     * Clears all merge flags after a move
      */
     private void clearMerged() {
         for (TwentyFortyEightTile[] row : board)
@@ -258,9 +262,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
                     twentyFortyEightTile.setMerged(false);
     }
 
-
     /**
-     * @param shouldNotifyObs
+     * Performs post move actions to prepare for next move and updates the board.
+     * @param shouldNotifyObs Should update the board or not.
      */
     public void afterMoveActions(boolean shouldNotifyObs) {
         clearMerged();
@@ -285,10 +289,14 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     public void undo() {
         TwentyFortyEightTile[][] newTiles = new TwentyFortyEightTile[numRows][numCols];
         int[][] numRep = states.pop();
+        numActiveTiles = 0;
         for (int i = 0; i < numRep.length; i++) {
             for (int b = 0; b < numRep[0].length; b++) {
                 TwentyFortyEightTile newTile = new TwentyFortyEightTile(numRep[i][b]);
                 newTiles[i][b] = newTile;
+                if (newTile.value > 0){
+                    numActiveTiles++;
+                }
             }
         }
         this.board = newTiles;
@@ -313,8 +321,6 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return false;
 
     }
-
-
 
 
     /**
@@ -359,12 +365,13 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return (col + 1 < numCols && board[row][col + 1].getValue() == thisVal);
     }
 
-    @Override
+
     /**
      * Return the name of the game which is
      * 2048
      * @return the name of the game
      */
+    @Override
     public String getGameName() {
         return "2048";
     }
@@ -380,7 +387,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      *
      * @return the dimensions of the board
      */
-    private int getDimensions() {
+    public int getDimensions() {
         return numRows * numCols;
     }
 
@@ -403,8 +410,8 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         private int index;
         private TwentyFortyEightTile[][] array2D;
 
-        private BoardIterator(TwentyFortyEightTile[][] twentyFortyEightTiles) {
-            array2D = twentyFortyEightTiles;
+        private BoardIterator(TwentyFortyEightTile[][] tiles) {
+            array2D = tiles;
         }
 
         @Override
