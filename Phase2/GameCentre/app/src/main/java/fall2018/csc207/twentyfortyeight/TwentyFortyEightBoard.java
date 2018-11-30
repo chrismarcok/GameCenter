@@ -309,17 +309,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
 
     @Override
     public boolean canUndo() {
-        if (getMaxUndos() == -1 && !states.isEmpty()){
-            return true;
-        }
-        if (undosUsed < getMaxUndos() ) {
-            return true;
-        }
-        else if (states.isEmpty()){
-            return false;
-        }
-        return false;
-
+        return (getMaxUndos() == -1 && !states.isEmpty() && undosUsed < getMaxUndos());
     }
 
 
@@ -353,7 +343,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * @param col position of the board
      * @return whether if position (row, rol) has multiple labor
      */
-    private boolean hasMergableNeighbour(int row, int col) {
+    public boolean hasMergableNeighbour(int row, int col) {
         int thisVal = board[row][col].getValue();
         if (row - 1 >= 0 && board[row - 1][col].getValue() == thisVal) {
             return true;

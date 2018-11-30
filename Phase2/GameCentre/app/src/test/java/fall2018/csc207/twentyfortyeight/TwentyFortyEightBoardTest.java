@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import fall2018.csc207.slidingtiles.R;
+
 public class TwentyFortyEightBoardTest {
 
     private ArrayList<TwentyFortyEightTile> populateEmptyBoard(int dimensions) {
@@ -134,5 +136,29 @@ public class TwentyFortyEightBoardTest {
                 col++;
             }
         }
+    }
+
+    @Test
+    public void tileBackgroundTest(){
+        ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(2);
+        tiles.set(0, new TwentyFortyEightTile(4));
+        tiles.set(1, new TwentyFortyEightTile(16));
+        tiles.set(2, new TwentyFortyEightTile(32));
+        tiles.set(3, new TwentyFortyEightTile(64));
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 2);
+        assert twentyFortyEightBoard.getTile(0,0).getBackground() == R.color.four;
+    }
+
+    @Test
+    public void hasMergableNeighborTest(){
+        ArrayList<TwentyFortyEightTile> tiles = populateEmptyBoard(2);
+        tiles.set(0, new TwentyFortyEightTile(2));
+        tiles.set(1, new TwentyFortyEightTile(2));
+        tiles.set(2, new TwentyFortyEightTile(2));
+        tiles.set(3, new TwentyFortyEightTile(2));
+        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(tiles, 2);
+        assert twentyFortyEightBoard.hasMergableNeighbour(0,0);
+
+
     }
 }
