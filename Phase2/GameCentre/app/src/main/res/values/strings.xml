@@ -2,7 +2,6 @@
     <string name="app_name">Game Centre</string>
     <string name="info">Passwords must be longer than 5 characters. \n\nUsername and Password fields
         must not be empty.</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_to_game_centre">Welcome To Game Centre!</string>
     <string name="password">Password</string>

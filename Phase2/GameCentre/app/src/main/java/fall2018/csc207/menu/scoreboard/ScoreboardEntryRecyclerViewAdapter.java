@@ -20,7 +20,7 @@ public class ScoreboardEntryRecyclerViewAdapter extends
     private final List<ScoreboardEntry> values;
 
     /**
-     * Constructor.
+     * A ScoreboardEntryRecyclerViewAdapter.
      *
      * @param items The items to display in this RecyclerView.
      */

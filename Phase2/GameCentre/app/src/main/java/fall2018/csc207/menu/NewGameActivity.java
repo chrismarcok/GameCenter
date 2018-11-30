@@ -105,7 +105,6 @@ public class NewGameActivity extends AppCompatActivity {
         });
 
         //Minesweeper has no undo function, we dont want to see undo options.
-        //TODO: Some refactoring here?
         if (gameName.equals("Minesweeper")){
             findViewById(R.id.infUndoRow).setVisibility(View.GONE);
             findViewById(R.id.allowedUndosRow).setVisibility(View.GONE);
@@ -227,6 +226,12 @@ public class NewGameActivity extends AppCompatActivity {
         return isValidFileName(fileName, io);
     }
 
+    /**
+     * Determines if a file name is valid.
+     * @param fileName The file name in question
+     * @param io The object saving and loading
+     * @return Whether the name is valid.
+     */
     private boolean isValidFileName(String fileName, GameStateIO io) {
         return io.isValidUnusedFileName(fileName);
     }

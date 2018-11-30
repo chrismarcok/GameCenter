@@ -48,6 +48,12 @@ public class SlidingTilesController extends BoardController<SlidingTilesBoard> i
         return isTileAdjacent(new CoordinatePair(row, col), blank); // The blank tile is adjacent to our tap
     }
 
+    /**
+     * Determine if two tiles are adjacent.
+     * @param first The coordinates of the first tile.
+     * @param second The coordinates of the second tile.
+     * @return Whether the two are adjacent.
+     */
     private boolean isTileAdjacent(CoordinatePair first, CoordinatePair second) {
         return first != null && second != null &&
                 Math.abs(first.getRow() - second.getRow() + second.getCol() - first.getCol()) == 1;
@@ -56,7 +62,7 @@ public class SlidingTilesController extends BoardController<SlidingTilesBoard> i
     /**
      * Process a touch at position in the board, swapping tiles as appropriate.
      *
-     * @param position the position
+     * @param position the position.
      */
     private void touchMove(int position) {
         int row = position / dimensions;

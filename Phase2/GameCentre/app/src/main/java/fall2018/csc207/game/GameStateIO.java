@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
  * Helps with loading and saving GameStates.
  */
 public class GameStateIO {
+
     /**
      * The folder that holds all the saves for this game.
      */

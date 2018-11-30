@@ -162,8 +162,7 @@ public class GameMainActivity extends AppCompatActivity implements Observer {
      * @param file The name of the file to be saved.
      */
     private void autoSave(String file) {
-        //TODO: Autosave interval
-        if (state.getScore() % 5 == 0) {
+        if (state.getScore() % 2 == 0) {
             saveGame(file);
         }
     }

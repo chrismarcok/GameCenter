@@ -8,6 +8,9 @@ import fall2018.csc207.game.GameState;
 
 public class TwentyFortyEightFactory extends GameFactory{
 
+    /**
+     * The settings for the 2048 game.
+     */
     public TwentyFortyEightFactory() {
         addToSettings(new Setting(
                 "Board Size",
@@ -16,6 +19,11 @@ public class TwentyFortyEightFactory extends GameFactory{
         ));
     }
 
+    /**
+     * Create a 2048 GameState with some number of undos
+     * @param numUndos The number of undos
+     * @return the 2048 GameState
+     */
     @Override
     public GameState getGameState(int numUndos) {
         TwentyFortyEightBoard board = null;
@@ -39,11 +47,19 @@ public class TwentyFortyEightFactory extends GameFactory{
         return board;
     }
 
+    /**
+     * Get the 2048 Fragment.
+     * @return The 2048 Fragment.
+     */
     @Override
     public Class getGameFragmentClass() {
         return TwentyFortyEightFragment.class;
     }
 
+    /**
+     * Get the list of variants of 2048.
+     * @return The list of variants.
+     */
     @Override
     public List<String> getGameNames() {
         return Arrays.asList("2048 3x3", "2048 4x4", "2048 5x5", "2048 6x6");

@@ -11,6 +11,11 @@ public class CoordinatePair implements Serializable {
     private final int row;
     private final int col;
 
+    /**
+     * Create a new Coordinate Pair
+     * @param row The first coordinate
+     * @param col The second coordinate
+     */
     public CoordinatePair(int row, int col) {
         this.row = row;
         this.col = col;

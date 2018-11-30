@@ -79,6 +79,9 @@ public class GameCardAdapter extends RecyclerView.Adapter<GameCardAdapter.ViewHo
      */
     public class ViewHolder extends RecyclerView.ViewHolder {
 
+        /**
+         * Views to be updated.
+         */
         final TextView gameScore;
         final TextView gameTitle;
         final ImageView gameImage;

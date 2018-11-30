@@ -25,6 +25,9 @@ import fall2018.csc207.twentyfortyeight.TwentyFortyEightFactory;
  */
 public class GameCentreActivity extends AppCompatActivity {
 
+    /**
+     * Key for use in intents.
+     */
     private static final String USERNAME = "USERNAME";
     /**
      * A map from the name of the game to the game's factory class.

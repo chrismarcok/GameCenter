@@ -120,13 +120,17 @@ public class TwentyFortyEightFragment extends GameFragment<TwentyFortyEightBoard
                 TextView tmp = new TextView(context);
                 TwentyFortyEightTile twentyFortyEightTile = board.getTile(row, col);
                 setTiles(tmp, twentyFortyEightTile);
-
                 this.tileTextViews.add(tmp);
             }
         }
 
     }
 
+    /**
+     * Setup a Tile.
+     * @param tmp The TextView being modified.
+     * @param twentyFortyEightTile The tile corresponding to the TextView.
+     */
     private void setTiles(TextView tmp, TwentyFortyEightTile twentyFortyEightTile) {
         tmp.setBackgroundColor(getResources().getColor(twentyFortyEightTile.getBackground(), null));
         String text = twentyFortyEightTile.getValue() == 0 ? "" : Integer.toString(twentyFortyEightTile.getValue());

@@ -9,15 +9,36 @@ import java.util.Stack;
 
 import fall2018.csc207.game.GameState;
 
+/**
+ * The 2048 tiles board.
+ */
 public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyFortyEightTile> {
 
+    /**
+     * The board for 2048.
+     */
     private TwentyFortyEightTile[][] board;
     private final int numRows;
     private final int numCols;
+
+    /**
+     * Stack holding previous game states, used for undo
+     */
     private final Stack<int[][]> states = new Stack<>();
+
+    /**
+     * Number of tiles with values
+     */
     private int numActiveTiles;
+
+    /**
+     * Number of undos user has used.
+     */
     private int undosUsed;
 
+    /**
+     * A 2048 Board.
+     */
     TwentyFortyEightBoard(int dimensions) {
         this.numCols = dimensions;
         this.numRows = dimensions;
@@ -32,6 +53,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         determineScore();
     }
 
+    /**
+     * A 2048 Board.
+     */
     TwentyFortyEightBoard(Iterable<TwentyFortyEightTile> tiles, int dimensions) {
         this.board = new TwentyFortyEightTile[dimensions][dimensions];
         Iterator<TwentyFortyEightTile> iter = tiles.iterator();
@@ -69,7 +93,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
     /**
      * 2048 MinesweeperTile logic: https://github.com/bulenkov/2048
      * Credits go to Konstantin Bulenkov
-     * <p>
+     *
      * Add a new tile at an available spot
      */
     private void addTile() {
@@ -105,7 +129,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles up and merges simliar tiles in sequence
      */
     public void moveUp() {
-        states.push(getStateInt());
+        states.push(getStateAsIntArray());
         for (int index = 0; index < board.length; index++) {
             for (int b = 0; b < board.length; b++) {
                 boolean seen = false;
@@ -130,7 +154,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles down and merges simliar tiles in sequence
      */
     public void moveDown() {
-        states.push(getStateInt());
+        states.push(getStateAsIntArray());
         for (int index = 0; index < board.length; index++) {
             for (int b = board.length - 1; b >= 1; b--) {
                 boolean seen = false;
@@ -156,7 +180,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles left and merges simliar tiles in sequence
      */
     public void moveLeft() {
-        states.push(getStateInt());
+        states.push(getStateAsIntArray());
         for (TwentyFortyEightTile[] row : board) {
             for (int b = 0; b < board.length; b++) {
                 boolean seen = false;
@@ -181,7 +205,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      * Shifts all tiles right and merges simliar tiles in sequence
      */
     public void moveRight() {
-        states.push(getStateInt());
+        states.push(getStateAsIntArray());
         for (TwentyFortyEightTile[] row : board) {
             for (int b = board.length - 1; b >= 1; b--) {
                 boolean seen = false;
@@ -275,16 +299,23 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         addTile();
     }
 
-    private int[][] getStateInt() {
-        int[][] rep = new int[numRows][numCols];
+    /**
+     * Create a 2D Array representing the current tiles, as integers
+     * @return The 2D array.
+     */
+    private int[][] getStateAsIntArray() {
+        int[][] intArray = new int[numRows][numCols];
         for (int i = 0; i < board.length; i++) {
             for (int b = 0; b < board.length; b++) {
-                rep[i][b] = getTile(i, b).value;
+                intArray[i][b] = getTile(i, b).value;
             }
         }
-        return rep;
+        return intArray;
     }
 
+    /**
+     * Revert to a previous state.
+     */
     @Override
     public void undo() {
         TwentyFortyEightTile[][] newTiles = new TwentyFortyEightTile[numRows][numCols];
@@ -303,10 +334,12 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         setChanged();
         notifyObservers();
         undosUsed++;
-
-
     }
 
+    /**
+     * Determine whether undo is valid.
+     * @return Whether undo is valid or not.
+     */
     @Override
     public boolean canUndo() {
         return (getMaxUndos() == -1 && !states.isEmpty() && undosUsed < getMaxUndos());
@@ -392,6 +425,9 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
         return board[row][col];
     }
 
+    /**
+     * Iterates through the TwentyFortyEightTiles
+     */
     private class BoardIterator implements Iterator<TwentyFortyEightTile> {
 
         /**

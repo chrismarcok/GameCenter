@@ -14,6 +14,9 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.widget.GridView;
 
+/**
+ * Detects gestures for our grid based games.
+ */
 public class GestureDetectGridView2048 extends GridView {
     private static final int SWIPE_MIN_DISTANCE = 100;
     private static final int SWIPE_THRESHOLD = 100;

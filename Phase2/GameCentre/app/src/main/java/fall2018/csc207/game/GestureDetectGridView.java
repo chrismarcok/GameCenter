@@ -16,6 +16,9 @@ import android.widget.GridView;
 
 import fall2018.csc207.minesweeper.MinesweeperController;
 
+/**
+ * Detects gestures for our grid based games.
+ */
 public class GestureDetectGridView extends GridView {
     private static final int SWIPE_MIN_DISTANCE = 100;
     private GestureDetector gDetector;

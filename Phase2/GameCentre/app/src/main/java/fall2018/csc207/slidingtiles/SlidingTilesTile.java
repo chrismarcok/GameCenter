@@ -92,6 +92,11 @@ public class SlidingTilesTile implements Comparable<SlidingTilesTile>, Serializa
         background = imageMap().get(id);
     }
 
+    /**
+     * Compares two SlidingTilesTile
+     * @param o the object to be compared to
+     * @return the different between the values of the tile's IDs.
+     */
     @Override
     public int compareTo(@NonNull SlidingTilesTile o) {
         return o.id - this.id;

@@ -28,6 +28,10 @@ public abstract class GameFragment<S extends GameState, M extends GameController
      * The game manager.
      */
     protected M gameManager;
+
+    /**
+     * This view.
+     */
     protected View thisView;
 
     /**

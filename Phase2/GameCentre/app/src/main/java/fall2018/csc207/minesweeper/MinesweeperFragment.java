@@ -21,6 +21,9 @@ import fall2018.csc207.game.GameFragment;
 import fall2018.csc207.game.GestureDetectGridView;
 import fall2018.csc207.slidingtiles.R;
 
+/**
+ * Fragment class made to display the game in the GameMainActivity
+ */
 public class MinesweeperFragment extends GameFragment<MinesweeperBoard, MinesweeperController> {
 
     /**

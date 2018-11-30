@@ -11,6 +11,10 @@ import fall2018.csc207.slidingtiles.R;
  */
 public class SplashScreenActivity extends AppCompatActivity {
 
+    /**
+     * Called when we create a SplashScreenActivity.
+     * @param savedInstanceState The activity's previously saved state, contained in a bundle.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

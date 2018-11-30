@@ -13,7 +13,15 @@ public class MinesweeperBoard extends GameState {
      * The size of the board
      */
     private final int dimensions;
+
+    /**
+     * How many tiles are revealed.
+     */
     private int numRevealedTiles;
+
+    /**
+     * The number of mines on a baord.
+     */
     private int numMines;
 
     /**
@@ -79,7 +87,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     @Override
-    public void undo() {
+    public void undo()  {
     }
 
     @Override
@@ -96,6 +104,10 @@ public class MinesweeperBoard extends GameState {
         isOver();
     }
 
+    /**
+     * Determines if a bomb was revealed, or time runs out
+     * @return Whether or not the game is over.
+     */
     @Override
     public boolean isOver() {
         if (score == 0) {
@@ -119,9 +131,9 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * Returns the name of the game
+     * Returns the name of the game.
      *
-     * @return minesweeper name
+     * @return Minesweeper name.
      */
     @Override
     public String getGameName() {
@@ -167,7 +179,6 @@ public class MinesweeperBoard extends GameState {
                 mines[x - 1][y - 1] = new MinesweeperTile(repMines[x][y]);
             }
         }
-
         return mines;
     }
 
@@ -419,7 +430,7 @@ public class MinesweeperBoard extends GameState {
     }
 
     /**
-     * Decreases the score by one
+     * Decreases the score by one.
      */
     public void decrementScore() {
         setScore(getScore() - 1);
