@@ -27,7 +27,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private class LogoLauncher extends Thread {
 
         /**
-         * Sleep for SLEEP_TIMER ms and then launch the next activity.
+         * Sleep for 1000 ms and then launch the next activity.
          */
         public void run() {
             try {
