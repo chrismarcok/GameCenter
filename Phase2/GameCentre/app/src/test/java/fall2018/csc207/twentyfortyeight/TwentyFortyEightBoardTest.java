@@ -3,8 +3,8 @@ package fall2018.csc207.twentyfortyeight;
 public class TwentyFortyEightBoardTest {
 
     public void contructorTest() {
-        TwentyFortyEightBoard twentyFortyEightBoard = new TwentyFortyEightBoard(6);
-        assert twentyFortyEightBoard.getNumActiveTiles() == 2;
+        TwentyFortyEightBoard board = new TwentyFortyEightBoard(4);
+        assert board.getNumActiveTiles() == 2;
     }
 
     public void contructorGivenTilesTest() {

@@ -379,7 +379,7 @@ public class TwentyFortyEightBoard extends GameState implements Iterable<TwentyF
      *
      * @return the dimensions of the board
      */
-    private int getDimensions() {
+    public int getDimensions() {
         return numRows * numCols;
     }
 
