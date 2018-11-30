@@ -1,4 +1,4 @@
-package fall2018.csc207.gamecard;
+package fall2018.csc207.menu.gameCard;
 
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
@@ -10,9 +10,6 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import fall2018.csc207.menu.gameCard.GameCardAdapter;
-import fall2018.csc207.menu.gameCard.GameCardItem;
 
 public class GameCardTest {
     @Test
