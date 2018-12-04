@@ -23,7 +23,15 @@ Michelle Luo | michelle.luo@mail.utoronto.ca | 647 470 9428
 
 We will alternate taking notes during meetings. By default Michelle will be the one to take notes.
 
-Team Meeting:
+### Team usernames:
+* Thomas Liu: tommyliu9, Thomas Liu
+* Weiran Gu: Weiran Gu
+* Stevan Kang: Steven Kang
+* Chris Marcok: Chris Marcok
+* Michelle Luo: Michelle Luo
+
+## Team Meeting:
+
 ## October 22, 2018
 
 Today everyone cloned the repositories and we discussed briefly what we have to do (i.e.
